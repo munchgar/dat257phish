@@ -1,0 +1,19 @@
+Group documentation
+
+_______________________________________________________________
+Week 1
+The team has created a Discord server where much discussion has already taken place.
+
+Two ideas have been discussed, a graphical network for distribution of green energy, and an environmental impact calculator. The second one was chosen unanimously as it had a clearer goal and was much easier to visualize the benefit and deliver individual increments that could later be expanded upon (following Minimal viable product, MVP, practices).
+A shorter pitch was created and preliminarily accepted by the supervisor during a lecture.
+
+A repository was created on Github and java (and Javafx) were decided as the programming language of choice. 
+
+A social contract was created and agreed upon by all parties after some discussion.
+
+A digital SCRUM board was created on Trello and a short introduction was given into what SCRUM is and how to write and use user stories and how these travel on the board. 
+
+
+
+_______________________________________________________________
+Week 2
