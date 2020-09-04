@@ -1,7 +1,6 @@
 # dat257phish
 UN sustainability project for course in agile management.
 
-## Structure
 **Documents -** contains our weekly reflections, both the individual and group reflections.
 
 The reflections for week X can be located at **Documents\weekX\***
