@@ -1,6 +1,6 @@
-Group documentation
+## Group documentation
 
-Week 1
+### Week 1
 The team has created a Discord server where much discussion has already taken place.
 
 Two ideas have been discussed, a graphical network for distribution of green energy, and an environmental impact calculator. The second one was chosen unanimously as it had a clearer goal and was much easier to visualize the benefit and deliver individual increments that could later be expanded upon (following Minimal viable product, MVP, practices).
@@ -13,6 +13,12 @@ A social contract was created and agreed upon by all parties after some discussi
 A digital SCRUM board was created on Trello and a short introduction was given into what SCRUM is and how to write and use user stories and how these travel on the board. 
 
 
+### Week 2
+The team has moved the SCRUM board from Trello to the Github Projects tab. This was done since it was easier to keep everything in one place instead of multiple. 
 
+Some basic JavaFX GUIs with Maven has been uploaded to fulfill the "Hello World". It appears to be working for everyone but sometimes the module has to be added in configurations the first time. 
 
-Week 2
+The team has also begun discussing more in detail what features whould be included, how the calculator should work and how to store the data.
+- The prefferable idea would be to have a local file since accessing a server database might not work for everyone (different versions of the DB) and remote access might be difficult. 
+
+The next steps during this week is to refine what functionalities should be included and refine user stories. 
