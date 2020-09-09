@@ -28,7 +28,8 @@ public class Main extends Application {
 
 
     private void showMainView() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(); // Now this is only being called once, but wont this be a "Memory leak"?
+                                              // Instead of using a new FMXLLoader everytime maybe we could have a class variable?
         loader.setLocation(Main.class.getResource("HomePage.fxml"));
         mainLayout=loader.load();
         Scene scene = new Scene(mainLayout);
@@ -39,14 +40,14 @@ public class Main extends Application {
     //Method used to load a borderpane into the center of the mainLayout window
     //OBS! Has to be of a BorderPane type.
     public static void loadCenter(String resourceDirec) throws IOException{
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(); // See comment in showMainView for the same initialization
         loader.setLocation(Main.class.getResource(resourceDirec));
         BorderPane centerView = loader.load();
         mainLayout.setCenter(centerView);
     }
 
     public static void showAddUserWindow() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(); // See comment in showMainView for the same initialization
         loader.setLocation(Main.class.getResource("AddNewUser.fxml"));
         BorderPane addNewUser = loader.load();
 
