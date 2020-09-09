@@ -15,4 +15,8 @@ public class MainSectionsController {
 
 
     }
+
+    public void showCalcScreen(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("CalculatorPage.fxml");
+    }
 }
