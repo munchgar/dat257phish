@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Phish_EnvironmentCalc" />
+        <module name="dat257phish" />
       </profile>
     </annotationProcessing>
   </component>
