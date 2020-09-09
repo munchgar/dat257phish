@@ -6,4 +6,4 @@ UN sustainability project for course in agile management.
 The reflections for week X can be located at **Documents\weekX\***
 
 
-For SCRUMBOARD see Projects tab
+For SCRUMBOARD see Projects tab https://github.com/munchgar/dat257phish/projects/1
