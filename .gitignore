@@ -1,5 +1,6 @@
 # Project exclude paths
 /target/
+\target\
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij
@@ -82,7 +83,8 @@ fabric.properties
 
 # *.iml
 # modules.xml
-# .idea/misc.xml
+.idea/misc.xml
+.idea\misc.xml
 # *.ipr
 
 # Sonarlint plugin
