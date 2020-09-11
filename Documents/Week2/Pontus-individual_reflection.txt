@@ -1,0 +1,26 @@
+Pontus Nellgård Individual reflection 
+# Week 2 
+
+## What I did: 
+I created a Maven dependency project with included support for JavaFX (openjfx). 
+I pushed this project to Github with a basic UI interface containing a main window and some interactability to go to a User window with a list of users and their CO2 emissions.
+I try to build JavaFX projects using a main window which consists of a borderPane which loads other scenes into its center. 
+I encouraged the others to clone the project and it seemed to work for everyone after extending the .gitignore to not interfere with different JDKs. 
+I found a good website to use as inspiration for how to categorize the different CO2 emission sources and extended the application to include a window with these categories.
+I created some more user stories in our SCRUM board which I had moved to Github Projects tab. 
+I encouraged a discussion about the functionality of the environment calculator. 
+I created a branch that I pushed to and then merged with the master branch.
+
+## What I enjoyed:
+Working with the JavaFX framework.
+
+## What I found difficult:
+I still find it a bit difficult to grasp what exact functionality the calculator will have and what limitations it has.
+Maven projects seem to sometimes have a bug in which it tries to build a Kotlin project. This is fixed by going to build→ rebuild project. 
+The biggest issue is still not being able to meet in person.
+
+## What really worked: 
+Github branching and Maven dependencies.
+
+## Next time:
+Further, elaborate on the functionality of the calculator and create detailed user stories and begin working with agile sprints.
