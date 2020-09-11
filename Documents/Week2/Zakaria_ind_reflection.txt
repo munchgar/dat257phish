@@ -1,0 +1,21 @@
+Zakaria Hersi individual reflection for Week 2
+
+-- My contribution
+This week we basically began to init the javafx GUI and start to visualize the concept of the project using SceneBuilder.
+My contribution was mainly on the meeting where we discussed what to do and how to achieve that, just giving my opinions
+and trying to get the ideas together.
+
+--My weaknesses and things I found difficult
+During the time the project was uploaded in github and everyone was cloning it, I had for some reason problem with getting
+it to work. Some methods that were pre-defined did not resolve in my text editor and there were also also other inconveniences
+that stood in my way but i managed in the end to resolve that and successfully clone the project and get to know how javafx
+works and how to implement the code using scenebuilder to visualize. This is the first time im working with javafx and
+I did find it quite difficult to get the hang of it at first but im managing and getting along.
+
+--This weeks success
+We finally got the project on GitHub working and now everyone can push and pull. There was a problem with a second created branch
+but we solved it.
+
+--Until next time
+Get to actually have a plan to stick with and begin to execute. Try to better elaborate on how the functionality of the project
+will look like and how we will achive that.
