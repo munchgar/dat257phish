@@ -1,0 +1,11 @@
+• What do I want to learn or understand better?
+Right now I am not too familiarised with Git and Github, and wish to learn how it use it properly so that I can more effectively work with my team.
+
+• How can I help someone else, or the entire team, to learn something new?
+Right now we haven't really started coding, so no real problems have been faced yet.
+
+• What is my contribution towards the team’s use of Scrum?
+We've sat in meetings and come up with different cards to put in the backlog.
+
+• What is my contribution towards the team’s deliveries?
+I was active in the meetings, discussing the contents of the different contents of the cards we put into the backlog on the SCRUM board.
