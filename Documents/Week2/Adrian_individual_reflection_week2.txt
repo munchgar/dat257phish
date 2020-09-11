@@ -1,0 +1,19 @@
+- What do I want to learn or understand better?
+A: I have some basic knowledge of git but I am not familiar with Maven or the JavaFX library.
+B: I want to have a proper Maven workflow and be able to utilize JavaFX
+A->B: I will read up on how both Maven and JavaFX works and consult more experienced team members in order to get a clearer understanding.
+
+- How can I help someone else, or the entire team, to learn something new?
+A: This week I have helped team members with the set up and use of git
+B: I want to make sure everyone understands and are comfortable with the git workflow.
+A->B: During meetings I will give further assistance and advice if there are unclarities about the use of git.
+
+- What is my contribution towards the team's use of Scrum?
+A: I have attended the meetings where we set up our new scrum board on Github and discussed initial user stories and tasks.
+B: I want to get a better understanding of scrum and how to "disassemble" the ideas we have into more concrete and doable tasks.
+A->B: I will read more about the scrum process and also discuss more with the team to come up with even more tasks and a more streamlined process.
+
+- What is my contribution towards the team's deliveries?
+A: I have helped make sure everyone is able to pull the repo and compile the initial "hello world"-project. 
+B: I want to be able to contribute more high quality and meaningful code, specifically using the JavaFX library.
+A-B: I will learn more about JavaFX in my own time but also get the scrum process figured out so that the code that is produced is actually relevant.
