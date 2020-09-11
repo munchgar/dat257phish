@@ -1,0 +1,28 @@
+Lukas Carling
+
+- What do I want to learn or understand better?
+    After starting to work more with JavaFX and Github I realised there were many things I already were familiar with but also a lot of things I am not familiar with.
+The point I want to reach is where I will easily be able to use github and have a deeper understanding on how JavaFX works. And I believe I will reach this point
+by working alot with it, doing research and looking at documentation, but also; discuss with my teammembers when I am having problems.  
+
+
+- How can I help someone else, or the entire team, to learn something new?  
+    I am trying to be as active as possible in our team-discord by helping with issues or answering questions. I also believe when we start with different projects that I can help
+my teammembers if they need help within that area. I also try to make the team try new ideas. For example, most of us already knew about SQLite and I believe some companies
+used postgres instead for managing a database so I suggested we could look into that instead.
+My future goals I have for helping the team is having more scheduled meetings where we can work together since then I will have the chance to help more. I think we would be able to 
+that by just getting together once and making a good schedule. 
+
+
+- What is my contribution towards the team’s use of Scrum?
+    This week I actually had to work a bit with Scrum since there was a conflict with a pull request so we could not merge master with our development. This was interesting since
+I learned a bit more about scrum and how it's implemented. In the future I still want to be actively using the scrum board but also help our team come with improvements for scrum. I can
+do that by actively learning about scrum, talking to my team and constantly making sure we see what needs we have.
+
+
+- What is my contribution towards the team’s deliveries?
+    I have been trying since we started to make a clear folder structure in order to help our team have an easier time locating files etcetera. Once JavaFX was setup I started working
+and testing it on my own. I also worked a lot with github since there was an issue; this helped me understand github a bit more and will probably help my team with further issues
+alike this. I hope to be able to take a major part of a specific area in this project in order to properly work on one thing. I believe this will help the team since I would be working
+on our common goal. In order to do this we need to have a real meeting where we decide who will do what.
+
