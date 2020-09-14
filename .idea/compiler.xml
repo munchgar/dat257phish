@@ -10,5 +10,8 @@
         <module name="Phish_EnvironmentCalc" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Phish_EnvironmentCalc" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
