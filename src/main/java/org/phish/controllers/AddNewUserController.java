@@ -3,29 +3,70 @@ package org.phish.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.phish.database.DBHandler;
 
-public class AddNewUserController {
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+public class AddNewUserController implements Initializable {
+
+    private DBHandler dbHandler = new DBHandler();
 
     @FXML
     public TextField fNameField;
     @FXML
     public TextField lNameField;
     @FXML
-    public TextField CO2Field;
+    public Button cancelBtn;
+    @FXML
+    public Text fieldsFilledCheckText;
 
 
 
     public void addUser(ActionEvent actionEvent) {
-        if(!fNameField.getText().isBlank() && !lNameField.getText().isBlank() && !CO2Field.getText().isBlank()){
-            System.out.println(fNameField.getText() + " " + lNameField.getText() + " CO2: " + CO2Field.getText());
-
-            //ADD TO DB and refresh
+        if(!fNameField.getText().isBlank() && !lNameField.getText().isBlank()){
+            //System.out.println(fNameField.getText() + " " + lNameField.getText());
+            if(fieldsFilledCheckText.isVisible()){
+                fieldsFilledCheckText.setVisible(false);
+            }
         }
         else {
-            System.out.println("All textfields must be filled");
+            // System.out.println("All textfields must be filled");
+            fieldsFilledCheckText.setVisible(true);
+            fieldsFilledCheckText.setFill(Color.RED);
+        }
+        String sql = "INSERT INTO userTable (fName, lName) VALUES(?,?)";
+        try {
+            try (Connection conn = dbHandler.connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) { // pstmt : Variable name?
+                if(!(((fNameField.getText().length()) & (lNameField.getText().length())) == 0)) {
+                    pstmt.setString(1, fNameField.getText());
+                    pstmt.setString(2, lNameField.getText());
+                    pstmt.executeUpdate();
+                    System.out.println("User successfully added to DB");
+                }
+            }
+            clearFields();
+
+        }catch (Error | SQLException e){
+            System.out.println(e.getMessage());
         }
 
+    }
+
+    private void clearFields() {
+        fNameField.clear();
+        lNameField.clear();
+        fNameField.requestFocus();
     }
 
     public void closeWindow(ActionEvent actionEvent) {
@@ -33,5 +74,16 @@ public class AddNewUserController {
         OwnController controller = loader.getController();
         controller.setStage(this.stage);
     */
+
+        //Returns the stage associated with the button. In this case, the cancel button
+        Stage stage = (Stage) cancelBtn.getScene().getWindow();
+        stage.close();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        fieldsFilledCheckText.setVisible(false);
+        fNameField.requestFocus();
+
     }
 }
