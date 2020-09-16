@@ -11,6 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="dat257phish" target="11" />
       <module name="Phish_EnvironmentCalc" target="11" />
     </bytecodeTargetLevel>
   </component>

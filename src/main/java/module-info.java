@@ -4,6 +4,7 @@ module org.phish {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.base;
+    requires java.sql;
 
 
     opens org.phish to javafx.fxml;
