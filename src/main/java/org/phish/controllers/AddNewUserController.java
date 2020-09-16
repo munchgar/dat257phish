@@ -47,12 +47,16 @@ public class AddNewUserController implements Initializable {
             String sql = "INSERT INTO userTable (fName, lName) VALUES(?,?)";
         try {
             try (Connection conn = dbHandler.connect();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, fNameField.getText());
-                pstmt.setString(2, lNameField.getText());
-                pstmt.executeUpdate();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) { // pstmt : Variable name?
+                if(!(((fNameField.getText().length()) & (lNameField.getText().length())) == 0)) {
+                    pstmt.setString(1, fNameField.getText());
+                    pstmt.setString(2, lNameField.getText());
+                    pstmt.executeUpdate();
+                    System.out.println("User successfully added to DB");
+                } else {
+                    // Is currently "handled" in xml, something we can do here?
+                }
             }
-            System.out.println("User successfully added to DB");
             clearFields();
 
         }catch (Error | SQLException e){
