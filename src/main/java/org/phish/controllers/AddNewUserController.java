@@ -48,7 +48,7 @@ public class AddNewUserController implements Initializable {
         try {
             try (Connection conn = dbHandler.connect();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) { // pstmt : Variable name?
-                if(!(((fNameField.getText().length()) & (lNameField.getText().length())) == 0)) {
+                if(!(((fNameField.getText().length() == 0) || (lNameField.getText().length()==0)))) {
                     pstmt.setString(1, fNameField.getText());
                     pstmt.setString(2, lNameField.getText());
                     pstmt.executeUpdate();
