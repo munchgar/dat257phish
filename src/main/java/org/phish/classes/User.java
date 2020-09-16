@@ -4,27 +4,37 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class User {
-    private final SimpleStringProperty name;
-    private final SimpleIntegerProperty co2;
+    private final SimpleIntegerProperty id;
+    private final SimpleStringProperty fName;
+    private final SimpleStringProperty lName;
 
-    public User(String name, int co2) {
-        this.name = new SimpleStringProperty(name);
-        this.co2 = new SimpleIntegerProperty(co2);
+    public User(int id, String fName, String lName) {
+        this.id = new SimpleIntegerProperty(id);
+        this.fName = new SimpleStringProperty(fName);
+        this.lName = new SimpleStringProperty(lName);
     }
 
-    public String getName() {
-        return name.get();
+    public int getId() {
+        return id.get();
     }
 
-   /* public void setName(String name) {
-        this.name = new SimpleStringProperty(name);
+  /*  public SimpleIntegerProperty idProperty() {
+        return id;
     }*/
 
-    public Integer getCo2() {
-        return co2.get();
+    public String getFName() {
+        return fName.get();
     }
 
-    /*public void setCo2(int co2) {
-        this.co2 = new SimpleIntegerProperty(co2);
+    /*public SimpleStringProperty FNameProperty() {
+        return FName;
+    }*/
+
+    public String getLName() {
+        return lName.get();
+    }
+
+    /*public SimpleStringProperty lNameProperty() {
+        return lName;
     }*/
 }
