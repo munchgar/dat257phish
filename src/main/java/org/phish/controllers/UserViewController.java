@@ -63,7 +63,6 @@ public class UserViewController implements Initializable {
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
-
         loadUserData();
     }
 
