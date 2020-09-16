@@ -29,22 +29,19 @@ public class UserViewController implements Initializable {
     @FXML
     private TableView <User> userTableView;
     @FXML
-    private TableColumn<User, String> nameTableCol;
+    private TableColumn<User, Integer> idTableCol;
     @FXML
-    private TableColumn<User, Integer> co2TableCol;
+    private TableColumn<User, String> fNameTableCol;
+    @FXML
+    private TableColumn<User, String> lNameTableCol;
+
     @FXML
     private Button refreshBtn;
+    @FXML
+    private Button addUserBtn;
 
 
-    public ObservableList<User> users = FXCollections.observableArrayList(
-            new User("Pontus", 56365),
-            new User("Alexander", 64349),
-            new User("Adrian", 5637),
-            new User("Johan", 72385),
-            new User("Lukas", 47639),
-            new User("Hedén", 54678),
-            new User("Zack", 643930)
-    );
+    public ObservableList<User> users = FXCollections.observableArrayList();
 
 
     @FXML
@@ -57,7 +54,8 @@ public class UserViewController implements Initializable {
              ResultSet rs    = stmt.executeQuery(SQLqueary)){
             while(rs.next()){
                 try {
-                    users.add(new User(rs.getString("fName"), 5743));
+                   // System.out.println(rs.getInt("id")+ rs.getString("fName")+ rs.getString("lName"));
+                    users.add(new User(rs.getInt("id"), rs.getString("fName"), rs.getString("lName")));
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
@@ -71,8 +69,11 @@ public class UserViewController implements Initializable {
 
 
     public void loadUserData(){
-        nameTableCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
-        co2TableCol.setCellValueFactory(new PropertyValueFactory<User, Integer>("co2"));
+
+        idTableCol.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
+        fNameTableCol.setCellValueFactory(new PropertyValueFactory<User, String>("fName"));
+        lNameTableCol.setCellValueFactory(new PropertyValueFactory<User, String>("lName"));
+
         userTableView.setItems(users);
     }
 

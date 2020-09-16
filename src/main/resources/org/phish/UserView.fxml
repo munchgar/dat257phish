@@ -32,9 +32,13 @@
                <children>
                   <TableView fx:id="userTableView" layoutX="71.0" layoutY="70.0" prefHeight="374.4" prefWidth="417.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="nameTableCol" prefWidth="75.0" text="Name" />
-                      <TableColumn fx:id="co2TableCol" prefWidth="75.0" text="CO2" />
+                      <TableColumn fx:id="idTableCol" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="fNameTableCol" prefWidth="75.0" text="First Name" />
+                        <TableColumn fx:id="lNameTableCol" prefWidth="75.0" text="Last Name" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </children></AnchorPane>
         </items>
