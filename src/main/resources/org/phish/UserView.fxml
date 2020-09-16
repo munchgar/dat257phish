@@ -20,7 +20,7 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="32.0" prefHeight="374.4" prefWidth="175.2" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="refreshBtn" mnemonicParsing="false" onAction="#loadUserData" prefHeight="20.0" prefWidth="100.0" text="Refresh" />
+                        <Button fx:id="refreshBtn" mnemonicParsing="false" onAction="#refreshUserData" prefHeight="20.0" prefWidth="100.0" text="Refresh" />
                         <Button fx:id="addUserBtn" mnemonicParsing="false" onAction="#openAddUserWin" prefHeight="20.0" prefWidth="100.0" text="Add User" />
                      </children>
                      <padding>

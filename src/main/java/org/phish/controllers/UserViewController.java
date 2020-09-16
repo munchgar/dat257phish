@@ -5,19 +5,26 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.phish.Main;
 import org.phish.classes.User;
+import org.phish.database.DBHandler;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class UserViewController implements Initializable {
 
 
+    private DBHandler dbHandler = new DBHandler();
 
     @FXML
     private TableView <User> userTableView;
@@ -25,6 +32,8 @@ public class UserViewController implements Initializable {
     private TableColumn<User, String> nameTableCol;
     @FXML
     private TableColumn<User, Integer> co2TableCol;
+    @FXML
+    private Button refreshBtn;
 
 
     public ObservableList<User> users = FXCollections.observableArrayList(
@@ -39,6 +48,28 @@ public class UserViewController implements Initializable {
 
 
     @FXML
+    public void refreshUserData(){
+        users.clear();
+        String SQLqueary = "SELECT * FROM userTable";
+
+        try (Connection conn = dbHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(SQLqueary)){
+            while(rs.next()){
+                try {
+                    users.add(new User(rs.getString("fName"), 5743));
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        loadUserData();
+    }
+
+
     public void loadUserData(){
         nameTableCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
         co2TableCol.setCellValueFactory(new PropertyValueFactory<User, Integer>("co2"));
