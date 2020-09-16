@@ -9,6 +9,7 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.phish.database.DBHandler;
 
 import java.io.IOException;
 
@@ -20,6 +21,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        DBHandler dbHandler = new DBHandler();
+        dbHandler.Testconnection();
+
         this.primaryStage=primaryStage;
         this.primaryStage.setTitle("Environment calculator");
         showMainView();
