@@ -1,5 +1,5 @@
 # Project exclude paths
-
+/target/
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij
@@ -26,6 +26,8 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea/**/misc.xml
+.idea/**/compiler.xml
 
 # Gradle
 .idea/**/gradle.xml
@@ -82,7 +84,7 @@ fabric.properties
 
 # *.iml
 # modules.xml
-.idea/*
+./idea/*
 .idea\*
 # *.ipr
 
@@ -152,3 +154,5 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/maven,java
+*.class
+Phish_EnvironmentCalc.iml
