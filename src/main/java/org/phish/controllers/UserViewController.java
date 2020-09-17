@@ -47,11 +47,11 @@ public class UserViewController implements Initializable {
     @FXML
     public void refreshUserData(){
         users.clear();
-        String SQLqueary = "SELECT * FROM userTable";
+        String SQLquery = "SELECT * FROM userTable";
 
         try (Connection conn = dbHandler.connect();
              Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLqueary)){
+             ResultSet rs    = stmt.executeQuery(SQLquery)){
             while(rs.next()){
                 try {
                    // System.out.println(rs.getInt("id")+ rs.getString("fName")+ rs.getString("lName"));
