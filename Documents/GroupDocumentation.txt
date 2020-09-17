@@ -22,3 +22,9 @@ The team has also begun discussing more in detail what features whould be includ
 - The prefferable idea would be to have a local file since accessing a server database might not work for everyone (different versions of the DB) and remote access might be difficult. 
 
 The next steps during this week is to refine what functionalities should be included and refine user stories. 
+
+### Week 3
+A simple database has been setup using SQLite.
+  The interface allows to add users to the database
+  User information is read from the DB and presented in a tableview
+Refining the user stories has been pushed back since getting the project structure has been prioritized. 
