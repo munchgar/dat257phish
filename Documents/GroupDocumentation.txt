@@ -27,4 +27,16 @@ The next steps during this week is to refine what functionalities should be incl
 A simple database has been setup using SQLite.
   The interface allows to add users to the database
   User information is read from the DB and presented in a tableview
-Refining the user stories has been pushed back since getting the project structure has been prioritized. 
+
+The gitignore now works much better when handling different SDKs.
+
+The statistical research has begun to analyze what user inputs are required and how these should be handled by the program. 
+  Thes analysis will begin with water.
+
+The structure of the project has not been great so far. For this reason much of the meeting was spent on organizing the structure. 
+  The outcome is that there will be more meetings (shorter ones).
+  More cooperation on different tasks.
+  A better overall picture of the project model
+  Beginnings of creating a domain model
+  Several User stories have been added to the SCRUMboard and sub-tasks can now reference the Epis user story.
+  Tasks have been more divided and assigned more clearly among the group members.
