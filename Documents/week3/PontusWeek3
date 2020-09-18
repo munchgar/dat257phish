@@ -1,0 +1,20 @@
+- What do I want to learn or understand better?
+How to structure the environmental statistics and understand how this should be implemented in the application. 
+
+
+- How can I help someone else, or the entire team, to learn something new?
+I have tried to recommend some tutorials on JavaFX (on Discord) which I have found very helpful. 
+I have described in an overarching way how the JavaFX code works and how to interact with it but I think I will try to go a bit more in depth. Alternatively this could be a good learning
+objective to actually divide responsibility. 
+ 
+- What is my contribution towards the team’s use of Scrum?
+ With previous experience, and my leadership education it has become somewhat natural for me to take the role of inofficial SCRUM master. I have organized the SCRUM board and attempted, 
+ to the best of my abilities, to use SCRUM and exlplain how to break down user stories and how to interact with the SCRUM board. 
+ The previous week was a bit too hectic so I was unable to implement SCRUM properly making the SCRUM board rather static. This week, however, there have been a lot of improvements and
+ I think with repetition and practice it will go well
+
+- What is my contribution towards the team’s deliveries?
+I have made much contributions to the structure of the JavaFX application. I have also some experience working with databases and Java connectors. Therefore I implemented a simple DB 
+and the abaility to add and read to the DB which is a rather crucial point in being able to store data to see the statistical improvement/deterioration of the user.
+I have, as previously mentioned, contributed a lot to maintaining and improving the structure of the meetings and encouraged making a domain model and sequence diagrams before the 
+coding gets out of hand. This has become the focus of the next sprint.
