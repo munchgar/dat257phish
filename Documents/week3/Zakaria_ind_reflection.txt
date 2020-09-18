@@ -1,0 +1,30 @@
+Zakaria Hersi individual reflection for Week 3
+
+-- My contribution
+This week we began to better understand what the application will do
+and how the "end-product" will look like. And my contribution that
+I started to to was to brainstorm on how the Home screen will look like
+and what functionality it should have and what information it should
+provide for the user. Since we began with a sprint this thursday (17/09/20)
+i've not come too far in that task. However during the meeting I also
+mentioned of how the project should be structured and we up with
+the idea of having a DomainModel where we could see the whole functionality
+and how the different modules would cooperate and so on.
+
+--My weaknesses and things I found difficult
+Everyone in the group came along with the idea of having a database where the
+data would update and provided so that we could automatically update if any data
+were changed, and the database we would use was SQllite which i've never worked
+with so it was quite hard to grasp the idea of how it would be useful, or even how
+the database works. So I began to search online and grasped the basic
+knowledge needed to kinda follow what was going on.
+
+--This weeks success
+We finally got to start a real sprint and had a very good idea of how the epics and user stories
+would look like, and from there on it was to just get the job done (which we are doing now)
+
+--Until next time
+Really get going and have a better understanding on how the whole project is going
+to look like as an "end-product", as of right now i think we have a good understanding of that
+but you could always get better at visualizing the "end-product" and that eveyone has the same
+visualization.

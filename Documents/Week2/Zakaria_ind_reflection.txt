@@ -18,4 +18,4 @@ but we solved it.
 
 --Until next time
 Get to actually have a plan to stick with and begin to execute. Try to better elaborate on how the functionality of the project
-will look like and how we will achive that.
+will look like and how we will achieve that.
