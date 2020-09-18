@@ -1,0 +1,24 @@
+Lukas Carling
+
+- What do I want to learn or understand better?
+    I have gotten a greater understanding on how JavaFX works which helps me in the development of our application. The current problem I have is that outside the scene-builder I do
+not know how the .XML files work very well. But I believe working more with JavaFX and altering in the scene builder will help me understand. I have a rather good experience
+with the theory of SQL but I wish to see how well I can apply it in practise. I can probably reach this point by testing what I know.
+
+
+- How can I help someone else, or the entire team, to learn something new?  
+    I believe I am helping others learn new things by actively questioning what they are doing and why this would be the best solution. I also try to check everything pushed to github
+and give helpful comments if I notice something unusual. If I want to help others learn more, I believe I should try to be a bit ahead (in some areas) since then if others have 
+problems within that area I could help them. I believe I can reach this goal by dedicating more time on focusing on a specific area.
+
+
+- What is my contribution towards the team’s use of Scrum?
+    I had to work with the scrumboard even more since we were setting up a better one with more epics and user requests. I also brought up how we will do with assigning scrum masters 
+since I believe we need to have more meetings in order for the SCRUM master to do an effective job. I still want to learn more how scrum works and I believe I will be able to do that 
+by trying to follow the guidelines we have been given.
+
+
+- What is my contribution towards the team’s deliveries?
+    I check the pushes done to github continuously in order to make sure that the team "understands" our goal and if something is not right I try to fix it. I also work on my part of the
+project which helps us reach our delivery. In order to improve I believe I should start focusing more on one area since that will probably help my team work on their areas more. I believe
+I can do so by assigning myself on an area and work on it.
