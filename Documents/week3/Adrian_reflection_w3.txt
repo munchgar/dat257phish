@@ -1,0 +1,36 @@
+- What do I want to learn or understand better?
+A: This week I have started to get a feel for the overall architecture of the
+   application and how JavaFX integrates with the MVC-model.
+B: I wish to further my understanding of JavaFX
+A->B: I will start creating UI-elements for the application.
+    
+
+
+- How can I help someone else, or the entire team, to learn something new?
+A: I am trying to keep myself updated on what is being discussed in both the
+   discord chat and the github repo and help out with the things I can.
+B: I wish that we find a good routine for future meetings so that we can be as
+   effective as possible.
+A->B: I will try to be as active as possible in the discord and encourage others
+      to bring up any issues.
+
+
+
+- What is my contribution towards the team's use of Scrum?
+A: This week we have focused on desigining our SCRUM-board and I have contributed with
+   new user stories and engaged in the discussions on how to improve our use of the
+   SCRUM-board.
+B: I want to keep updating and refining our user stories to ensure everything is
+   clear for everyone.
+A->B: I will discuss ideas with the team and make sure we have a good routine for
+      our sprint planning meetings.
+
+
+- What is my contribution towards the team's deliveries?
+A: I have participated in our meetings and helped form our new SCRUM-board. I have
+   also just started the task I've assigned myself to this week.
+B: I want to continue clearing our product backlog by both creating concrete tasks and
+   then solve/implement said tasks.
+A->B: To do this I need to ensure we create tasks that are relevant to the user stories
+      and also make sure I have the required knowledge of the project structure and
+      relevant libraries to actually implement them.
