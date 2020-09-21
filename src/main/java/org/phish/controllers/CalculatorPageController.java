@@ -24,31 +24,38 @@ public class CalculatorPageController {
                 if (Integer.parseInt(txtKilometerFlyg.getText()) < 1500) {
                     //((x+50)•114x^-0,658•uTtw•LF)•(1+HF(x)+uWtT)
                     kilometers = Integer.parseInt(txtKilometerFlyg.getText());
+                    outputAir = ((kilometers + 50) * 114 * (Math.pow(kilometers, -0.658)) * 0.0735 * 0.8);
                     if (kilometers < 500) {
-                        outputAir = ((kilometers + 50) * 114 * (Math.pow(kilometers, -0.658)) * 0.0735 * 0.8) * (1 + 1.2);
+                         outputAir *= (1 + 1.2);
                     } else if (kilometers <= 1000 && kilometers >= 500) {
-                        outputAir = ((kilometers + 50) * 114 * (Math.pow(kilometers, -0.658)) * 0.0735 * 0.8) * (1 + (0.9 * ((kilometers - 500) / 500)) + 1.2);
+                        outputAir *= (1 + (0.9 * ((kilometers - 500) / 500)) + 1.2);
                     } else if (kilometers > 1000)
-                        outputAir = ((kilometers + 50) * 114 * (Math.pow(kilometers, -0.658)) * 0.0735 * 0.8) * (1 + 0.9 + 1.2);
-                } else if (Integer.parseInt(txtKilometerFlyg.getText()) > 1499 && Integer.parseInt(txtKilometerFlyg.getText()) < 5001) {
+                        outputAir *=  (1 + 0.9 + 1.2);
+                }
+
+                else if (Integer.parseInt(txtKilometerFlyg.getText()) > 1499 && Integer.parseInt(txtKilometerFlyg.getText()) < 5001) {
                     //((x+50)•(0,94 - 1,1•10-5x)•uTtw•LF)•(1+HF(x)+uWtT)
                     kilometers = Integer.parseInt(txtKilometerFlyg.getText());
+                    outputAir = ((kilometers + 50) * (0.94 - 1.1 * Math.pow(10, -5)) * 0.0735 * 0.8);
                     if (kilometers < 500) {
-                        outputAir = ((kilometers + 50) * (0.94 - 1.1 * Math.pow(10, -5)) * 0.0735 * 0.8) * (1 + 1.2);
+                         outputAir *= (1 + 1.2);
                     } else if (kilometers <= 1000 && kilometers >= 500) {
-                        outputAir = ((kilometers + 50) * (0.94 - 1.1 * Math.pow(10, -5)) * 0.0735 * 0.8) * (1 + (0.9 * ((kilometers - 500) / 500)) + 1.2);
+                        outputAir *= (1 + (0.9 * ((kilometers - 500) / 500)) + 1.2);
                     } else if (kilometers > 1000) {
-                        outputAir = ((kilometers + 50) * (0.94 - 1.1 * Math.pow(10, -5)) * 0.0735 * 0.8) * (1 + 0.9 + 1.2);
+                        outputAir *= (1 + 0.9 + 1.2);
                     }
-                } else if (Integer.parseInt(txtKilometerFlyg.getText()) > 5000) {
+                }
+
+                else if (Integer.parseInt(txtKilometerFlyg.getText()) > 5000) {
                     //((x+50)•0,89•uTtw•LF)•(1+HF(x)+uWtT)
                     kilometers = Integer.parseInt(txtKilometerFlyg.getText());
+                    outputAir = ((kilometers + 50) * 0.89 * 0.0735 * 0.8);
                     if (kilometers < 500) {
-                        outputAir = ((kilometers + 50) * 0.89 * 0.0735 * 0.8) * (1 + 1.2);
+                         outputAir *= (1 + 1.2);
                     } else if (kilometers <= 1000 && kilometers >= 500) {
-                        outputAir = ((kilometers + 50) * 0.89 * 0.0735 * 0.8) * (1 + (0.9 * ((kilometers - 500) / 500)) + 1.2);
+                        outputAir *= (1 + (0.9 * ((kilometers - 500) / 500)) + 1.2);
                     } else if (kilometers > 1000) {
-                        outputAir = ((kilometers + 50) * 0.89 * 0.0735 * 0.8) * (1 + 0.9 + 1.2);
+                        outputAir *= (1 + 0.9 + 1.2);
                     }
                 }
                 System.out.println("CO2: " + outputAir + "kg");
