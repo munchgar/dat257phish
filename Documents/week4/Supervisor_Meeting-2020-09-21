@@ -1,0 +1,12 @@
+Break down user stories more into tasks
+  - Has the benfeit of boosting morale since "more cards are moving on the board".
+
+Remove Domain model from SCRUM board
+
+
+Create a Definition of Done (DoD) - Right code to the main branch as quick as possible
+  When can a user story be moved to a new column?
+    Test procedures
+      - Code reviewer and developer together (or apart) test the code. We must decide which.
+
+Document decisions with why. 
