@@ -139,7 +139,7 @@ public class CalculatorPageController {
                     }else if(choiceSizeOfCar2.getValue().equals("Large")){
                         outputCar += (kilometers*73)/1000;
                     }else if(choiceSizeOfCar2.getValue().equals("Size")) {
-                        System.out.println("Please Enter Whar size of Car you were traveling in");
+                        System.out.println("Please Enter What size of Car you were traveling in");
                     }
                 }
                 //If they have entered kilometers but not what type of car, then ask them to choose what type of car
