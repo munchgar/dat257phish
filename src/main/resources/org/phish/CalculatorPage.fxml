@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -38,18 +41,67 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TextField fx:id="txtKilometerFlyg" layoutX="134.0" layoutY="132.0" />
-                                    <Text layoutX="87.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ange antal kilometer du flugit">
+                                    <TextField fx:id="txtKilometerAir" layoutX="134.0" layoutY="132.0" />
+                                    <Text layoutX="25.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter the amount of km traveled by air">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="120.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(ska anges via google API senare)" />
-                                    <Button fx:id="btnBeraknaFlyg" layoutX="179.0" layoutY="214.0" mnemonicParsing="false" onAction="#CalculateAir" text="Beräkna" />
+                                    <Text layoutX="120.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Google API to be implemented here" />
+                                    <Button fx:id="btnCalcAir" layoutX="179.0" layoutY="214.0" mnemonicParsing="false" onAction="#CalculateAir" text="Beräkna" />
                                  </children></AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Travel">
+                        <Tab text="Car">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ChoiceBox fx:id="choiceTypeOfCar1" layoutX="14.0" layoutY="23.0" prefWidth="150.0" value="Type of Car">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Type of Car" />
+                                                <String fx:value="Petrol Car" />
+                                                <String fx:value="Diesel Car" />
+                                            </FXCollections>
+                                        </items>
+                                    </ChoiceBox>
+                                    <TextField fx:id="txtKilometerCar1" layoutX="90.0" layoutY="61.0" />
+                                    <ChoiceBox fx:id="choiceTypeOfCar2" layoutX="14.0" layoutY="160.0" prefWidth="150.0" value="Type of Car">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Type of Car" />
+                                                <String fx:value="Petrol Car" />
+                                                <String fx:value="Diesel Car" />
+                                            </FXCollections>
+                                        </items>
+                                    </ChoiceBox>
+                                    <TextField fx:id="txtKilometerCar2" layoutX="90.0" layoutY="197.0" />
+                                    <Button fx:id="btnCalcCar" layoutX="179.0" layoutY="330.0" mnemonicParsing="false" onAction="#CalculateCar" text="Beräkna" />
+                                    <ChoiceBox fx:id="choiceSizeOfCar1" layoutX="89.0" layoutY="105.0" prefWidth="150.0" value="Size">
+                                       <items>
+                                          <FXCollections fx:factory="observableArrayList">
+                                              <String fx:value="Size" />
+                                              <String fx:value="Small" />
+                                              <String fx:value="Medium" />
+                                              <String fx:value="Large" />
+                                          </FXCollections>
+                                       </items>
+                                    </ChoiceBox>
+                                    <ChoiceBox fx:id="choiceSizeOfCar2" layoutX="89.0" layoutY="244.0" prefWidth="150.0" value="Size">
+                                       <items>
+                                          <FXCollections fx:factory="observableArrayList">
+                                             <String fx:value="Size" />
+                                             <String fx:value="Small" />
+                                             <String fx:value="Medium" />
+                                             <String fx:value="Large" />
+                                          </FXCollections>
+                                       </items>
+                                    </ChoiceBox>
+                                    <Text layoutX="79.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Google API to be implemented here as well" />
+                                 </children></AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Public Transport">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                            </content>
