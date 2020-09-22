@@ -36,6 +36,13 @@ public class CalculatorPageController {
     @FXML //Calculates the CO2 output from the inputs of kilometers
     public void CalculateAir(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == btnCalcAir) {
+            // Something in the code below throws a lot of exceptions unless this is handled when an input is above 2147483647 (max size of int).
+            // txtKilometerAir.getText() seems to work though. Maybe we do not need to handle such big numbers but should we limit the user input?
+            if(txtKilometerAir.getText().length() > 9) {
+                System.out.println("INVALID LENGTH OF TEXTFIELD: " + txtKilometerAir.getText());
+                return;
+            }
+
             if (!txtKilometerAir.getText().equals("") && txtKilometerAir.getText().matches("[0-9]+") && txtKilometerAir.getText().length() > 1) {
                 //If the kilometers traveled are less than 1500km this equation will be used
                 if (Integer.parseInt(txtKilometerAir.getText()) < 1500) {
@@ -83,6 +90,7 @@ public class CalculatorPageController {
 
     public void CalculateCar(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == btnCalcCar) {
+            // See comment above (Something in the code below throws...), need to check how large the input in is if we want to parse it to an int.
             if (!txtKilometerCar1.getText().equals("") && txtKilometerCar1.getText().matches("[0-9]+")) {
                 kilometers = Integer.parseInt(txtKilometerCar1.getText());
                 //If The choice is a petrol car, then check what size they chose and calculate co2 based on km
