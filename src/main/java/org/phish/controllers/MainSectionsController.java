@@ -19,4 +19,7 @@ public class MainSectionsController {
     public void showCalcScreen(ActionEvent actionEvent) throws IOException {
         Main.loadCenter("CalculatorPage.fxml");
     }
+	public void showStatScreen(ActionEvent actionEvent) throws IOException {
+		Main.loadCenter("StatisticsPage.fxml");
+	}
 }
