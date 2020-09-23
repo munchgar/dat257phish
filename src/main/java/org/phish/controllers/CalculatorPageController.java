@@ -97,17 +97,14 @@ public class CalculatorPageController {
             //Creates a new choiceBox for vehicle types
             ChoiceBox choiceVehicleType = new ChoiceBox<String>(vehicleTypes);
             choiceVehicleType.setId("choiceVehicleType"+vehicleCount);
-            choiceVehicleType.setMaxWidth(Integer.MAX_VALUE);
             choiceVehicleType.setValue("Type of Vehicle");
             //Creates a new choiceBox for vehicle sizes
             ChoiceBox choiceVehicleSize = new ChoiceBox<String>(vehicleSizes);
             choiceVehicleSize.setId("choiceVehicleSize"+vehicleCount);
-            choiceVehicleSize.setMaxWidth(Integer.MAX_VALUE);
             choiceVehicleSize.setValue("Size");
             //Creates a new textField for driven amount
             TextField txtVehicleAmount = new TextField();
             txtVehicleAmount.setId("txtVehicleAmount"+vehicleCount);
-            txtVehicleAmount.setMaxWidth(Integer.MAX_VALUE);
             vehicleCount++;
             //Adds all of the created elements to their designated vBox
             vBoxVehicleType.getChildren().add(choiceVehicleType);
@@ -121,12 +118,10 @@ public class CalculatorPageController {
             //Creates a new choiceBox for food types
             ChoiceBox choiceFoodType = new ChoiceBox<String>(foodChoices);
             choiceFoodType.setId("choiceFoodType"+foodCount);
-            choiceFoodType.setMaxWidth(Integer.MAX_VALUE);
             choiceFoodType.setValue("Type of Food");
             //Creates a new textField for food amount
             TextField txtFoodAmount = new TextField();
             txtFoodAmount.setId("txtFoodAmount"+foodCount);
-            txtFoodAmount.setMaxWidth(Integer.MAX_VALUE);
             foodCount++;
             //Adds all of the created elements to their designated vBox
             vBoxFoodType.getChildren().add(choiceFoodType);

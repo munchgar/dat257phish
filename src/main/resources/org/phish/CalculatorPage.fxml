@@ -33,23 +33,6 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="14.0" layoutY="92.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="50.0" prefHeight="263.0" prefWidth="390.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="90.0">
-                                       <content>
-                                          <GridPane gridLinesVisible="true" minHeight="50.0" minWidth="50.0" prefHeight="263.0" prefWidth="390.0">
-                                            <columnConstraints>
-                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="25.0" prefWidth="100.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="25.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                             <children>
-                                                <VBox fx:id="vBoxFoodType" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="25.0" prefHeight="200.0" prefWidth="100.0" />
-                                                <VBox fx:id="vBoxFoodAmount" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="25.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
-                                             </children>
-                                          </GridPane>
-                                       </content>
-                                    </ScrollPane>
                                     <Text layoutX="51.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select your food and enter the amount in kg" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="38.0">
                                        <font>
                                           <Font size="14.0" />
@@ -57,6 +40,27 @@
                                     </Text>
                                     <Button fx:id="btnCalcFood" layoutX="183.0" layoutY="330.0" mnemonicParsing="false" onAction="#CalculateFood" text="Calculate" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="169.0" />
                                     <Button fx:id="btnAddMoreFood" layoutX="41.0" layoutY="329.0" mnemonicParsing="false" onAction="#AddMoreFood" text="Add more food" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="41.0" />
+                                    <GridPane gridLinesVisible="true" layoutX="14.0" layoutY="90.0" minHeight="50.0" minWidth="50.0" prefHeight="254.0" prefWidth="388.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="90.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="25.0" prefWidth="192.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="196.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <ScrollPane hbarPolicy="NEVER">
+                                             <content>
+                                                <VBox fx:id="vBoxFoodType" />
+                                             </content>
+                                          </ScrollPane>
+                                          <ScrollPane hbarPolicy="NEVER" GridPane.columnIndex="1">
+                                             <content>
+                                                <VBox fx:id="vBoxFoodAmount" />
+                                             </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </GridPane>
                                  </children></AnchorPane>
                         </content>
                       </Tab>
@@ -84,25 +88,33 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="50.0" prefHeight="263.0" prefWidth="390.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="90.0">
-                                       <content>
-                                          <GridPane gridLinesVisible="true" minHeight="50.0" minWidth="50.0" prefHeight="263.0" prefWidth="390.0">
-                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="25.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="25.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="25.0" prefWidth="100.0" />
-                                             </columnConstraints>
-                                             <rowConstraints>
-                                                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                             </rowConstraints>
-                                             <children>
-                                                <VBox fx:id="vBoxVehicleSize" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="25.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" />
-                                                <VBox fx:id="vBoxVehicleAmount" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="25.0" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" />
-                                                <VBox fx:id="vBoxVehicleType" prefHeight="200.0" prefWidth="100.0" />
-                                             </children>
-                                          </GridPane>
-                                       </content>
-                                    </ScrollPane>
+                                    <GridPane gridLinesVisible="true" layoutX="15.0" layoutY="90.0" minHeight="50.0" minWidth="50.0" prefHeight="263.0" prefWidth="390.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="90.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="25.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="25.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="25.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <ScrollPane GridPane.columnIndex="1">
+                                             <content>
+                                                <VBox fx:id="vBoxVehicleSize" />
+                                             </content>
+                                          </ScrollPane>
+                                          <ScrollPane GridPane.columnIndex="2">
+                                             <content>
+                                                <VBox fx:id="vBoxVehicleAmount" />
+                                             </content>
+                                          </ScrollPane>
+                                          <ScrollPane>
+                                             <content>
+                                                <VBox fx:id="vBoxVehicleType" />
+                                             </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </GridPane>
                                     <Button fx:id="btnCalcVehicle" layoutX="164.0" layoutY="330.0" mnemonicParsing="false" onAction="#CalculateVehicle" text="Calculate" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="194.0" />
                                     <Text layoutX="79.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Google API to be implemented here as well" />
                                     <Button fx:id="btnAddVehicle" layoutX="45.0" layoutY="330.0" mnemonicParsing="false" onAction="#AddVehicle" text="Add Vehicle" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="45.0" />
