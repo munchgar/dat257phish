@@ -4,10 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import org.phish.database.DBHandler;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class User {
     private final SimpleIntegerProperty id;
@@ -22,26 +19,41 @@ public class User {
         this.lName = new SimpleStringProperty(lName);
     }
 
-    public boolean register() {
+    public int register(String username, String password) {
+        if (password.length() == 0 || username.length() == 0) {
+            return -1;
+        }
         // Attempt to register via the database
-        String SQLquery = "SELECT fName, lName FROM userTable"; // Do we need * or only fName and lName?
+        String SQLquery = "SELECT username FROM userTable"; // Do we need * or only fName and lName?
         try (Connection conn = dbHandler.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(SQLquery)){
             while(rs.next()){
                 try {
-                    if (rs.getString("fName").equals(fName) && rs.getString("lName").equals(lName)) {
+                    if (rs.getString("username").equals(username) && username.length() > 0) {
                         System.out.println("USER ALREADY EXISTS");
+                    } else {
+
+                        String query = "INSERT INTO userTable (id, fName, lName, username, password) VALUES(?,?,?,?)";
+                        PreparedStatement pstmt = conn.prepareStatement(query);
+                        pstmt.setString(1, fName.getName());
+                        pstmt.setString(2, lName.getName());
+                        pstmt.setString(3, username);
+                        pstmt.setString(4, password);
+                        pstmt.executeUpdate();
+                        System.out.println("User successfully added to DB");
+
+
                     }
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        return false; // If unable to register return false
+        return 0; // If unable to register return false
     }
 
     public int getId() {

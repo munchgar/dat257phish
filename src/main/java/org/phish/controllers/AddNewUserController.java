@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.phish.database.DBHandler;
+import org.phish.classes.User;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -33,6 +34,8 @@ public class AddNewUserController implements Initializable {
 
 
     public void addUser(ActionEvent actionEvent) {
+        User user = new User(40,"test", "test");
+        user.register("asdasdasd", "TESTING");
         if(!fNameField.getText().isBlank() && !lNameField.getText().isBlank()){
             //System.out.println(fNameField.getText() + " " + lNameField.getText());
             if(fieldsFilledCheckText.isVisible()){
