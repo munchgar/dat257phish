@@ -33,7 +33,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Text layoutX="51.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select your food and enter the amount in kg" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="38.0">
+                                    <Text layoutX="39.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select your food and enter the amount in grams" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="39.5869140625" AnchorPane.topAnchor="37.892578125">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
