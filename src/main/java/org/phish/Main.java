@@ -28,8 +28,8 @@ public class Main extends Application {
         this.primaryStage=primaryStage;
         this.primaryStage.setTitle("Environment calculator");
         showMainView();
-        loadCenter("MainSections.fxml");
-        //ll
+        //loadCenter("MainSections.fxml");
+        loadCenter("HomePage.fxml");
     }
 
 

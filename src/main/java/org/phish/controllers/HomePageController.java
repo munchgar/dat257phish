@@ -11,6 +11,10 @@ public class HomePageController {
     }
 
     public void goHome(ActionEvent actionEvent) throws IOException {
+        //Main.loadCenter("MainSections.fxml");
+        Main.loadCenter("HomePage.fxml");
+    }
+    public void showMainSec(ActionEvent actionEvent) throws IOException{
         Main.loadCenter("MainSections.fxml");
     }
 }
