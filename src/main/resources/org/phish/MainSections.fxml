@@ -11,6 +11,7 @@
          <children>
             <Button fx:id="userBtn" mnemonicParsing="false" onAction="#showUserView" prefHeight="100.0" prefWidth="100.0" text="User" />
             <Button fx:id="CalcBtn" mnemonicParsing="false" onAction="#showCalcScreen" prefHeight="100.0" prefWidth="100.0" text="Calculator" />
+            <Button fx:id="StatBtn" mnemonicParsing="false" onAction="#showStatScreen" prefHeight="100.0" prefWidth="100.0" text="Statistics" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
