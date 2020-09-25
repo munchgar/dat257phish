@@ -1,0 +1,21 @@
+Lukas Carling
+
+- What do I want to learn or understand better?
+    Working with SQL has made me understand and refresh my old knowledge. I want to further understand how to setup a effective database together with an ER-scheme. I will achieve this 
+by working with SQL, working with my team regarding the ER-scheme. I also want to learn how to implement my JavaFX knowledge since I did not have much time for that this week, but I believe
+as long as I work with it I will be able to achieve this goal.
+
+- How can I help someone else, or the entire team, to learn something new? 
+    I am actively trying to help people understand github and I believe I can help them even more by improving my comments to their code / pull requests and merges. Having a clear 
+understanding of the database will probably make it easier for me to help others in the team if they will work with it aswell.
+
+- What is my contribution towards the team’s use of Scrum?
+    I tried to push for a clear goal of how the team should use scrum and I was also part of assigning a SCRUM master. I am also trying to learn how to be a good SCRUM master so I will be
+able to take that responsibility in future meetings. I believe I will bring a greater contribution if I understand individual user stories aswell. I will try to write more individual 
+user stories in order to achieve this goal.
+
+- What is my contribution towards the team’s deliveries?
+    I am still continuously checking pushes and merges on github and helping other teammates if they face errors or problems. I brought up the problem of working directly on to the
+master branch since if errors occur people might have problems solving those. Therefore I pushed the idea of how to work with github effectively by opening pull requests and letting 
+other users accept them before a merge. I believe I can contribute more to the team by being more active in the meetings and possibly taking the SCRUM master role. I will achieve this by
+attending meetings and trying to be a good SCRUM master by using what we have learned.
