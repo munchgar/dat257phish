@@ -55,16 +55,16 @@
                </font>
             </Text>
             <Button fx:id="NxtBtn" layoutX="642.0" layoutY="435.0" mnemonicParsing="false" onAction="#showMainSec" prefHeight="25.0" prefWidth="49.0" text="Next" />
-            <ImageView fx:id="Co2Pic" fitHeight="217.0" fitWidth="291.0" layoutX="474.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../Downloads/unnamed.png" />
-               </image>
-            </ImageView>
             <Text layoutX="63.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back to your enviromental impact calculator. The average emission of carbon dioxide in Sweden is 4.54 tons per person, how well do you fare compared to the average Swede? Calculate it today!" wrappingWidth="261.13671875">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
+            <ImageView fitHeight="230.0" fitWidth="225.0" layoutX="466.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="https://lh3.googleusercontent.com/proxy/IAMEpMoBPx_UiZjfjNPoUJKm2wlf8MRkYvooS_R-xAvLoGeDthLSkTnjGz-P4rymUwgwEqf0mITGtUQJPfOvmsHiWj2fmLPyw04cd22ZJHgemWUeK81dWM6FmEskiSY" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </center>

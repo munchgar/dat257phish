@@ -21,11 +21,5 @@ public class HomePageController {
     public void showMainSec(ActionEvent actionEvent) throws IOException{
         Main.loadCenter("MainSections.fxml");
     }
-    @FXML
-    private ImageView Img1;
 
-
-    public void init(){
-        Img1.setImage(new Image("@../../../../../../../Downloads/unnamed.png"));
-    }
 }
