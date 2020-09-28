@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -36,7 +38,7 @@
    <bottom>
       <HBox alignment="BOTTOM_CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Button mnemonicParsing="false" onAction="#goHome" text="Home" />
+             <Button mnemonicParsing="false" onAction="#goHome" text="Home" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HELLO WORLD" />
          </children>
          <padding>
@@ -47,12 +49,22 @@
    <center>
       <AnchorPane focusTraversable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="271.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Back" textAlignment="CENTER" wrappingWidth="257.13671875" AnchorPane.rightAnchor="271.86328125" AnchorPane.topAnchor="68.9150390625">
+            <Text layoutX="63.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good Evening {User}" textAlignment="CENTER" wrappingWidth="361.13671875" AnchorPane.rightAnchor="375.86328125" AnchorPane.topAnchor="55.0">
                <font>
                   <Font size="39.0" />
                </font>
             </Text>
-            <Button fx:id="NxtBtn" layoutX="374.0" layoutY="253.0" mnemonicParsing="false" onAction="#showMainSec" prefHeight="25.0" prefWidth="49.0" text="Next" />
+            <Button fx:id="NxtBtn" layoutX="642.0" layoutY="435.0" mnemonicParsing="false" onAction="#showMainSec" prefHeight="25.0" prefWidth="49.0" text="Next" />
+            <ImageView fx:id="Co2Pic" fitHeight="217.0" fitWidth="291.0" layoutX="474.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../Downloads/unnamed.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="63.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back to your enviromental impact calculator. The average emission of carbon dioxide in Sweden is 4.54 tons per person, how well do you fare compared to the average Swede? Calculate it today!" wrappingWidth="261.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </center>
