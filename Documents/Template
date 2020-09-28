@@ -1,1 +1,18 @@
+# Templates for Scrum-board
 
+## Template for Tasks:
+#36 Create Car page
+
+[Assigned: Johan]
+[Size: Small]
+
+## Template for User Stories:
+#7.2 Calculate Co2 from car travel
+<details open>
+<summary>User Story</summary>
+<br>
+As a user, I want to ..., so that ....
+</details>
+
+## Confirmation
+- [ ] (task here)
