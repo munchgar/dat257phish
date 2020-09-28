@@ -12,7 +12,6 @@ import java.lang.Math;
 import javafx.scene.layout.VBox;
 import org.phish.Main;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CalculatorPageController {
@@ -119,26 +118,36 @@ public class CalculatorPageController {
                     amount = Integer.parseInt(((TextField) txtVehicleAmount).getText());
                     //If The choice is a petrol car, then check what size they chose and calculate co2 based on km
                     if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Petrol Car")) {
-                        if (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue().equals("Small")) {
-                            outputTemp += (amount * 63) / 1000;
-                        } else if (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue().equals("Medium")) {
-                            outputTemp += (amount * 79) / 1000;
-                        } else if (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue().equals("Large")) {
-                            outputTemp += (amount * 106) / 1000;
-                        } else if (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue().equals("Size")) {
-                            System.out.println("Please enter what size of vehicle you were traveling in");
+                        switch((String)(((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())){
+                            case "Small":
+                                outputTemp += (amount * 63) / 1000;
+                                break;
+                            case "Medium":
+                                outputTemp += (amount * 79) / 1000;
+                                break;
+                            case "Large":
+                                outputTemp += (amount * 106) / 1000;
+                                break;
+                            default:
+                                System.out.println("Please enter what size of vehicle you were traveling in");
+                                break;
                         }
                     }
                     //If The choice is a diesel car, then check what size they chose and calculate co2 based on km
                     else if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Diesel Car")) {
-                        if (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue().equals("Small")) {
-                            outputTemp += (amount * 40) / 1000;
-                        } else if (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue().equals("Medium")) {
-                            outputTemp += (amount * 55) / 1000;
-                        } else if (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue().equals("Large")) {
-                            outputTemp += (amount * 73) / 1000;
-                        } else if (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue().equals("Size")) {
-                            System.out.println("Please enter what size of vehicle you were traveling in");
+                        switch((String)(((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())){
+                            case "Small":
+                                outputTemp += (amount * 40) / 1000;
+                                break;
+                            case "Medium":
+                                outputTemp += (amount * 55) / 1000;
+                                break;
+                            case "Large":
+                                outputTemp += (amount * 73) / 1000;
+                                break;
+                            default:
+                                System.out.println("Please enter what size of vehicle you were traveling in");
+                                break;
                         }
                     }
                     //If no vehicle type has been selected
