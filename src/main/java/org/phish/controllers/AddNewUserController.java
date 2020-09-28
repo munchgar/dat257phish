@@ -34,8 +34,6 @@ public class AddNewUserController implements Initializable {
 
 
     public void addUser(ActionEvent actionEvent) {
-        User user = new User(40,"test", "test");
-        user.register("asdasdasd", "TESTING");
         if(!fNameField.getText().isBlank() && !lNameField.getText().isBlank()){
             //System.out.println(fNameField.getText() + " " + lNameField.getText());
             if(fieldsFilledCheckText.isVisible()){
@@ -47,6 +45,7 @@ public class AddNewUserController implements Initializable {
             fieldsFilledCheckText.setVisible(true);
             fieldsFilledCheckText.setFill(Color.RED);
         }
+        /*
             String sql = "INSERT INTO userTable (fName, lName) VALUES(?,?)";
         try {
             try (Connection conn = dbHandler.connect();
@@ -60,11 +59,12 @@ public class AddNewUserController implements Initializable {
                     // Is currently "handled" in xml, something we can do here?
                 }
             }
+         */
             clearFields();
 
-        }catch (Error | SQLException e){
-            System.out.println(e.getMessage());
-        }
+//        }catch (Error | SQLException e){
+//            System.out.println(e.getMessage());
+//        }
 
     }
 

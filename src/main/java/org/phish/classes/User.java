@@ -23,6 +23,7 @@ public class User {
         if (password.length() == 0 || username.length() == 0) {
             return -1;
         }
+
         // Attempt to register via the database
         String SQLquery = "SELECT username FROM userTable"; // Do we need * or only fName and lName?
         try (Connection conn = dbHandler.connect();
@@ -32,23 +33,22 @@ public class User {
                 try {
                     if (rs.getString("username").equals(username) && username.length() > 0) {
                         System.out.println("USER ALREADY EXISTS");
-                    } else {
-
-                        String query = "INSERT INTO userTable (id, fName, lName, username, password) VALUES(?,?,?,?)";
-                        PreparedStatement pstmt = conn.prepareStatement(query);
-                        pstmt.setString(1, fName.getName());
-                        pstmt.setString(2, lName.getName());
-                        pstmt.setString(3, username);
-                        pstmt.setString(4, password);
-                        pstmt.executeUpdate();
-                        System.out.println("User successfully added to DB");
-
-
+                        return 0;
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
+            String query = "INSERT INTO userTable (fName, lName, username, password) VALUES(?,?,?,?)";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, fName.getName());
+            pstmt.setString(2, lName.getName());
+            pstmt.setString(3, username);
+            pstmt.setString(4, password);
+            pstmt.executeUpdate();
+            System.out.println("User successfully added to DB");
+
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
