@@ -1,18 +1,23 @@
 # Templates for Scrum-board
 
 ## Template for Tasks:
-#36 Create Car page
+  #36 Title (same as on its user story's "Confirmation"-list)
 
-[Assigned: Johan]
-[Size: Small]
+  [Assigned: Name]
+  [Size: Size]
 
 ## Template for User Stories:
-#7.2 Calculate Co2 from car travel
-<details open>
-<summary>User Story</summary>
-<br>
-As a user, I want to ..., so that ....
-</details>
+  #7.2 Title (same as on its epic's "Confirmation"-list)
+  <details open>
+  <summary>User Story</summary>
+  <br>
+  As a user, I want to ..., so that ....
+  </details>
 
-## Confirmation
-- [ ] (task here)
+  ## Confirmation
+  - [ ] (task here)
+
+## Template for Epics:
+  Title
+  ## Confirmation
+  - [ ] (user story here)
