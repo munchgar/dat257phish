@@ -22,4 +22,8 @@ public class MainSectionsController {
 	public void showStatScreen(ActionEvent actionEvent) throws IOException {
 		Main.loadCenter("StatisticsPage.fxml");
 	}
+
+    public void showVehicles(ActionEvent actionEvent)throws IOException{
+        Main.loadCenter("VehiclesPage.fxml");
+    }
 }
