@@ -13,7 +13,7 @@ public class VehiclesPageController implements Initializable {
 
     public void openAddVehicle(ActionEvent actionEvent) throws IOException {
         //todo open add new vehicle window
-        Main.showModalWindow("AddVehicleWindow.fxml", "Add Vehcile");
+        Main.showModalWindow("AddVehicleWindow.fxml", "Add Vehicle");
     }
 
     @Override

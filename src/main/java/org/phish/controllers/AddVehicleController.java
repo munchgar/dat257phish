@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.phish.Main;
@@ -47,6 +48,7 @@ public class AddVehicleController implements Initializable {
         if(vehicleNameField.getText().isBlank() || efficiencyField.getText().isBlank()){
             errorText.setVisible(true);
             errorText.setText("All field must be filled");
+            errorText.setFill(Color.RED);
         }else{
             errorText.setVisible(false);
             String name = vehicleNameField.getText();
