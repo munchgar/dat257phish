@@ -2,23 +2,20 @@ package org.phish.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.phish.Main;
 import org.phish.classes.FuelType;
-import org.phish.classes.User;
 import org.phish.classes.VehicleType;
 import org.phish.database.DBHandler;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class AddVehicleController implements Initializable {
@@ -34,31 +31,65 @@ public class AddVehicleController implements Initializable {
     private ChoiceBox vehicleTypeBox, fuelTypeBox;
     @FXML
     private Button addBtn, cancelBtn;
+    @FXML
+    private Text errorText;
 
 
-    public void cancel(ActionEvent actionEvent) {
+    public void cancel() {
         Stage stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();
     }
 
-    public void addVehicle(ActionEvent actionEvent) {
-        if(vehicleNameField.getText().isBlank() || efficiencyField.getText().isBlank()){
-            //todo add error message
-        }else{
-            String name = vehicleNameField.getText().toString();
-            int efficiency= Integer.parseInt(efficiencyField.getText().toString());
+    public void addVehicle() {
 
+        //todo make sure the efficiency is a double
+
+        if(vehicleNameField.getText().isBlank() || efficiencyField.getText().isBlank()){
+            errorText.setVisible(true);
+            errorText.setText("All field must be filled");
+        }else{
+            errorText.setVisible(false);
+            String name = vehicleNameField.getText();
+            double efficiency= Double.parseDouble(efficiencyField.getText());
+            VehicleType vehicleTypeSelected = (VehicleType)vehicleTypeBox.getSelectionModel().getSelectedItem();
+            FuelType fuelTypeSelected = (FuelType)fuelTypeBox.getSelectionModel().getSelectedItem();
+            //System.out.println(vehicleTypeSelected.getVehicleTypeName() + " " + fuelTypeSelected.getFuelName());
+            int userId = Main.getCurrentUserId();
+
+            String sql = "INSERT INTO vehicles (FKuserId, FKvehicleTypeId, FKfuelType, litresKilometer, vehicleName) VALUES(?,?,?,?,?)";
+                try (Connection conn = dbHandler.connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sql)) { // pstmt : Variable name?
+                        pstmt.setInt(1, userId);
+                        pstmt.setInt(2,vehicleTypeSelected.getVehicleTypeId());
+                        pstmt.setInt(3,fuelTypeSelected.getFuelTypeId());
+                        pstmt.setDouble(4,efficiency);
+                        pstmt.setString(5,name);
+                        pstmt.executeUpdate();
+                        System.out.println("Vehicle successfully added to DB");
+                    } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                clearFields();
         }
+    }
+
+    private void clearFields() {
+        vehicleNameField.clear();
+        efficiencyField.clear();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        errorText.setVisible(false);
         loadChoiceBoxes();
+        System.out.println(Main.getCurrentUserId());
     }
 
     private void loadChoiceBoxes(){
+        //precautionary measure to not have the boxes populated. Alse NOT hardcoded since the DB might change
         vehicleTypes.clear();
         fuelTypes.clear();
+
 
         //VehicleTypeBox
         String SQLquery = "SELECT * FROM vehicleType";

@@ -20,9 +20,9 @@ public class Main extends Application {
 
     private static Stage primaryStage;
     private static BorderPane mainLayout;
-    private int currentUserId = 1;
+    private static int currentUserId=1;
 
-    public int getCurrentUserId() {
+    public static int getCurrentUserId() {
         return currentUserId;
     }
 
