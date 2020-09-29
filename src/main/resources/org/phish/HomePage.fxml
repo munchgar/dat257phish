@@ -5,8 +5,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.phish.controllers.HomePageController">
@@ -34,12 +38,33 @@
    <bottom>
       <HBox alignment="BOTTOM_CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Button mnemonicParsing="false" onAction="#goHome" text="Home" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HELLO WORLD" />
+             <Button mnemonicParsing="false" onAction="#goHome" text="Home" /
          </children>
          <padding>
             <Insets bottom="10.0" top="10.0" />
          </padding>
       </HBox>
    </bottom>
+   <center>
+      <AnchorPane focusTraversable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="63.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good Evening {User}" textAlignment="CENTER" wrappingWidth="361.13671875" AnchorPane.rightAnchor="375.86328125" AnchorPane.topAnchor="55.0">
+               <font>
+                  <Font size="39.0" />
+               </font>
+            </Text>
+            <Button fx:id="NxtBtn" layoutX="642.0" layoutY="435.0" mnemonicParsing="false" onAction="#showMainSec" prefHeight="25.0" prefWidth="49.0" text="Next" />
+            <Text layoutX="63.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back to your enviromental impact calculator. The average emission of carbon dioxide in Sweden is 4.54 tons per person, how well do you fare compared to the average Swede? Calculate it today!" wrappingWidth="261.13671875">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="230.0" fitWidth="225.0" layoutX="466.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="https://lh3.googleusercontent.com/proxy/IAMEpMoBPx_UiZjfjNPoUJKm2wlf8MRkYvooS_R-xAvLoGeDthLSkTnjGz-P4rymUwgwEqf0mITGtUQJPfOvmsHiWj2fmLPyw04cd22ZJHgemWUeK81dWM6FmEskiSY" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

@@ -5,12 +5,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.phish.database.DBHandler;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -28,11 +31,13 @@ public class Main extends Application {
         this.primaryStage=primaryStage;
         this.primaryStage.setTitle("Environment calculator");
         showMainView();
-        loadCenter("MainSections.fxml");
+        //loadCenter("MainSections.fxml");
+        //loadCenter("HomePage.fxml");
     }
 
 
-    private void showMainView() throws IOException {
+
+    public static void showMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("HomePage.fxml"));
         mainLayout=loader.load();
