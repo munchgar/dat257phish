@@ -20,8 +20,11 @@ public class Main extends Application {
 
     private static Stage primaryStage;
     private static BorderPane mainLayout;
-    public int currentUserId = 1;
+    private int currentUserId = 1;
 
+    public int getCurrentUserId() {
+        return currentUserId;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
