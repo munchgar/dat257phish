@@ -14,9 +14,9 @@ public class HomePageController {
     }
 
     public void goHome(ActionEvent actionEvent) throws IOException {
-        //Main.loadCenter("MainSections.fxml");
-        Main.loadCenter("HomePage.fxml");
-        //Finns ett litet bugg där ifall man trycker på "Home" när man är i Homepage då blire dublleter
+        Main.showMainView();
+      //  Main.loadCenter("HomePage.fxml");
+
     }
     public void showMainSec(ActionEvent actionEvent) throws IOException{
         Main.loadCenter("MainSections.fxml");
