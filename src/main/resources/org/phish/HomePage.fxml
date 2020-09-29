@@ -38,7 +38,7 @@
    <bottom>
       <HBox alignment="BOTTOM_CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-             <Button mnemonicParsing="false" onAction="#goHome" text="Home" /
+             <Button mnemonicParsing="false" onAction="#goHome" text="Home"></Button>
          </children>
          <padding>
             <Insets bottom="10.0" top="10.0" />
