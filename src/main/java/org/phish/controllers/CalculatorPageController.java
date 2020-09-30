@@ -21,6 +21,7 @@ public class CalculatorPageController {
     double amount = 0;
     int foodCount = 0;
     int vehicleCount = 0;
+    int publicTransportCount = 0;
     private static final Map<String, Double> foodMap = Map.ofEntries(
       Map.entry("Type of Food",0.0), Map.entry("Beef",48.4), Map.entry("Lamb",45.4), Map.entry("Pork",6.0), Map.entry("Chicken",2.06),
                 Map.entry("Other ruminant meat",48.1), Map.entry("Other monogastric meat",4.2), Map.entry("Eggs",1.6), Map.entry("Milk/Yogurt",1.1), Map.entry("Cream",6.0),
@@ -48,6 +49,11 @@ public class CalculatorPageController {
             "Medium",
             "Large"
     );
+    static ObservableList<String> publicTransportType = FXCollections.observableArrayList(
+            "Type of Public Transport",
+            "Bus",
+            "Train"
+    );
     @FXML
     Button btnCalcAir;
     @FXML
@@ -70,6 +76,10 @@ public class CalculatorPageController {
     VBox vBoxVehicleSize;
     @FXML
     VBox vBoxVehicleAmount;
+    @FXML
+    VBox vBoxTransportType;
+    @FXML
+    VBox vBoxTransportAmount;
 
 
     public void AddVehicle(ActionEvent actionEvent) throws IOException {
@@ -93,7 +103,7 @@ public class CalculatorPageController {
         }
     }
 
-    public void AddMoreFood(ActionEvent actionEvent) throws IOException {
+    public void AddFood(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == btnAddMoreFood) {
             //Creates a new choiceBox for food types
             ChoiceBox choiceFoodType = new ChoiceBox<String>(foodChoices);
@@ -107,6 +117,20 @@ public class CalculatorPageController {
             vBoxFoodType.getChildren().add(choiceFoodType);
             vBoxFoodAmount.getChildren().add(txtFoodAmount);
         }
+    }
+
+    public void AddPublicTransport(ActionEvent actionEvent) throws IOException {
+        //Creates a new choiceBox for public transport types
+        ChoiceBox choiceTransportType = new ChoiceBox<String>(publicTransportType);
+        choiceTransportType.setId("choiceTransportType" + publicTransportCount);
+        choiceTransportType.setValue("Type of Public Transport");
+        //Creates a new textField for food amount
+        TextField txtTransportAmount = new TextField();
+        txtTransportAmount.setId("txtTransportAmount" + publicTransportCount);
+        publicTransportCount++;
+        //Adds all of the created elements to their designated vBox
+        vBoxTransportType.getChildren().add(choiceTransportType);
+        vBoxTransportAmount.getChildren().add(txtTransportAmount);
     }
 
     public void CalculateVehicle(ActionEvent actionEvent) throws IOException {
@@ -225,6 +249,10 @@ public class CalculatorPageController {
             outputFood = tempOutput;
             System.out.println(outputFood);
         }
+    }
+
+    public void CalculatePublicTransport(ActionEvent actionEvent) throws IOException {
+        System.out.println("hej :)");
     }
 }
 
