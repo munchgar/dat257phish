@@ -1,23 +1,77 @@
 package org.phish.classes;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import org.phish.database.DBHandler;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Vehicle {
     private SimpleIntegerProperty vehicleId;
     private SimpleIntegerProperty userId;
     private SimpleIntegerProperty vehicleType;
     private SimpleIntegerProperty fuelType;
-    private SimpleIntegerProperty kmLitre;
+    private SimpleDoubleProperty kmLitre;
     private SimpleStringProperty vehicleName;
 
-    public Vehicle(int vehicleId, int userId, int vehicleType, int fuelType, int kmLitre, String vehicleName) {
+    private SimpleStringProperty vehicleTypeString;
+    private SimpleStringProperty fuelTypeString;
+
+    //To handle the foreign keys to fueltype and vehicletype (to get the strings attached)
+    private DBHandler dbHandler = new DBHandler();
+
+
+
+    public Vehicle(int vehicleId, int userId, int vehicleType, int fuelType, double kmLitre, String vehicleName) {
         this.vehicleId = new SimpleIntegerProperty(vehicleId);
         this.userId = new SimpleIntegerProperty(userId);
         this.vehicleType = new SimpleIntegerProperty(vehicleType);
         this.fuelType = new SimpleIntegerProperty(fuelType);
-        this.kmLitre = new SimpleIntegerProperty(kmLitre);
+        this.kmLitre = new SimpleDoubleProperty(kmLitre);
         this.vehicleName = new SimpleStringProperty(vehicleName);
+
+        //Get vehicle type as a string using a foreign key
+        String SQLquery = "SELECT type FROM vehicleType WHERE vehicleTypeId = " +vehicleType;
+        try (Connection conn = dbHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(SQLquery)){
+                try {
+                    this.vehicleTypeString=  new SimpleStringProperty(rs.getString("type"));
+                }catch (Exception ex){
+                    ex.printStackTrace();
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+
+        //Get fuel type as a string using a foreign key
+        SQLquery = "SELECT fuelName FROM fuelType WHERE fuelId = " +fuelType;
+        try (Connection conn = dbHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(SQLquery)){
+            try {
+                this.fuelTypeString=  new SimpleStringProperty(rs.getString("fuelName"));
+            }catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Vehicle(int vehicleId, int userId, int vehicleType, int fuelType, double kmLitre, String vehicleName, String vehicleTypeString, String fuelTypeString) {
+        this.vehicleId = new SimpleIntegerProperty(vehicleId);
+        this.userId = new SimpleIntegerProperty(userId);
+        this.vehicleType = new SimpleIntegerProperty(vehicleType);
+        this.fuelType = new SimpleIntegerProperty(fuelType);
+        this.kmLitre = new SimpleDoubleProperty(kmLitre);
+        this.vehicleName = new SimpleStringProperty(vehicleName);
+        this.vehicleTypeString = new SimpleStringProperty(vehicleTypeString);
+        this.fuelTypeString = new SimpleStringProperty(fuelTypeString);
     }
 
     public int getVehicleId() {
@@ -52,11 +106,11 @@ public class Vehicle {
         return fuelType;
     }
 
-    public int getKmLitre() {
+    public double getKmLitre() {
         return kmLitre.get();
     }
 
-    public SimpleIntegerProperty kmLitreProperty() {
+    public SimpleDoubleProperty kmLitreProperty() {
         return kmLitre;
     }
 
@@ -66,6 +120,22 @@ public class Vehicle {
 
     public SimpleStringProperty vehicleNameProperty() {
         return vehicleName;
+    }
+
+    public String getVehicleTypeString() {
+        return vehicleTypeString.get();
+    }
+
+    public SimpleStringProperty vehicleTypeStringProperty() {
+        return vehicleTypeString;
+    }
+
+    public String getFuelTypeString() {
+        return fuelTypeString.get();
+    }
+
+    public SimpleStringProperty fuelTypeStringProperty() {
+        return fuelTypeString;
     }
 
     @Override
