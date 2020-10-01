@@ -18,6 +18,7 @@ public class CalculatorPageController {
     double outputAir = 0;
     double outputVehicle = 0;
     double outputFood = 0;
+    double outputPublicTransport = 0;
     double amount = 0;
     int foodCount = 0;
     int vehicleCount = 0;
@@ -52,7 +53,9 @@ public class CalculatorPageController {
     static ObservableList<String> publicTransportType = FXCollections.observableArrayList(
             "Type of Public Transport",
             "Bus",
-            "Train"
+            "Train in Sweden",
+            "Train outside of Sweden",
+            "Ferry"
     );
     @FXML
     Button btnCalcAir;
@@ -142,36 +145,20 @@ public class CalculatorPageController {
                     amount = Integer.parseInt(((TextField) txtVehicleAmount).getText());
                     //If The choice is a petrol car, then check what size they chose and calculate co2 based on km
                     if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Petrol Car")) {
-                        switch((String)(((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())){
-                            case "Small":
-                                outputTemp += (amount * 63) / 1000;
-                                break;
-                            case "Medium":
-                                outputTemp += (amount * 79) / 1000;
-                                break;
-                            case "Large":
-                                outputTemp += (amount * 106) / 1000;
-                                break;
-                            default:
-                                System.out.println("Please enter what size of vehicle you were traveling in");
-                                break;
+                        switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
+                            case "Small" -> outputTemp += (amount * 63) / 1000;
+                            case "Medium" -> outputTemp += (amount * 79) / 1000;
+                            case "Large" -> outputTemp += (amount * 106) / 1000;
+                            default -> System.out.println("Please enter what size of vehicle you were traveling in");
                         }
                     }
                     //If The choice is a diesel car, then check what size they chose and calculate co2 based on km
                     else if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Diesel Car")) {
-                        switch((String)(((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())){
-                            case "Small":
-                                outputTemp += (amount * 40) / 1000;
-                                break;
-                            case "Medium":
-                                outputTemp += (amount * 55) / 1000;
-                                break;
-                            case "Large":
-                                outputTemp += (amount * 73) / 1000;
-                                break;
-                            default:
-                                System.out.println("Please enter what size of vehicle you were traveling in");
-                                break;
+                        switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
+                            case "Small" -> outputTemp += (amount * 40) / 1000;
+                            case "Medium" -> outputTemp += (amount * 55) / 1000;
+                            case "Large" -> outputTemp += (amount * 73) / 1000;
+                            default -> System.out.println("Please enter what size of vehicle you were traveling in");
                         }
                     }
                     //If no vehicle type has been selected
@@ -183,7 +170,7 @@ public class CalculatorPageController {
                 count++;
             }
             outputVehicle = outputTemp;
-            System.out.println("CO2: " + outputVehicle + "kg");
+            System.out.println("CO2: "+ outputVehicle+"kg");
             amount = 0;
         }
     }
@@ -229,7 +216,7 @@ public class CalculatorPageController {
                         outputAir *= (1 + 0.9 + 1.2);
                     }
                 }
-                System.out.println("CO2: " + outputAir + "kg");
+                System.out.println("CO2: "+outputAir+"kg");
                 amount = 0;
             }
         }
@@ -247,12 +234,30 @@ public class CalculatorPageController {
                 count++;
             }
             outputFood = tempOutput;
-            System.out.println(outputFood);
+            System.out.println("CO2: "+outputFood+"kg");
+            amount = 0;
         }
     }
 
     public void CalculatePublicTransport(ActionEvent actionEvent) throws IOException {
-        System.out.println("hej :)");
+        int count = 0;
+        double outputTemp = 0;
+        for (Node txtTransportAmount : vBoxTransportAmount.getChildren()) {
+            if (!(((TextField) txtTransportAmount).getText().equals("")) && ((TextField) txtTransportAmount).getText().matches("[0-9]+") && ((TextField) txtTransportAmount).getText().length() < 8) {
+                amount = Integer.parseInt(((TextField) txtTransportAmount).getText());
+                switch ((String) (((ChoiceBox) vBoxTransportType.getChildren().toArray()[count]).getValue())) {
+                    case "Bus" -> outputTemp += (amount * 27) / 1000;
+                    case "Train in Sweden" -> outputTemp += (amount * 10) / 1000;
+                    case "Train outside of Sweden" -> outputTemp += (amount * 37) / 1000;
+                    case "Ferry" -> outputTemp += (amount * 170) / 1000;
+                    default -> System.out.println("Please enter what public transport you were traveling with");
+                }
+            }
+            count++;
+        }
+        outputPublicTransport = outputTemp;
+        System.out.println("CO2: "+outputPublicTransport+"kg");
+        amount = 0;
     }
 }
 
