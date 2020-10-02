@@ -43,7 +43,7 @@ The structure of the project has not been great so far. For this reason much of 
 
 
 ### Week 4
-The team now has a much better grasp of the JavaFX frameowrks and have demonstrated that they can work with it on individual tasks (e.g. graphs and login screen)
+The team now has a much better grasp of the JavaFX frameworks and have demonstrated that they can work with it on individual tasks (e.g. graphs and login screen)
 This has lead to the requirement of future restructuring of the UI as to both be more easily understood by a user and increase lexibility for the developers. This will be
 one of the primary objectives of the next sprint. To accomplish this the team has begun to make a better domain model and structure a Database entity relationship diagram.
 This means that the current branches should be merged prior to the restructuring which have been scheduled to be done on monday prior to the supervisor meeting.
@@ -52,3 +52,14 @@ The requirements necessary for the various functions and statistics pages are be
 The team has decided to pursue the project as a "single" user experience where the various user accounts can be switched. This will make it easier to reach an MVP as the goals are clearer from the perspective of one single users interactions instead of multiple on the same interface. 
 
 The SCRUM meetings have become a much more integral part of the sprint and there have been changes of the SCRUM master as to improve the knowledge and experience of the team members. The SCRUM board is much more continously updated and dynamic. The team members have become much more comfortable with adding new user stories on their own to the backlog. 
+
+### Week 5
+The team has now reworked the entire SCRUM-board to have a more efficient approach to the agile software development. This included creating more Epics and discussing
+during the first SCRUM meeting of the sprint on how to break them down into user stories. We also implemented more technical-notes (tasks) in order to have a better 
+overview of what each person should do. We believe this is a great improvement compared to previous sprints where we were a bit uncertain of what to do.
+
+We were told at the start of the week that our energy in the group was not the best. This lead to discussions during the week on how we can improve our energy in the 
+group, and we hope to express more energy during the upcoming meetings.
+
+The one bad thing which can be said about the team is that we have not been the best in working together as much as we wanted to in previous weeks which we believe
+our new approach to planning might help us with.
