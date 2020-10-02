@@ -1,0 +1,19 @@
+- What do I want to learn or understand better?
+A: This sprint was heavily focused on re-structuring our SCRUM-board and I feel like I have gotten an even better understanding of the relationship and hierarchy between epics and user stories in SCRUM which has helped make the larger scope of the application more clear.
+B: I wish to get even better at breaking up epics in user stories which follow the SMART-criterias.
+A->B: I will try to maintain our recently re-structured SCRUM board and more importantly be more active during upcoming planning meeetings.
+
+- How can I help someone else, or the entire team, to learn something new?
+A: I have started to provide more comments in my code which hopefully can help the team get a better understanding and possibly learn new patterns during code reviews. Hopefully it will also make it easier for other group members to build upon my code.
+B: I want to do more code reviews since I believe it is benefitial both for furthering one's programming skills but also since it can help keep our project more uniform and consistent.
+A->B: I will assign myself as a reviewer more often for new pull requests and encourage other team members to do the same. 
+
+- What is my contribution towards the team's use of Scrum?
+A: This sprint we spent a lot of time properly re-structuring our SCRUM-board and I contributed by changing a few of the tasks that were poorly formulated and made sure our user stories are relevant.
+B: I want us to start using SCRUM even more and actively during our meetings in terms of estimation, KPI measurement and so on.
+A->B: I will continue to attend our meetings and push for a more structured use of SCRUM, for example by utilizing our KPI:s.
+ 
+- What is my contribution towards the team's deliveries?
+A: I have started to adapt the statistics part of the application to fit the domain model we have developed.
+B: I want to develop the statistics feature in a flexible way so that it can more easily support any changes of the structure in the source data.
+A->B: I will try my best to use proper Java practices and patterns as well as communicate with the team so that there are no unclarities about the domain model.
