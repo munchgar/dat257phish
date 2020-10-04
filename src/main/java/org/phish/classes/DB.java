@@ -1,5 +1,7 @@
 package org.phish.classes;
 
+import javafx.scene.control.TextField;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -23,7 +25,7 @@ public interface DB {
         try {
             try (Connection conn = connect();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) { // pstmt : Variable name?
-                pstmt.setString(1, username);
+                pstmt.setString(1, (username));
                 pstmt.setString(2, password);
                 pstmt.executeUpdate();
                 System.out.println("User successfully added to DB");
