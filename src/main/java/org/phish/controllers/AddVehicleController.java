@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -18,6 +19,8 @@ import org.phish.database.DBHandler;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 public class AddVehicleController implements Initializable {
 
@@ -33,7 +36,7 @@ public class AddVehicleController implements Initializable {
     @FXML
     private Button addBtn, cancelBtn;
     @FXML
-    private Text errorText;
+    private Text errorText, selectTextPrompt;
 
 
     public void cancel() {
@@ -82,16 +85,28 @@ public class AddVehicleController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        selectTextPrompt.setText("All vehicle types and fuel types are in DB but for now \nplease select personal and the reasnoable fuel types");
+
+        //Makes sure only a double can be entered in the efficiency text field
+        //modified from: https://stackoverflow.com/questions/43307872/javafx-textfield-limit-character-input-to-double-no-multiple-commas
+        Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
+        TextFormatter doubleTextFormatter = new TextFormatter((UnaryOperator<TextFormatter.Change>) change -> {
+            return pattern.matcher(change.getControlNewText()).matches() ? change : null;
+        });
+        efficiencyField.setTextFormatter(doubleTextFormatter);
+
+        //Errortext
         errorText.setVisible(false);
+        //Load choicebox values from DB
         loadChoiceBoxes();
-        System.out.println(Main.getCurrentUserId());
+        //the current user is currently hard coded in Main
+        System.out.println("Current user " + Main.getCurrentUserId());
     }
 
     private void loadChoiceBoxes(){
-        //precautionary measure to not have the boxes populated. Alse NOT hardcoded since the DB might change
+        //precautionary measure to not have the boxes populated. Also NOT hardcoded since the DB might change
         vehicleTypes.clear();
         fuelTypes.clear();
-
 
         //VehicleTypeBox
         String SQLquery = "SELECT * FROM vehicleType";
@@ -129,7 +144,7 @@ public class AddVehicleController implements Initializable {
             System.out.println(e.getMessage());
         }
 
-        //Sets a default value in the choiceboxes
+        //Sets a default value in the choiceboxes, obs! not hardcoded but taken from the values from the DB
         vehicleTypeBox.setValue(vehicleTypes.get(0));
         fuelTypeBox.setValue(fuelTypes.get(0));
     }
