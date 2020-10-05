@@ -18,7 +18,6 @@ public interface DB {
     }
 
     static ResultSet select(String retrieve, String table) {
-
         String SQLquery = "SELECT fName, lName FROM userTable"; // Do we need * or only fName and lName?
         try (Connection conn = connect();
              Statement stmt  = conn.createStatement();
@@ -26,16 +25,13 @@ public interface DB {
             while(rs.next()){
                 try {
                     return rs;
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-
         return null;
     }
-
 }
