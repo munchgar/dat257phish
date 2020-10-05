@@ -18,7 +18,7 @@ public interface DB {
     }
 
     static ResultSet select(String retrieve, String table) {
-        String SQLquery = "SELECT fName, lName FROM userTable"; // Do we need * or only fName and lName?
+        String SQLquery = "SELECT username FROM userTable"; // Do we need * or only fName and lName?
         try (Connection conn = connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(SQLquery)){

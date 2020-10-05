@@ -6,9 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.phish.classes.DB;
+import org.phish.database.DBHandler;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class LoginPageController implements DB {
 
@@ -19,19 +22,18 @@ public class LoginPageController implements DB {
     @FXML
     public Button cancelBtn;
 
-    public void login() {
+    public void login() throws SQLException {
+        DBHandler dbHandler = new DBHandler();
 
-        try(
-            ResultSet rs = DB.select("username", "userTable")) {
-            while(rs.next()){
-                if(rs.getString("username") == idUsername.getText()) {
-                    System.out.println("USER ALREADY EXISTS");
+        if(dbHandler.connect()) { // Attempt to connect to database.
+            ResultSet rs = dbHandler.execQuery("SELECT * FROM userTable"); // Execute query
+            while (rs.next()) {
+                System.out.println(rs.getString("username"));
+                if (rs.getString("username").equals(idUsername.getText()) && (rs.getString("password").equals(idPassword.getText()))) {
+                    System.out.println("USER LOGGED IN");
                 }
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
-
     }
 
     public void closeWindow(ActionEvent actionEvent) {
