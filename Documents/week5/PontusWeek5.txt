@@ -1,0 +1,18 @@
+- What do I want to learn or understand better?
+How to use KPIs. This has been a major issue with this project as we have not as of yet used the KPIs we decided upon. 
+We have become much better at using user stories, tasks and breaking those down properly. Thereby we have become much more accustomed to using SCRUM principles. 
+We have begun using the DoD much more extensively and updated the contract.
+
+- How can I help someone else, or the entire team, to learn something new?
+In the tasks I undertook this sprint there was much utilization of the DB, especially using foreign keys to access a multitude of data from different tables and 
+combining them in a visual Tableview. I have tried to comment what is happening and psuhed the commits as different sections are "ready" (not properly tested) and encouraged others 
+to read and understand how it works.
+ 
+- What is my contribution towards the team’s use of Scrum?
+I pushed hard for prioritizing the tasks during this weeks Sprint planning meeting in order to fulfill the objective of having a minimum viable product that actually can 
+produce something of value to an end user. 
+
+- What is my contribution towards the team’s deliveries?
+I have implemented a large new section connected to personal vehicles, their emissions and the focus on a singular user (that can be switched) over the previous multi-user interface.
+I have implemented a much more sophisticated DB with many connected tables and commented in code how to get access to multiple tables to display joined datasets.
+I hve made an entitiy relations diagram for the DB for easy understanding of how the datapoints/tables are connected.
