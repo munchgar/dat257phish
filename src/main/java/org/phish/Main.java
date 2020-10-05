@@ -20,7 +20,11 @@ public class Main extends Application {
 
     private static Stage primaryStage;
     private static BorderPane mainLayout;
+    private static int currentUserId=1;
 
+    public static int getCurrentUserId() {
+        return currentUserId;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -69,6 +73,21 @@ public class Main extends Application {
         stage.showAndWait();
 
     }
+
+    public static void showModalWindow(String fxmlString, String title) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource(fxmlString));
+        BorderPane addNewUser = loader.load();
+
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(primaryStage);
+        Scene scene = new Scene(addNewUser);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
 
     public static void main(String[] args) {
         launch(args);

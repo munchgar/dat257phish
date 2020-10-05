@@ -55,7 +55,7 @@ public class UserViewController implements Initializable {
             while(rs.next()){
                 try {
                    // System.out.println(rs.getInt("id")+ rs.getString("fName")+ rs.getString("lName"));
-                    users.add(new User(rs.getInt("id"), rs.getString("fName"), rs.getString("lName")));
+                    users.add(new User(rs.getInt("userId"), rs.getString("fName"), rs.getString("lName")));
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
