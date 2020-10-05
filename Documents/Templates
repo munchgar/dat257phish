@@ -1,0 +1,35 @@
+# Templates for Scrum-board
+
+## Tasks:
+For each task there should be a size given in {Small, Medium, Large}. 
+Each task should roughly be using the following template:
+
+{  #'nr' Title (same as on its user story's "Confirmation"-list)
+{
+{  [Assigned: Name]
+{  [Size: Size]
+
+
+## User Stories:
+For each user story there should be a size and a priority in the form of lables in the sizes as well as urgencies {Small, Medium, Large}.
+Each user story should roughlt be using the following template:
+  
+{  #'nr' Title (same as on its epic's "Confirmation"-list)
+{  <details open>
+{  <summary>User Story</summary>
+{  <br>
+{  As a user, I want to ..., so that ....
+{  </details>
+{
+{  ## Confirmation
+{  - [ ] (task here)
+
+## Epics:
+For each epic there should be a size and a priority in the form of lables in the sizes as well as urgencies {Small, Medium, Large}.
+
+{  Title
+{  ## Description
+{  ...
+{
+{  ## Confirmation
+{  - [ ] (user story here)

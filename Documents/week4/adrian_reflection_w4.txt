@@ -1,0 +1,19 @@
+- What do I want to learn or understand better?
+A: I have spent some more time with JavaFX the last sprint which has given me a clearer understanding of specific UI elements and the relationship between view and controller.
+B: I wish to learn more about the possibilites of SQLite since in order to present meaningful statistics in the application I need to interface with the database. 
+A->B: I will read up on SQLite as well as help design the database.
+
+- How can I help someone else, or the entire team, to learn something new?
+A: I feel like I have enough knowledge of git to be able to help any team members having struggles with it. I try to provide tips and just stay extra attentive to any issues related to git.
+B: I want to be able to help not only with issues revolving project structure but also in terms of code.
+A->B: As our codebase grows I want to keep our routine of reviewing pull requests since it can be a great source for both the reviewer and reviewee to learn new design patterns.
+
+- What is my contribution towards the team's use of Scrum?
+A: The last sprint I have followed the SCRUM principles that we've agreed upon for the task I've been assigned to.
+B: I want to keep following this routine and encourage team members to actively update the SCRUM-board so that it always represents the current state of the project. 
+A->B: I will continue to attend our meetings and actively use SCRUM terms like task, user story and sprint when describing the project and our progress to make sure we keep that perspective. 
+
+- What is my contribution towards the team's deliveries?
+A: During the last sprint I've contributed with an initial statistics page currently filled with placeholder data. I feel like the only thing that is currently limiting further progress is the uncertainty of how the statistics database is going to look like.
+B: The database model should be clear and designed in a way that makes it easy to derive and present valuable information.
+A->B: I will prioritise and take an active part in designing the statistics database model since it is an important piece for multiple parts of the application.

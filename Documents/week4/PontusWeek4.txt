@@ -1,0 +1,15 @@
+- What do I want to learn or understand better?
+How to structure the UI in both a user-freindly and flexible manner. 
+The current UI was enough to get the project of the ground but needs some restructuring to better suit the intended functionality.
+
+
+- How can I help someone else, or the entire team, to learn something new?
+Create a better domain model and clearer functionalities and objectives and ensure that the common goal of the teams development is clear and met.
+ 
+- What is my contribution towards the team’s use of Scrum?
+I have this week pushed much harder for the use of SCRUM meetings, and the assignment of a different SCRUM master. The Sprints user stories have also become clearer and 
+the team has begun adding individual user stories to the backlog as they come up. 
+
+- What is my contribution towards the team’s deliveries?
+I have pushed for the integration of pull requests into the master branch after they have been reviewed by other team members. 
+This is to ensure that as the teams deliverables are met the branches are merged so that there won't be too many conflicts down the line.
