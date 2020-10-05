@@ -5,8 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.phish.classes.DB;
 
-public class LoginPageController {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class LoginPageController implements DB {
 
     @FXML
     public TextField idUsername;
@@ -16,6 +20,17 @@ public class LoginPageController {
     public Button cancelBtn;
 
     public void login() {
+
+        try(
+            ResultSet rs = DB.select("username", "userTable")) {
+            while(rs.next()){
+                if(rs.getString("username") == idUsername.getText()) {
+                    System.out.println("USER ALREADY EXISTS");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
