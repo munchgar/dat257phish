@@ -100,7 +100,7 @@ public class AddVehicleController implements Initializable {
         //Load choicebox values from DB
         loadChoiceBoxes();
         //the current user is currently hard coded in Main
-        System.out.println("Current user " + Main.getCurrentUserId());
+        //System.out.println("Current user " + Main.getCurrentUserId());
     }
 
     private void loadChoiceBoxes(){
