@@ -12,8 +12,6 @@ public class MainSectionsController {
     @FXML
     public void showUserView(ActionEvent actionEvent) throws IOException {
         Main.loadCenter("UserView.fxml");
-
-
     }
 
     public void showCalcScreen(ActionEvent actionEvent) throws IOException {
@@ -25,5 +23,8 @@ public class MainSectionsController {
 
     public void showVehicles(ActionEvent actionEvent)throws IOException{
         Main.loadCenter("VehiclesPage.fxml");
+    }
+    public void showActivities(ActionEvent actionEvent) throws IOException{
+        Main.loadCenter("TransportActivities.fxml");
     }
 }
