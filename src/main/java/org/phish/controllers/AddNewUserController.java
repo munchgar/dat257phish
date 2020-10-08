@@ -15,6 +15,7 @@ import org.phish.classes.User;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -33,7 +34,7 @@ public class AddNewUserController implements Initializable {
 
 
 
-    public void addUser(ActionEvent actionEvent) {
+    public void addUser(ActionEvent actionEvent) throws SQLException {
         if(!fNameField.getText().isBlank() && !lNameField.getText().isBlank()){
             //System.out.println(fNameField.getText() + " " + lNameField.getText());
             if(fieldsFilledCheckText.isVisible()){
@@ -44,6 +45,24 @@ public class AddNewUserController implements Initializable {
            // System.out.println("All textfields must be filled");
             fieldsFilledCheckText.setVisible(true);
             fieldsFilledCheckText.setFill(Color.RED);
+        }
+
+        if (dbHandler.connect()) { // Attempt to connect to database.
+
+                try {
+                    if (!(((fNameField.getText().length() == 0) || (lNameField.getText().length() == 0)))) {
+                        String input = fNameField.getText() + ", " + lNameField.getText();
+                        String query = "INSERT INTO userTable (fName, lName) VALUES (" + input + ")";
+
+                        dbHandler.execQuery(query);
+                        System.out.println("User successfully added to DB");
+                    } else {
+                        // Is currently "handled" in xml, something we can do here?
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
         }
         /*
             String sql = "INSERT INTO userTable (fName, lName) VALUES(?,?)";
@@ -62,9 +81,7 @@ public class AddNewUserController implements Initializable {
          */
             clearFields();
 
-//        }catch (Error | SQLException e){
-//            System.out.println(e.getMessage());
-//        }
+
 
     }
 

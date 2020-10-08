@@ -81,6 +81,6 @@ public class UserViewController implements Initializable {
 
     @FXML
     public void openAddUserWin(ActionEvent actionEvent) throws IOException {
-        Main.showLoginWindow();
+        Main.showAddUserWindow();
     }
 }

@@ -19,17 +19,16 @@ public class User {
         this.lName = new SimpleStringProperty(lName);
     }
 
-    public int register(String username, String password) {
+    public int register(String username, String password) throws SQLException {
         if (password.length() == 0 || username.length() == 0) {
             return -1;
         }
 
         // Attempt to register via the database
         String SQLquery = "SELECT username FROM userTable"; // Do we need * or only fName and lName?
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery)){
-            while(rs.next()){
+        if (dbHandler.connect()) { // Attempt to connect to database.
+            ResultSet rs = dbHandler.execQuery(SQLquery); // Execute query
+            while (rs.next()) {
                 try {
                     if (rs.getString("username").equals(username) && username.length() > 0) {
                         System.out.println("USER ALREADY EXISTS");
@@ -39,20 +38,14 @@ public class User {
                     ex.printStackTrace();
                 }
             }
-            String query = "INSERT INTO userTable (fName, lName, username, password) VALUES(?,?,?,?)";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, fName.getName());
-            pstmt.setString(2, lName.getName());
-            pstmt.setString(3, username);
-            pstmt.setString(4, password);
-            pstmt.executeUpdate();
+            String input = fName.getName() + ", " + lName.getName() + ", " + username + ", " + password;
+            String query = "INSERT INTO userTable (fName, lName, username, password) VALUES (" + input + ")";
+
+            dbHandler.execQuery(query);
             System.out.println("User successfully added to DB");
 
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
-
         return 0; // If unable to register return false
     }
 
@@ -62,7 +55,7 @@ public class User {
 
   /*  public SimpleIntegerProperty idProperty() {
         return id;
-    }*/
+    } */
 
     public String getFName() {
         return fName.get();
