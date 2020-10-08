@@ -51,10 +51,12 @@ public class AddNewUserController implements Initializable {
 
                 try {
                     if (!(((fNameField.getText().length() == 0) || (lNameField.getText().length() == 0)))) {
-                        String input = fNameField.getText() + ", " + lNameField.getText();
-                        String query = "INSERT INTO userTable (fName, lName) VALUES (" + input + ")";
 
-                        dbHandler.execQuery(query);
+                        String input = "'" + fNameField.getText() + "'" + "," + "'" + lNameField.getText() + "'";
+                        System.out.println(input);
+                        String query = "INSERT INTO userTable (fName, lName) VALUES ("+ input + ");"; // implement for strings instead ''
+
+                        dbHandler.execUpdate(query);
                         System.out.println("User successfully added to DB");
                     } else {
                         // Is currently "handled" in xml, something we can do here?

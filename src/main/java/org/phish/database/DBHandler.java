@@ -42,6 +42,12 @@ public class DBHandler {
         return true;
     }
 
+    public boolean execUpdate(String query) throws SQLException {
+        Statement stmt  = conn.createStatement();
+        stmt.executeUpdate(query);
+        return true;
+    }
+
     public ResultSet execQuery(String query) throws SQLException {
 
         Statement stmt  = conn.createStatement();
