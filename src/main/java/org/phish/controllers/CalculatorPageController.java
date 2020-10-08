@@ -8,9 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+
 import java.lang.Math;
+
 import javafx.scene.layout.VBox;
 import org.phish.Main;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -19,18 +22,19 @@ public class CalculatorPageController {
     double outputVehicle = 0;
     double outputFood = 0;
     double outputPublicTransport = 0;
+    double outputHome = 0; //!!!!
     double amount = 0;
     int foodCount = 0;
     int vehicleCount = 0;
     int publicTransportCount = 0;
     private static final Map<String, Double> foodMap = Map.ofEntries(
-      Map.entry("Type of Food",0.0), Map.entry("Beef",48.4), Map.entry("Lamb",45.4), Map.entry("Pork",6.0), Map.entry("Chicken",2.06),
-                Map.entry("Other ruminant meat",48.1), Map.entry("Other monogastric meat",4.2), Map.entry("Eggs",1.6), Map.entry("Milk/Yogurt",1.1), Map.entry("Cream",6.0),
-                Map.entry("Butter",12.7), Map.entry("Cheese",9.7), Map.entry("Bread",0.8), Map.entry("Pasta",1.2), Map.entry("Rice",2.3), Map.entry("Other cereals",1.0),
-                Map.entry("Apples",0.3), Map.entry("Oranges",0.8), Map.entry("Bananas",0.6), Map.entry("Other regional fruits",0.3), Map.entry("Other imported fruits",3.5),
-                Map.entry("Onions",0.1), Map.entry("Carrots & other root vegetables",0.2), Map.entry("Tomatoes",1.5), Map.entry("Cabbage",0.5), Map.entry("Lettuce",0.3),
-                Map.entry("Other regional vegetables",0.3), Map.entry("Other imported vegetables",3.5), Map.entry("Coffee",1.0), Map.entry("Tea",1.0), Map.entry("Salmon",2.7),
-                Map.entry("Sweets",1.9), Map.entry("Cod",1.6), Map.entry("Vegetarian meat substitute",0.8), Map.entry("Vegetarian dairy substitute",0.9)
+            Map.entry("Type of Food", 0.0), Map.entry("Beef", 48.4), Map.entry("Lamb", 45.4), Map.entry("Pork", 6.0), Map.entry("Chicken", 2.06),
+            Map.entry("Other ruminant meat", 48.1), Map.entry("Other monogastric meat", 4.2), Map.entry("Eggs", 1.6), Map.entry("Milk/Yogurt", 1.1), Map.entry("Cream", 6.0),
+            Map.entry("Butter", 12.7), Map.entry("Cheese", 9.7), Map.entry("Bread", 0.8), Map.entry("Pasta", 1.2), Map.entry("Rice", 2.3), Map.entry("Other cereals", 1.0),
+            Map.entry("Apples", 0.3), Map.entry("Oranges", 0.8), Map.entry("Bananas", 0.6), Map.entry("Other regional fruits", 0.3), Map.entry("Other imported fruits", 3.5),
+            Map.entry("Onions", 0.1), Map.entry("Carrots & other root vegetables", 0.2), Map.entry("Tomatoes", 1.5), Map.entry("Cabbage", 0.5), Map.entry("Lettuce", 0.3),
+            Map.entry("Other regional vegetables", 0.3), Map.entry("Other imported vegetables", 3.5), Map.entry("Coffee", 1.0), Map.entry("Tea", 1.0), Map.entry("Salmon", 2.7),
+            Map.entry("Sweets", 1.9), Map.entry("Cod", 1.6), Map.entry("Vegetarian meat substitute", 0.8), Map.entry("Vegetarian dairy substitute", 0.9)
     );
 
     static ObservableList<String> foodChoices = FXCollections.observableArrayList(
@@ -38,6 +42,12 @@ public class CalculatorPageController {
             "Butter", "Cheese", "Bread", "Pasta", "Rice", "Other cereals", "Apples", "Oranges", "Bananas", "Other regional fruits",
             "Other imported fruits", "Onions", "Carrots & other root vegetables", "Tomatoes", "Cabbage", "Lettuce", "Other regional vegetables",
             "Other imported vegetables", "Coffee", "Tea", "Sweets", "Cod", "Salmon", "Vegetarian meat substitute", "Vegetarian dairy substitute"
+    );
+
+    static ObservableList<String> houseTypes = FXCollections.observableArrayList(
+            "Apartment",
+            "Villa",
+            "Town House"
     );
     static ObservableList<String> vehicleTypes = FXCollections.observableArrayList(
             "Type of Vehicle",
@@ -83,6 +93,10 @@ public class CalculatorPageController {
     VBox vBoxTransportType;
     @FXML
     VBox vBoxTransportAmount;
+    @FXML
+    Button btnCalcHouse;
+   /* @FXML
+    ChoiceBox<String> houseType;*/
 
 
     public void AddVehicle(ActionEvent actionEvent) throws IOException {
@@ -104,6 +118,15 @@ public class CalculatorPageController {
             vBoxVehicleSize.getChildren().add(choiceVehicleSize);
             vBoxVehicleAmount.getChildren().add(txtVehicleAmount);
         }
+    }
+
+    public void AddHouse(ActionEvent actionEvent) throws IOException {
+
+            //Creates a new choiceBox for public transport types
+            ChoiceBox choiceHouseType = new ChoiceBox<String>(houseTypes);
+            choiceHouseType.setId("choiceHouseType" + houseTypes);
+            choiceHouseType.setValue("Type pf House");
+
     }
 
     public void AddFood(ActionEvent actionEvent) throws IOException {
@@ -170,7 +193,7 @@ public class CalculatorPageController {
                 count++;
             }
             outputVehicle = outputTemp;
-            System.out.println("CO2: "+ outputVehicle+"kg");
+            System.out.println("CO2: " + outputVehicle + "kg");
             amount = 0;
         }
     }
@@ -216,7 +239,7 @@ public class CalculatorPageController {
                         outputAir *= (1 + 0.9 + 1.2);
                     }
                 }
-                System.out.println("CO2: "+outputAir+"kg");
+                System.out.println("CO2: " + outputAir + "kg");
                 amount = 0;
             }
         }
@@ -229,12 +252,12 @@ public class CalculatorPageController {
             for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
                 if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
                     amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
-                    tempOutput += (amount*foodMap.get(((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue()))/1000;
+                    tempOutput += (amount * foodMap.get(((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue())) / 1000;
                 }
                 count++;
             }
             outputFood = tempOutput;
-            System.out.println("CO2: "+outputFood+"kg");
+            System.out.println("CO2: " + outputFood + "kg");
             amount = 0;
         }
     }
@@ -256,7 +279,7 @@ public class CalculatorPageController {
             count++;
         }
         outputPublicTransport = outputTemp;
-        System.out.println("CO2: "+outputPublicTransport+"kg");
+        System.out.println("CO2: " + outputPublicTransport + "kg");
         amount = 0;
     }
 }
