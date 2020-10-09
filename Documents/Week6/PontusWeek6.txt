@@ -1,0 +1,23 @@
+# Week 6
+## What do I want to learn or understand better?
+
+How the different date functions work in Java and SQLite.
+Maybe learn to ask a bit more for help when I'm stuck.
+
+## how can I help someone else, or the entire team, to learn something new?
+I have tried to comment as much of the code as amuch as possible and encourage the team members to look at the specific portions of the project which I know some may have trouble with.
+
+
+## What is my contribution towards the team's use of Scrum?
+Continued encouragement of SCRUM meetings to see what people have done and what they are struggling with in order to offer my help. 
+
+## What is my contribution towards the team's deliveries?
+I have continued implementing the ability to add relevant things to the DB. In this sprint I undertook my biggest task yet, adding a transport activity to the Db so that CO2 levels can be tracked for transports
+connected to previously added vehicles. 
+
+KPIs:
+1. How stressed did I feel at the beginning of the sprint: 2
+   How stressed dud I feel at the end of the sprint: 3
+2. How sattisfied did I feel of the sprint?: 3
+3. I took on a large task which quicly grew a little bit out of hand. I have it under control now but will probably have to sit a bit during the weekend to finish it. 
+large task = 5p (probably closer XL but not quite there). 
