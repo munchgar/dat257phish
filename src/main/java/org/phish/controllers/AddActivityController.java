@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.phish.Main;
+import org.phish.classes.TransportActivity;
 import org.phish.classes.User;
 import org.phish.classes.Vehicle;
 import org.phish.classes.VehicleType;
@@ -31,7 +32,9 @@ public class AddActivityController implements Initializable {
     private Calendar calendar = Calendar.getInstance();
 
     @FXML
-    private ChoiceBox transportTypeBox, vehicleChoiceBox;
+    private ChoiceBox<VehicleType> transportTypeBox;
+    @FXML
+    private ChoiceBox<Vehicle> vehicleChoiceBox; //todo not use raw data type
     @FXML
     private TextField titleField;
     @FXML
@@ -43,7 +46,9 @@ public class AddActivityController implements Initializable {
     @FXML
     private DatePicker datePicker;
     @FXML
-    private Spinner distanceSpinner, timesDaySpinner;
+    private Spinner<Integer> distanceSpinner;
+    @FXML
+    private Spinner<Integer> timesDaySpinner;
 
     public void updateVehiclesBox(ActionEvent actionEvent) {
         //todo if the personal vehicles is selected in the choicebox it shjould update the vehicles available and set it to the personal vehicles list
@@ -58,31 +63,27 @@ public class AddActivityController implements Initializable {
     }
 
     public void addBtnPressed(ActionEvent actionEvent) {
-        //tests first if the non-reoccurring items are filled
 
-        int year =datePicker.getValue().getYear();
-        int month = datePicker.getValue().getMonthValue();
-        int day = datePicker.getValue().getDayOfMonth();
-        System.out.println(year + " "+ month +" "+  day);
+        //todo fail safe
 
-        transportTypeBox.getSelectionModel().getSelectedItem();
-        vehicleChoiceBox.getSelectionModel().getSelectedItem();
-        titleField.getText().toString();
+        //TransportActivity transportActivityToAdd = new TransportActivity(1, Main.getCurrentUserId(), distanceSpinner.getValue(), datePicker.getValue().toString(), titleField.getText(), vehicleChoiceBox.getSelectionModel().getSelectedItem());
+        //System.out.println(transportActivityToAdd.toString() + " "+ transportActivityToAdd.getCalculatedCO2());
 
-        //tests the reoccurring items
+        //todo tests the reoccurring items
         if(reoccurringCheckBox.isSelected()){
             //todo check for additional fields related to the reoccurring components
 
-        } else
-        {
-    //todo errormessage
-        }
+        } else{ }
 
-        String sql = "INSERT INTO dateTest (dateCol) VALUES(?)";
+        String sql = "INSERT INTO transportActivity (FKuserId, activityName, distanceKm, FKVehicleId, date) VALUES(?, ?, ?, ?, ?)";
         try {
             try (Connection conn = dbHandler.connect();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) { // pstmt : Variable name?
-                    pstmt.setString(1, datePicker.getValue().toString());
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setInt(1, Main.getCurrentUserId());
+                    pstmt.setString(2, titleField.getText());
+                    pstmt.setInt(3, distanceSpinner.getValue());
+                    pstmt.setInt(4, vehicleChoiceBox.getSelectionModel().getSelectedItem().getVehicleId());
+                    pstmt.setString(5, datePicker.getValue().toString());
                     pstmt.executeUpdate();
                     System.out.println("Activity successfully added to DB");
             } catch (SQLException throwables) {
