@@ -8,26 +8,27 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.phish.Main;
+import org.phish.classes.User;
 import org.phish.classes.Vehicle;
 import org.phish.classes.VehicleType;
 import org.phish.database.DBHandler;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AddActivityController implements Initializable {
-
-
+    
     private final ObservableList <VehicleType> vehicleTypes = FXCollections.observableArrayList();
     private final ObservableList <Vehicle> vehicles = FXCollections.observableArrayList();
     private final ObservableList <Vehicle> personalVehicles = FXCollections.observableArrayList(); //todo make dynamic drop down list
 
     private final DBHandler dbHandler = new DBHandler();
+
+    private Calendar calendar = Calendar.getInstance();
 
     @FXML
     private ChoiceBox transportTypeBox, vehicleChoiceBox;
@@ -44,10 +45,8 @@ public class AddActivityController implements Initializable {
     @FXML
     private Spinner distanceSpinner, timesDaySpinner;
 
-
-
     public void updateVehiclesBox(ActionEvent actionEvent) {
-
+        //todo if the personal vehicles is selected in the choicebox it shjould update the vehicles available and set it to the personal vehicles list
     }
 
     public void updateReoccurring(ActionEvent actionEvent) {
@@ -58,28 +57,43 @@ public class AddActivityController implements Initializable {
         }
     }
 
-    public void cancel(ActionEvent actionEvent) {
-        Stage stage = (Stage) cancelBtn.getScene().getWindow();
-        stage.close();
-    }
-
     public void addBtnPressed(ActionEvent actionEvent) {
         //tests first if the non-reoccurring items are filled
 
-            transportTypeBox.getSelectionModel().getSelectedItem();
-            vehicleChoiceBox.getSelectionModel().getSelectedItem();
-            titleField.getText().toString();
+        int year =datePicker.getValue().getYear();
+        int month = datePicker.getValue().getMonthValue();
+        int day = datePicker.getValue().getDayOfMonth();
+        System.out.println(year + " "+ month +" "+  day);
 
-            //tests the reoccurring items
-            if(reoccurringCheckBox.isSelected()){
+        transportTypeBox.getSelectionModel().getSelectedItem();
+        vehicleChoiceBox.getSelectionModel().getSelectedItem();
+        titleField.getText().toString();
 
-            } else
-    {
-        //todo errormessage
-    }
+        //tests the reoccurring items
+        if(reoccurringCheckBox.isSelected()){
+            //todo check for additional fields related to the reoccurring components
+
+        } else
+        {
+    //todo errormessage
         }
 
-    @Override
+        String sql = "INSERT INTO dateTest (dateCol) VALUES(?)";
+        try {
+            try (Connection conn = dbHandler.connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) { // pstmt : Variable name?
+                    pstmt.setString(1, datePicker.getValue().toString());
+                    pstmt.executeUpdate();
+                    System.out.println("Activity successfully added to DB");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+        @Override
     public void initialize(URL location, ResourceBundle resources) {
         setReoccurringInvisible();
         setUpVehicleTypeBox();
@@ -90,6 +104,7 @@ public class AddActivityController implements Initializable {
         datePicker.setValue(ld);
         //The datePicker is set to not be editable as it is too time-consuming to add fail safes for user interaction
         datePicker.setEditable(false);
+
     }
 
     //Sets up the distance spinner and the times per day spinner
@@ -173,5 +188,9 @@ public class AddActivityController implements Initializable {
         satBtn.setDisable(false);
         sunBtn.setDisable(false);
         timesDaySpinner.setDisable(false);
+    }
+    public void cancel(ActionEvent actionEvent) {
+        Stage stage = (Stage) cancelBtn.getScene().getWindow();
+        stage.close();
     }
 }

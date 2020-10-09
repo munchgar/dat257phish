@@ -32,11 +32,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Calendar date = new GregorianCalendar();
-        date.set(2020, 10, 4);
-        TransportActivity transportActivity = new TransportActivity(1, 2, date);
-        System.out.println(transportActivity.getDate().getTime().getDay());
-
         DBHandler dbHandler = new DBHandler();
         dbHandler.Testconnection();
 
