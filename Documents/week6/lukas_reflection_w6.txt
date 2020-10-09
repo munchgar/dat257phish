@@ -18,4 +18,4 @@ completly which might make it harder for my team to follow the agile working met
     I check the pushes done to github continuously in order to make sure that the team "understands" our goal and if something is not right I try to fix it (same 
 as last week). I have now done a implementation of the database class (which is no longer an interface since we found this better fitting). And I also try to help as a SCRUM master when 
 other members need help. I think I can improve this drastically by having more team meetings where I can help others, instead of just writing in our discord chat. Which is something I will
-try to bring up on the next meeting. 
+try to bring up on the next meeting.  
