@@ -18,11 +18,11 @@ import java.io.IOException;
 import java.util.Map;
 
 public class CalculatorPageController {
+    double outputHousehold = 0;
     double outputAir = 0;
     double outputVehicle = 0;
     double outputFood = 0;
     double outputPublicTransport = 0;
-    double outputHome = 0; //!!!!
     double amount = 0;
     int foodCount = 0;
     int vehicleCount = 0;
@@ -44,11 +44,6 @@ public class CalculatorPageController {
             "Other imported vegetables", "Coffee", "Tea", "Sweets", "Cod", "Salmon", "Vegetarian meat substitute", "Vegetarian dairy substitute"
     );
 
-    static ObservableList<String> houseTypes = FXCollections.observableArrayList(
-            "Apartment",
-            "Villa",
-            "Town House"
-    );
     static ObservableList<String> vehicleTypes = FXCollections.observableArrayList(
             "Type of Vehicle",
             "Petrol Car",
@@ -67,6 +62,11 @@ public class CalculatorPageController {
             "Train outside of Sweden",
             "Ferry"
     );
+
+    @FXML
+    TextField txtAmountMember;
+    @FXML
+    TextField txtBillPrice;
     @FXML
     Button btnCalcAir;
     @FXML
@@ -94,9 +94,7 @@ public class CalculatorPageController {
     @FXML
     VBox vBoxTransportAmount;
     @FXML
-    Button btnCalcHouse;
-   /* @FXML
-    ChoiceBox<String> houseType;*/
+    ChoiceBox chboxHouseType;
 
 
     public void AddVehicle(ActionEvent actionEvent) throws IOException {
@@ -118,15 +116,6 @@ public class CalculatorPageController {
             vBoxVehicleSize.getChildren().add(choiceVehicleSize);
             vBoxVehicleAmount.getChildren().add(txtVehicleAmount);
         }
-    }
-
-    public void AddHouse(ActionEvent actionEvent) throws IOException {
-
-            //Creates a new choiceBox for public transport types
-            ChoiceBox choiceHouseType = new ChoiceBox<String>(houseTypes);
-            choiceHouseType.setId("choiceHouseType" + houseTypes);
-            choiceHouseType.setValue("Type pf House");
-
     }
 
     public void AddFood(ActionEvent actionEvent) throws IOException {
@@ -281,6 +270,25 @@ public class CalculatorPageController {
         outputPublicTransport = outputTemp;
         System.out.println("CO2: " + outputPublicTransport + "kg");
         amount = 0;
+    }
+
+    public void CalculateHousehold(ActionEvent actionEvent) throws IOException {
+        if (!(txtBillPrice.getText().equals("")) && txtBillPrice.getText().matches("[0-9]+") && txtBillPrice.getText().length() < 8) {
+            if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
+                switch ((String)chboxHouseType.getValue()) {
+                    //Calcs blir till int, vilket inte är så nice så ska fixa det så det blir double
+                    case "Apartment" -> outputHousehold = ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    case "Villa" -> outputHousehold = ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    case "Town House" -> outputHousehold = ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    default -> System.out.println("Error");
+                }
+                System.out.println("CO2: " + outputHousehold + "kg");
+            } else {
+                System.out.println("Please enter the amount of people you are living with first");
+            }
+        } else {
+            System.out.println("Please enter how much your electrical bill was on first");
+        }
     }
 }
 
