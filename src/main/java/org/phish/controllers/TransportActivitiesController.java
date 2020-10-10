@@ -80,7 +80,7 @@ public class TransportActivitiesController implements Initializable {
 
         //load Transport activities from DB
         transportActivities.clear();
-        SQLquery = "SELECT * FROM transportActivity WHERE FKuserId=" +Main.getCurrentUserId();
+        SQLquery = "SELECT * FROM transportActivity WHERE FKuserId=" +Main.getCurrentUserId() + " ORDER BY date ASC";
         try (Connection conn = dbHandler.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(SQLquery)){
