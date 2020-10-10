@@ -1,0 +1,19 @@
+- What do I want to learn or understand better?
+A: Since I have been working on the database more this sprint I have gotten a better idea of how it is implemented and currently used in all parts of the application.
+B: I want to get a better understanding of how to query the database for information that can be presented in a meaningful and effective way on the statistics page.
+A->B: I will review the database schema and focus on how to translate the raw data into easily readable statistics. 
+
+- How can I help someone else, or the entire team, to learn something new?
+A: I have continued to document my code, especially public methods, with comments which hopefully minimizes confusion. During meetings I have brought up ideas that have come to mind relating to the implementation of the database.
+B: I still want to do more code reviewing since I feel like it can really help everyone get a clearer sense of the project as a whole.
+A->B: I will assign myself as a reviewer more often for new pull requests and encourage other team members to do the same. 
+
+- What is my contribution towards the team's use of Scrum?
+A: I have been active during the planning meeting and helped decide which user stories to tackle this sprint. I made sure I assigned myself to enough tasks so that I am able to meet our point target.
+B: I want to utilize our new KPI:s in a meaningful way.
+A->B: I will push for the group to focus more on reviewing the last sprint before we plan the next one so that we can properly address the KPI:s.
+ 
+- What is my contribution towards the team's deliveries?
+A: I have switched focus this sprint to implementing and designing parts of the database.
+B: I want the whole database implementation to be finished so that we can begin to present meaningful data and think about how to do that with respect to the database.
+A->B: During the next planning meeting I will bring up what user stories I feel are the most important and discuss them with the team.
