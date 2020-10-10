@@ -1,5 +1,6 @@
 package org.phish.classes;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,6 +31,7 @@ public class TransportActivity {
     //private Vehicle vehicle; //Ugly way to do it //todo
 
     //Maybe reoccurring can extend this class?
+    private SimpleBooleanProperty reoccurring;
 
 
     public TransportActivity(int activityId, int userId, int distance, String date, String activityName, Vehicle vehicle) {
@@ -42,6 +44,7 @@ public class TransportActivity {
         this.vehicleName = new SimpleStringProperty(vehicle.getVehicleName());
         this.efficiency = new SimpleDoubleProperty(vehicle.getKmLitre());
         this.calculatedCO2 = new SimpleDoubleProperty(efficiency.get()*distance);
+        this.reoccurring = new SimpleBooleanProperty(false);
     }
 
     public int getActivityId() {
@@ -98,6 +101,18 @@ public class TransportActivity {
 
     public SimpleStringProperty activityNameProperty() {
         return activityName;
+    }
+
+    public boolean isReoccurring() {
+        return reoccurring.get();
+    }
+
+    public SimpleBooleanProperty reoccurringProperty() {
+        return reoccurring;
+    }
+
+    public void setReoccurring(boolean reoccurring) {
+        this.reoccurring.set(reoccurring);
     }
 
     @Override

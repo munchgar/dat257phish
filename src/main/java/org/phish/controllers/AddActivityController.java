@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.phish.Main;
 import org.phish.classes.TransportActivity;
@@ -49,6 +51,8 @@ public class AddActivityController implements Initializable {
     private Spinner<Integer> distanceSpinner;
     @FXML
     private Spinner<Integer> timesDaySpinner;
+    @FXML
+    private Text errorText;
 
     public void updateVehiclesBox(ActionEvent actionEvent) {
         //todo if the personal vehicles is selected in the choicebox it shjould update the vehicles available and set it to the personal vehicles list
@@ -65,20 +69,24 @@ public class AddActivityController implements Initializable {
     public void addBtnPressed(ActionEvent actionEvent) {
 
         //todo fail safe
+        if(!titleField.getText().isBlank()) {
+            errorText.setVisible(false);
 
-        //TransportActivity transportActivityToAdd = new TransportActivity(1, Main.getCurrentUserId(), distanceSpinner.getValue(), datePicker.getValue().toString(), titleField.getText(), vehicleChoiceBox.getSelectionModel().getSelectedItem());
-        //System.out.println(transportActivityToAdd.toString() + " "+ transportActivityToAdd.getCalculatedCO2());
 
-        //todo tests the reoccurring items
-        if(reoccurringCheckBox.isSelected()){
-            //todo check for additional fields related to the reoccurring components
+            //TransportActivity transportActivityToAdd = new TransportActivity(1, Main.getCurrentUserId(), distanceSpinner.getValue(), datePicker.getValue().toString(), titleField.getText(), vehicleChoiceBox.getSelectionModel().getSelectedItem());
+            //System.out.println(transportActivityToAdd.toString() + " "+ transportActivityToAdd.getCalculatedCO2());
 
-        } else{ }
+            //todo tests the reoccurring items
+            if (reoccurringCheckBox.isSelected()) {
+                //todo check for additional fields related to the reoccurring components
 
-        String sql = "INSERT INTO transportActivity (FKuserId, activityName, distanceKm, FKVehicleId, date) VALUES(?, ?, ?, ?, ?)";
-        try {
-            try (Connection conn = dbHandler.connect();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            } else {
+            }
+
+            String sql = "INSERT INTO transportActivity (FKuserId, activityName, distanceKm, FKVehicleId, date) VALUES(?, ?, ?, ?, ?)";
+            try {
+                try (Connection conn = dbHandler.connect();
+                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, Main.getCurrentUserId());
                     pstmt.setString(2, titleField.getText());
                     pstmt.setInt(3, distanceSpinner.getValue());
@@ -86,11 +94,17 @@ public class AddActivityController implements Initializable {
                     pstmt.setString(5, datePicker.getValue().toString());
                     pstmt.executeUpdate();
                     System.out.println("Activity successfully added to DB");
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        else {
+            errorText.setText("All fields must be entered");
+            errorText.setVisible(true);
+            errorText.setFill(Color.RED);
         }
     }
 
@@ -105,7 +119,7 @@ public class AddActivityController implements Initializable {
         datePicker.setValue(ld);
         //The datePicker is set to not be editable as it is too time-consuming to add fail safes for user interaction
         datePicker.setEditable(false);
-
+        errorText.setVisible(false);
     }
 
     //Sets up the distance spinner and the times per day spinner
@@ -129,7 +143,6 @@ public class AddActivityController implements Initializable {
              ResultSet rs    = stmt.executeQuery(SQLquery)){
             while(rs.next()){
                 try {
-                    System.out.println(rs.getString("type"));
                     vehicleTypes.add(new VehicleType(rs.getInt("vehicleTypeId"), rs.getString("type")));
                 }catch (Exception ex){
                     ex.printStackTrace();
