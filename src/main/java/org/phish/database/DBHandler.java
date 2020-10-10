@@ -4,7 +4,8 @@ import java.sql.*;
 
 public class DBHandler {
 
-    private static final String url = "jdbc:sqlite:src/main/java/org/phish/database/userDB.db";
+    //private static final String url = "jdbc:sqlite:src/main/java/org/phish/database/userDB.db";
+    private static final String url = "jdbc:sqlite:src/main/java/org/phish/database/userDBv2.db";
     Connection conn;
 
 

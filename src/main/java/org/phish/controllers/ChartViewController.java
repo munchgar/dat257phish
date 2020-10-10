@@ -17,15 +17,15 @@ public class ChartViewController {
     @FXML
     private PieChart co2SourcePieChart;
 
-    private XYChart.Series co2OverTimeSeries = new XYChart.Series();
+    private final XYChart.Series<String, Number> co2OverTimeSeries = new XYChart.Series<>();
 
     public void initialize() {
-        co2OverTimeChart.getData().add(co2OverTimeSeries);
+        // Having animations on this chart causes series duplication errors (https://stackoverflow.com/questions/32151435/)
+        co2OverTimeChart.setAnimated(false);
     }
 
     // Currently a dummy method, should connect to db and append data relevant to specified timeframe and possibly other factors
-    private void populateLineChart (TimeFrame timeFrame, XYChart.Series chartSeries) {
-
+    private void populateLineChart (TimeFrame timeFrame, XYChart.Series<String, Number> chartSeries) {
         switch (timeFrame) {
             case LAST_WEEK:
                 chartSeries.getData().add(new XYChart.Data("Sunday", 20));
@@ -77,8 +77,24 @@ public class ChartViewController {
         }
     }
 
-    public void populate (TimeFrame timeFrame) {
-        populateLineChart(timeFrame, co2OverTimeSeries);
-        populatePieChart(timeFrame, co2SourcePieChart);
+    // Populates all the charts with the timeFrame and category provided.
+    public void populate (TimeFrame timeFrame, String category) {
+        clearCharts();
+        co2OverTimeChart.getData().add(co2OverTimeSeries);
+        switch (category) {
+            case "Total":
+                populateLineChart(timeFrame, co2OverTimeSeries);
+                populatePieChart(timeFrame, co2SourcePieChart);
+                break;
+            case "Housing":
+                populateLineChart(timeFrame, co2OverTimeSeries);
+                break;
+        }
+    }
+
+    private void clearCharts() {
+        co2SourcePieChart.getData().clear();
+        co2OverTimeChart.getData().clear();
+        co2OverTimeSeries.getData().clear();
     }
 }

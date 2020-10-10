@@ -53,9 +53,9 @@ public class UserViewController implements Initializable {
             ResultSet rs = dbHandler.execQuery(SQLquery); // Execute query
             while (rs.next()) {
                 try {
-                    // System.out.println(rs.getInt("id")+ rs.getString("fName")+ rs.getString("lName"));
-                    users.add(new User(rs.getInt("id"), rs.getString("fName"), rs.getString("lName")));
-                } catch (Exception ex) {
+                   // System.out.println(rs.getInt("id")+ rs.getString("fName")+ rs.getString("lName"));
+                    users.add(new User(rs.getInt("userId"), rs.getString("fName"), rs.getString("lName")));
+                }catch (Exception ex){
                     ex.printStackTrace();
                 }
             }
