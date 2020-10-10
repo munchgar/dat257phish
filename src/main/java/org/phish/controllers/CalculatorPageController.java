@@ -290,6 +290,9 @@ public class CalculatorPageController {
             System.out.println("Please enter how much your electrical bill was on first");
         }
     }
+    public void CalculateResult (ActionEvent actionEvent){
+        double outputResult = outputVehicle + outputPublicTransport + outputFood + outputAir + outputHousehold;
+        System.out.println("Your total emissions has added up to " + outputResult + "Kg (CO2)");
+    }
 }
-
 
