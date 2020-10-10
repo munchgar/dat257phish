@@ -70,6 +70,20 @@ public class Main extends Application {
 
     }
 
+    public static void showLoginWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("LoginPage.fxml"));
+        BorderPane login = loader.load();
+
+        Stage stage = new Stage();
+        stage.setTitle("LOGIN");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(primaryStage);
+        Scene scene = new Scene(login);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

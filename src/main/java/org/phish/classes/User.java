@@ -4,10 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import org.phish.database.DBHandler;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class User {
     private final SimpleIntegerProperty id;
@@ -22,26 +19,34 @@ public class User {
         this.lName = new SimpleStringProperty(lName);
     }
 
-    public boolean register() {
+    public int register(String username, String password) throws SQLException {
+        if (password.length() == 0 || username.length() == 0) {
+            return -1;
+        }
+
         // Attempt to register via the database
-        String SQLquery = "SELECT fName, lName FROM userTable"; // Do we need * or only fName and lName?
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery)){
-            while(rs.next()){
+        String SQLquery = "SELECT username FROM userTable"; // Do we need * or only fName and lName?
+        if (dbHandler.connect()) { // Attempt to connect to database.
+            ResultSet rs = dbHandler.execQuery(SQLquery); // Execute query
+            while (rs.next()) {
                 try {
-                    if (rs.getString("fName").equals(fName) && rs.getString("lName").equals(lName)) {
+                    if (rs.getString("username").equals(username) && username.length() > 0) {
                         System.out.println("USER ALREADY EXISTS");
+                        return 0;
                     }
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
+            String input = fName.getName() + ", " + lName.getName() + ", " + username + ", " + password;
+            String query = "INSERT INTO userTable (fName, lName, username, password) VALUES (" + input + ")";
 
-        return false; // If unable to register return false
+            dbHandler.execQuery(query);
+            System.out.println("User successfully added to DB");
+
+
+        }
+        return 0; // If unable to register return false
     }
 
     public int getId() {
@@ -50,7 +55,7 @@ public class User {
 
   /*  public SimpleIntegerProperty idProperty() {
         return id;
-    }*/
+    } */
 
     public String getFName() {
         return fName.get();
