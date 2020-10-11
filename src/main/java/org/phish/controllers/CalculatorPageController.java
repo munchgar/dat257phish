@@ -9,15 +9,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import org.phish.classes.FoodItem;
+import org.phish.database.DBHandler;
+
 import java.lang.Math;
 
 import javafx.scene.layout.VBox;
 import org.phish.Main;
 
 import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class CalculatorPageController {
+    DBHandler dbHandler = new DBHandler();
+
     double outputHousehold = 0;
     double outputAir = 0;
     double outputVehicle = 0;
@@ -27,22 +34,9 @@ public class CalculatorPageController {
     int foodCount = 0;
     int vehicleCount = 0;
     int publicTransportCount = 0;
-    private static final Map<String, Double> foodMap = Map.ofEntries(
-            Map.entry("Type of Food", 0.0), Map.entry("Beef", 48.4), Map.entry("Lamb", 45.4), Map.entry("Pork", 6.0), Map.entry("Chicken", 2.06),
-            Map.entry("Other ruminant meat", 48.1), Map.entry("Other monogastric meat", 4.2), Map.entry("Eggs", 1.6), Map.entry("Milk/Yogurt", 1.1), Map.entry("Cream", 6.0),
-            Map.entry("Butter", 12.7), Map.entry("Cheese", 9.7), Map.entry("Bread", 0.8), Map.entry("Pasta", 1.2), Map.entry("Rice", 2.3), Map.entry("Other cereals", 1.0),
-            Map.entry("Apples", 0.3), Map.entry("Oranges", 0.8), Map.entry("Bananas", 0.6), Map.entry("Other regional fruits", 0.3), Map.entry("Other imported fruits", 3.5),
-            Map.entry("Onions", 0.1), Map.entry("Carrots & other root vegetables", 0.2), Map.entry("Tomatoes", 1.5), Map.entry("Cabbage", 0.5), Map.entry("Lettuce", 0.3),
-            Map.entry("Other regional vegetables", 0.3), Map.entry("Other imported vegetables", 3.5), Map.entry("Coffee", 1.0), Map.entry("Tea", 1.0), Map.entry("Salmon", 2.7),
-            Map.entry("Sweets", 1.9), Map.entry("Cod", 1.6), Map.entry("Vegetarian meat substitute", 0.8), Map.entry("Vegetarian dairy substitute", 0.9)
-    );
+    private static ArrayList<FoodItem> foodItemList = new ArrayList<>();
 
-    static ObservableList<String> foodChoices = FXCollections.observableArrayList(
-            "Type of Food", "Beef", "Lamb", "Pork", "Chicken", "Other ruminant meat", "Other monogastric meat", "Eggs", "Milk/Yogurt", "Cream",
-            "Butter", "Cheese", "Bread", "Pasta", "Rice", "Other cereals", "Apples", "Oranges", "Bananas", "Other regional fruits",
-            "Other imported fruits", "Onions", "Carrots & other root vegetables", "Tomatoes", "Cabbage", "Lettuce", "Other regional vegetables",
-            "Other imported vegetables", "Coffee", "Tea", "Sweets", "Cod", "Salmon", "Vegetarian meat substitute", "Vegetarian dairy substitute"
-    );
+    static ObservableList<FoodItem> foodChoices;
 
     static ObservableList<String> vehicleTypes = FXCollections.observableArrayList(
             "Type of Vehicle",
@@ -96,6 +90,27 @@ public class CalculatorPageController {
     @FXML
     ChoiceBox chboxHouseType;
 
+    @FXML
+    public void initialize() {
+        fetchFoodItems();
+    }
+
+
+    private void fetchFoodItems() {
+        String SQLquery = "SELECT * FROM foodItem";
+        try (Connection conn = dbHandler.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(SQLquery))
+        {
+            while (rs.next()) {
+                foodItemList.add(new FoodItem(rs.getInt("foodID"), rs.getString("foodName"),rs.getDouble("co2g")));
+            }
+        foodChoices = FXCollections.observableArrayList(foodItemList);
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 
     public void AddVehicle(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == btnAddVehicle) {
@@ -121,7 +136,7 @@ public class CalculatorPageController {
     public void AddFood(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == btnAddMoreFood) {
             //Creates a new choiceBox for food types
-            ChoiceBox choiceFoodType = new ChoiceBox<String>(foodChoices);
+            ChoiceBox choiceFoodType = new ChoiceBox<FoodItem>(foodChoices);
             choiceFoodType.setId("choiceFoodType" + foodCount);
             choiceFoodType.setValue("Type of Food");
             //Creates a new textField for food amount
@@ -241,7 +256,7 @@ public class CalculatorPageController {
             for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
                 if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
                     amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
-                    tempOutput += (amount * foodMap.get(((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue())) / 1000;
+                    tempOutput += (amount * (((FoodItem)((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue()).getCo2g())) / 1000; // ¯\_(ツ)_/¯
                 }
                 count++;
             }
