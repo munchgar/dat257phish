@@ -1,0 +1,21 @@
+Lukas Carling
+
+- What do I want to learn or understand better?
+    I feel like I express more energy during meetings which I think is a good improvement. What I do feel like I need to improve during meetings is to have a clear agenda since it does
+not really feel like we have a structure of the meetings yet. And as a SCRUM master I would want to bring more things to the table. I believe I can achieve this by doing some pre-planning
+before meetings.
+
+- How can I help someone else, or the entire team, to learn something new? 
+    It is important for everyone to feel welcome in our meetings and feel like they are able to talk. I believe I can help someone else by actively trying to invite them to conversation. 
+By doing that I believe they will be able to talk more if they feel comfortable doing it.
+
+- What is my contribution towards the team’s use of Scrum?
+    We have gotten a greater setup of the SCRUM board which helps me and my team to have a good structure of tasks. I actively try to look at tasks and see if there are any improvements to
+be made. I help break down user stories to tasks and epics to user stories etcetera. I believe I can still improve the way I work though since I might not follow the tasks / user stories 
+completly which might make it harder for my team to follow the agile working method. This means I should work more actively on following our scrum board.
+
+- What is my contribution towards the team’s deliveries?
+    I check the pushes done to github continuously in order to make sure that the team "understands" our goal and if something is not right I try to fix it (same 
+as last week). I have now done a implementation of the database class (which is no longer an interface since we found this better fitting). And I also try to help as a SCRUM master when 
+other members need help. I think I can improve this drastically by having more team meetings where I can help others, instead of just writing in our discord chat. Which is something I will
+try to bring up on the next meeting.  

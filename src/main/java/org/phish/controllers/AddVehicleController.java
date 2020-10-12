@@ -71,7 +71,8 @@ public class AddVehicleController implements Initializable {
                         pstmt.setString(5, name);
                         pstmt.executeUpdate();
                         System.out.println("Vehicle successfully added to DB");
-                    }
+
+                }
                 clearFields();
         }
     }

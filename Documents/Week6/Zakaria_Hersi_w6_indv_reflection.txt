@@ -1,0 +1,24 @@
+Zakaria Hersi individual reflection for Week 6
+
+-- My contribution
+During this sprint i got to further work with javafx and get a better understanding of how to work with it,
+and also get an insight of how the database really works and learn the core basics of the operation
+needed to insert and extract data from the DB. I was also very persistent with how we should stay working
+agile and really sticking to our SCRUM-board that we constantly are trying to improve. The main focus was
+to implement a UI tabs for the household calculation and get different ways to calculate how electrical
+usage would be related with CO2 emission.
+
+-- My weaknesses and things I found difficult
+I did found it difficult to understand this weeks task. Specifically my share of the "Cake" and i really dont know
+how it really happened. During the meeting i had an idea of what should be done but as soon as i got to work
+with my tasks i completely didn't know what i would do in order to fit the rest of the teams implementation.
+
+
+--Kpi levels
+1) The stress levels (1-5):
+                  Beginning = 3
+                  Mid = 2
+                  End = 2
+2) Satisfaction level of this sprint = 3
+3. The size of both of my tasks was relatively correct and i got to get a smoother workflow now since im
+more comfortable with the tools we are using (Scenebuilder etc) and i think i'll manage my 4 point.
