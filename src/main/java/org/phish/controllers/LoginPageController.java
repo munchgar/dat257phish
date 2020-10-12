@@ -29,7 +29,7 @@ public class LoginPageController {
             while (rs.next()) {
                 System.out.println(rs.getString("username"));
                 if (rs.getString("username").equals(idUsername.getText()) && (rs.getString("password").equals(idPassword.getText()))) {
-                    System.out.println("USER LOGGED IN");
+                    System.out.println("USER LOGGED IN"); // Implement login for user ID PRIMARY KEY IN DB
                 }
             }
         }
