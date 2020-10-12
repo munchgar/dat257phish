@@ -46,6 +46,7 @@ public class DBHandler {
     public boolean execUpdate(String query) throws SQLException {
         Statement stmt  = conn.createStatement();
         stmt.executeUpdate(query);
+        conn = null; // Kill connection
         return true;
     }
 
@@ -53,7 +54,7 @@ public class DBHandler {
 
         Statement stmt  = conn.createStatement();
         ResultSet rs    = stmt.executeQuery(query);
-
+        conn = null; // Kill connection
         return rs;
     }
 
