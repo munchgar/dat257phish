@@ -257,7 +257,7 @@ public class CalculatorPageController {
             for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
                 if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
                     amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
-                    tempOutput += (amount * (((FoodItem)((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue()).getCo2g())) / 1000; // ¯\_(ツ)_/¯
+                    tempOutput += (amount * (((FoodItem)((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue()).getCo2g())) / 1000; // ¯\_(ツ)_/¯ <-- WTF
                 }
                 count++;
             }
@@ -308,4 +308,27 @@ public class CalculatorPageController {
     }
 }
 
+    public void CalculateHousehold(ActionEvent actionEvent) throws IOException {
+        if (!(txtBillPrice.getText().equals("")) && txtBillPrice.getText().matches("[0-9]+") && txtBillPrice.getText().length() < 8) {
+            if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
+                switch ((String)chboxHouseType.getValue()) {
+                    //Calcs blir till int, vilket inte är så nice så ska fixa det så det blir double
+                    case "Apartment" -> outputHousehold = (double)((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    case "Villa" -> outputHousehold = (double)((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    case "Town House" -> outputHousehold = (double)((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    default -> System.out.println("Error");
+                }
+                System.out.println("CO2: " + outputHousehold + "kg");
+            } else {
+                System.out.println("Please enter the amount of people you are living with first");
+            }
+        } else {
+            System.out.println("Please enter how much your electrical bill was on first");
+        }
+    }
+    public void CalculateResult (ActionEvent actionEvent){
+        double outputResult = outputVehicle + outputPublicTransport + outputFood + outputAir + outputHousehold;
+        System.out.println("Your total emissions has added up to " + outputResult + "Kg (CO2)");
+    }
+}
 
