@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.phish.Main;
 
+
 import java.io.IOException;
 
 public class MainSectionsController {
@@ -12,7 +13,6 @@ public class MainSectionsController {
     @FXML
     public void showUserView(ActionEvent actionEvent) throws IOException {
         Main.loadCenter("UserView.fxml");
-
 
     }
 
@@ -25,5 +25,9 @@ public class MainSectionsController {
 
     public void showVehicles(ActionEvent actionEvent)throws IOException{
         Main.loadCenter("VehiclesPage.fxml");
+    }
+
+    public void showActivities(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("TransportActivities.fxml");
     }
 }

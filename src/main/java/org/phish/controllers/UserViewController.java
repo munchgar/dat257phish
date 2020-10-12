@@ -45,14 +45,13 @@ public class UserViewController implements Initializable {
 
 
     @FXML
-    public void refreshUserData(){
+    public void refreshUserData() throws SQLException {
         users.clear();
         String SQLquery = "SELECT * FROM userTable";
 
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery)){
-            while(rs.next()){
+        if(dbHandler.connect()) { // Attempt to connect to database.
+            ResultSet rs = dbHandler.execQuery(SQLquery); // Execute query
+            while (rs.next()) {
                 try {
                    // System.out.println(rs.getInt("id")+ rs.getString("fName")+ rs.getString("lName"));
                     users.add(new User(rs.getInt("userId"), rs.getString("fName"), rs.getString("lName")));
@@ -60,9 +59,8 @@ public class UserViewController implements Initializable {
                     ex.printStackTrace();
                 }
             }
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
         }
+
         loadUserData();
     }
 

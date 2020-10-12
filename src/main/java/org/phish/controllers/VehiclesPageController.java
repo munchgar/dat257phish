@@ -52,20 +52,20 @@ public class VehiclesPageController implements Initializable {
     private void loadData() {
         vehicles.clear();
         String SQLquery = "SELECT * FROM vehicles WHERE FKuserId=" +Main.getCurrentUserId();
-
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery)){
-            while(rs.next()){
-                try {
-                    //public Vehicle(int vehicleId, int userId, int vehicleType, int fuelType, double kmLitre, String vehicleName)
-                    vehicles.add(new Vehicle(rs.getInt("vehicleId"), rs.getInt("FKuserId"), rs.getInt("FKvehicleTypeId"),
-                            rs.getInt("FKfuelType"), rs.getDouble("litresKilometer"), rs.getString("vehicleName")));
-                }catch (Exception ex){
-                    ex.printStackTrace();
+        try {
+            if (dbHandler.connect()) {
+                ResultSet rs = dbHandler.execQuery(SQLquery); // Execute query
+                while (rs.next()) {
+                    try {
+                        //public Vehicle(int vehicleId, int userId, int vehicleType, int fuelType, double kmLitre, String vehicleName)
+                        vehicles.add(new Vehicle(rs.getInt("vehicleId"), rs.getInt("FKuserId"), rs.getInt("FKvehicleTypeId"),
+                                rs.getInt("FKfuelType"), rs.getDouble("litresKilometer"), rs.getString("vehicleName")));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e){
             System.out.println(e.getMessage());
         }
         //vehicles.add(new Vehicle(10, 1, 1, 1, 0.8, "testVehicle", "Personal","Diesel" ));

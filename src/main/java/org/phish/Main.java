@@ -88,7 +88,6 @@ public class Main extends Application {
         stage.showAndWait();
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }

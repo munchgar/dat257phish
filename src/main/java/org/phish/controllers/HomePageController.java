@@ -21,5 +21,8 @@ public class HomePageController {
     public void showMainSec(ActionEvent actionEvent) throws IOException{
         Main.loadCenter("MainSections.fxml");
     }
+    public void showSignUpSec (ActionEvent actionEvent) throws  IOException{
+        Main.loadCenter("SignUp.fxml");
+    }
 
 }
