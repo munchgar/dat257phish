@@ -110,40 +110,41 @@ public class AddVehicleController implements Initializable {
 
         //VehicleTypeBox
         String SQLquery = "SELECT * FROM vehicleType";
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery)){
-            while(rs.next()){
-                try {
-                    System.out.println(rs.getString("type"));
-                    vehicleTypes.add(new VehicleType(rs.getInt("vehicleTypeId"), rs.getString("type")));
-                }catch (Exception ex){
-                    ex.printStackTrace();
+        try {
+            if (dbHandler.connect()) {
+                ResultSet rs = dbHandler.execQuery(SQLquery);
+                while(rs.next()){
+                    try {
+                        System.out.println(rs.getString("type"));
+                        vehicleTypes.add(new VehicleType(rs.getInt("vehicleTypeId"), rs.getString("type")));
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                    vehicleTypeBox.setItems(vehicleTypes);
                 }
-                vehicleTypeBox.setItems(vehicleTypes);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
         //FueltypeBox
         String SQLquery2 = "SELECT * FROM fuelType";
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery2)){
-            while(rs.next()){
-                try {
-                    System.out.println(rs.getString("fuelName"));
-                    fuelTypes.add(new FuelType(rs.getInt("fuelId"), rs.getString("fuelName"), rs.getInt("gCO2Litre")));
-                }catch (Exception ex){
-                    ex.printStackTrace();
+        try {
+            if (dbHandler.connect()) {
+                ResultSet rs = dbHandler.execQuery(SQLquery2);
+                while(rs.next()){
+                    try {
+                        System.out.println(rs.getString("fuelName"));
+                        fuelTypes.add(new FuelType(rs.getInt("fuelId"), rs.getString("fuelName"), rs.getInt("gCO2Litre")));
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                    fuelTypeBox.setItems(fuelTypes);
                 }
-                fuelTypeBox.setItems(fuelTypes);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
         //Sets a default value in the choiceboxes, obs! not hardcoded but taken from the values from the DB
         vehicleTypeBox.setValue(vehicleTypes.get(0));
         fuelTypeBox.setValue(fuelTypes.get(0));
