@@ -54,8 +54,9 @@ public class DBHandler {
 
         Statement stmt  = conn.createStatement();
         ResultSet rs    = stmt.executeQuery(query);
-        conn = null; // Kill connection
-        return rs; // return rs
+        conn = null; // Kills connection
+        return rs;
+
     }
 
     public Connection getConn() {
