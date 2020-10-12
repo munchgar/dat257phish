@@ -39,7 +39,7 @@ public class Vehicle {
         try {
             if (dbHandler.connect()) {
                 ResultSet rs = dbHandler.execQuery(SQLquery); // Execute query
-                this.fuelTypeString=  new SimpleStringProperty(rs.getString("fuelName"));
+                this.fuelTypeString=  new SimpleStringProperty(rs.getString("type"));
             }
         } catch(SQLException e) {
             System.out.println((e.getMessage()));
