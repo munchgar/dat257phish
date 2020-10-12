@@ -69,6 +69,7 @@ public class VehiclesPageController implements Initializable {
             System.out.println(e.getMessage());
         }
         //vehicles.add(new Vehicle(10, 1, 1, 1, 0.8, "testVehicle", "Personal","Diesel" ));
+
     }
 
     private void initColumns() {
@@ -78,9 +79,5 @@ public class VehiclesPageController implements Initializable {
         vehicleEfficiencyCol.setCellValueFactory(new PropertyValueFactory<Vehicle, Double>("kmLitre"));
         //loadData();
         vehiclesTableView.setItems(vehicles);
-    }
-
-    public void refresh(ActionEvent actionEvent) {
-        loadData();
     }
 }

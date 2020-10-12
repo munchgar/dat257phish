@@ -62,20 +62,17 @@ public class AddVehicleController implements Initializable {
             int userId = Main.getCurrentUserId();
 
             String sql = "INSERT INTO vehicles (FKuserId, FKvehicleTypeId, FKfuelType, litresKilometer, vehicleName) VALUES(?,?,?,?,?)";
-
-               if(dbHandler.connect()) {
-                   PreparedStatement pstmt = dbHandler.getConn().prepareStatement(sql); // pstmt : Variable name?
-                   pstmt.setInt(1, userId);
-                   pstmt.setInt(2,vehicleTypeSelected.getVehicleTypeId());
-                   pstmt.setInt(3,fuelTypeSelected.getFuelTypeId());
-                   pstmt.setDouble(4,efficiency);
-                   pstmt.setString(5,name);
-                   pstmt.executeUpdate();
-                   System.out.println("Vehicle successfully added to DB");
-
-                   clearFields();
-               }
-
+                if(dbHandler.connect()) {
+                     PreparedStatement pstmt = dbHandler.getConn().prepareStatement(sql); // pstmt : Variable name?
+                        pstmt.setInt(1, userId);
+                        pstmt.setInt(2, vehicleTypeSelected.getVehicleTypeId());
+                        pstmt.setInt(3, fuelTypeSelected.getFuelTypeId());
+                        pstmt.setDouble(4, efficiency);
+                        pstmt.setString(5, name);
+                        pstmt.executeUpdate();
+                        System.out.println("Vehicle successfully added to DB");
+                    }
+                clearFields();
         }
     }
 
@@ -101,7 +98,7 @@ public class AddVehicleController implements Initializable {
         //Load choicebox values from DB
         loadChoiceBoxes();
         //the current user is currently hard coded in Main
-        //System.out.println("Current user " + Main.getCurrentUserId());
+        System.out.println("Current user " + Main.getCurrentUserId());
     }
 
     private void loadChoiceBoxes(){

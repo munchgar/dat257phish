@@ -35,18 +35,18 @@ public class Vehicle {
         this.vehicleName = new SimpleStringProperty(vehicleName);
 
         //Get vehicle type as a string using a foreign key
-        String SQLquery = "SELECT type FROM vehicleType WHERE vehicleTypeId = " + vehicleType;
+        String SQLquery = "SELECT type FROM vehicleType WHERE vehicleTypeId = " +vehicleType;
         try {
             if (dbHandler.connect()) {
                 ResultSet rs = dbHandler.execQuery(SQLquery); // Execute query
-                this.fuelTypeString=  new SimpleStringProperty(rs.getString("type")); // WTF is this?
+                this.fuelTypeString=  new SimpleStringProperty(rs.getString("fuelName"));
             }
         } catch(SQLException e) {
             System.out.println((e.getMessage()));
         }
 
         //Get fuel type as a string using a foreign key
-        SQLquery = "SELECT fuelName FROM fuelType WHERE fuelId = " + fuelType;
+        SQLquery = "SELECT fuelName FROM fuelType WHERE fuelId = " +fuelType;
         try {
             if (dbHandler.connect()) {
                 ResultSet rs = dbHandler.execQuery(SQLquery);
