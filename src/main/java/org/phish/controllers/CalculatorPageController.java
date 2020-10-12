@@ -277,9 +277,9 @@ public class CalculatorPageController {
             if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
                 switch ((String)chboxHouseType.getValue()) {
                     //Calcs blir till int, vilket inte är så nice så ska fixa det så det blir double
-                    case "Apartment" -> outputHousehold = ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
-                    case "Villa" -> outputHousehold = ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
-                    case "Town House" -> outputHousehold = ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    case "Apartment" -> outputHousehold = (double)((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    case "Villa" -> outputHousehold = (double)((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    case "Town House" -> outputHousehold = (double)((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
                     default -> System.out.println("Error");
                 }
                 System.out.println("CO2: " + outputHousehold + "kg");
