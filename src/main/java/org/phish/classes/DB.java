@@ -1,7 +1,10 @@
 package org.phish.classes;
 
+<<<<<<< HEAD
 import javafx.scene.control.TextField;
 
+=======
+>>>>>>> DB
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -19,6 +22,7 @@ public interface DB {
         return conn;
     }
 
+<<<<<<< HEAD
 
     static boolean register(String username, String password) {
         String sql = "INSERT INTO userTable (username, password) VALUES(?,?)";
@@ -59,4 +63,23 @@ public interface DB {
 //        return null;
 //    }
 
+=======
+    static ResultSet select(String retrieve, String table) {
+        String SQLquery = "SELECT username FROM userTable"; // Do we need * or only fName and lName?
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(SQLquery)){
+            while(rs.next()){
+                try {
+                    return rs;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+>>>>>>> DB
 }

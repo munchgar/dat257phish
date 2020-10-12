@@ -1,0 +1,20 @@
+Lukas Carling
+
+- What do I want to learn or understand better?
+    I feel like I know a lot more about JavaFX, databases and SCRUM right now. What I did not know is that I did not express a good energy during meetings which
+is something I would want to learn how to do better. I believe I can do this by changing how I am during meetings and see the response on my teammembers.
+
+- How can I help someone else, or the entire team, to learn something new? 
+    I am one of the members who focus on the database part in the project. I believe by implementing the interface we have decided to have for database commnunication,
+I can help teammembers who do not completly know how SQL works. I also believe I can help my team learn how to express better energy during meetings by actively commenting
+and giving positive feedback.
+
+- What is my contribution towards the team’s use of Scrum?
+    During our first SCRUM meeting this week we focused a lot on implementing clearer Epics, user stories and tasks. I was part of writing both the epics and 
+user stories. I also wrote some tasks related to user stories. I believe we now have a better use of SCRUM which I appreciate. In the future I would like to stick
+more to the SCRUM board though instead of working back and fourth between all the different tasks. I can do this by only working on whats assigned to me.
+
+- What is my contribution towards the team’s deliveries?
+    I check the pushes done to github continuously in order to make sure that the team "understands" our goal and if something is not right I try to fix it (same 
+as last week). I am also working a lot on the database interface which every member will use in the future. I want to implement a better and more clear interface though
+which I believ I can do if I put more effort and time into it.

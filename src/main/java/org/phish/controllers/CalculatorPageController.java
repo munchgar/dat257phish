@@ -18,9 +18,11 @@ public class CalculatorPageController {
     double outputAir = 0;
     double outputVehicle = 0;
     double outputFood = 0;
+    double outputPublicTransport = 0;
     double amount = 0;
     int foodCount = 0;
     int vehicleCount = 0;
+    int publicTransportCount = 0;
     private static final Map<String, Double> foodMap = Map.ofEntries(
       Map.entry("Type of Food",0.0), Map.entry("Beef",48.4), Map.entry("Lamb",45.4), Map.entry("Pork",6.0), Map.entry("Chicken",2.06),
                 Map.entry("Other ruminant meat",48.1), Map.entry("Other monogastric meat",4.2), Map.entry("Eggs",1.6), Map.entry("Milk/Yogurt",1.1), Map.entry("Cream",6.0),
@@ -48,6 +50,13 @@ public class CalculatorPageController {
             "Medium",
             "Large"
     );
+    static ObservableList<String> publicTransportType = FXCollections.observableArrayList(
+            "Type of Public Transport",
+            "Bus",
+            "Train in Sweden",
+            "Train outside of Sweden",
+            "Ferry"
+    );
     @FXML
     Button btnCalcAir;
     @FXML
@@ -70,6 +79,10 @@ public class CalculatorPageController {
     VBox vBoxVehicleSize;
     @FXML
     VBox vBoxVehicleAmount;
+    @FXML
+    VBox vBoxTransportType;
+    @FXML
+    VBox vBoxTransportAmount;
 
 
     public void AddVehicle(ActionEvent actionEvent) throws IOException {
@@ -93,7 +106,7 @@ public class CalculatorPageController {
         }
     }
 
-    public void AddMoreFood(ActionEvent actionEvent) throws IOException {
+    public void AddFood(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == btnAddMoreFood) {
             //Creates a new choiceBox for food types
             ChoiceBox choiceFoodType = new ChoiceBox<String>(foodChoices);
@@ -109,6 +122,20 @@ public class CalculatorPageController {
         }
     }
 
+    public void AddPublicTransport(ActionEvent actionEvent) throws IOException {
+        //Creates a new choiceBox for public transport types
+        ChoiceBox choiceTransportType = new ChoiceBox<String>(publicTransportType);
+        choiceTransportType.setId("choiceTransportType" + publicTransportCount);
+        choiceTransportType.setValue("Type of Public Transport");
+        //Creates a new textField for food amount
+        TextField txtTransportAmount = new TextField();
+        txtTransportAmount.setId("txtTransportAmount" + publicTransportCount);
+        publicTransportCount++;
+        //Adds all of the created elements to their designated vBox
+        vBoxTransportType.getChildren().add(choiceTransportType);
+        vBoxTransportAmount.getChildren().add(txtTransportAmount);
+    }
+
     public void CalculateVehicle(ActionEvent actionEvent) throws IOException {
         double outputTemp = 0;
         int count = 0;
@@ -118,36 +145,20 @@ public class CalculatorPageController {
                     amount = Integer.parseInt(((TextField) txtVehicleAmount).getText());
                     //If The choice is a petrol car, then check what size they chose and calculate co2 based on km
                     if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Petrol Car")) {
-                        switch((String)(((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())){
-                            case "Small":
-                                outputTemp += (amount * 63) / 1000;
-                                break;
-                            case "Medium":
-                                outputTemp += (amount * 79) / 1000;
-                                break;
-                            case "Large":
-                                outputTemp += (amount * 106) / 1000;
-                                break;
-                            default:
-                                System.out.println("Please enter what size of vehicle you were traveling in");
-                                break;
+                        switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
+                            case "Small" -> outputTemp += (amount * 63) / 1000;
+                            case "Medium" -> outputTemp += (amount * 79) / 1000;
+                            case "Large" -> outputTemp += (amount * 106) / 1000;
+                            default -> System.out.println("Please enter what size of vehicle you were traveling in");
                         }
                     }
                     //If The choice is a diesel car, then check what size they chose and calculate co2 based on km
                     else if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Diesel Car")) {
-                        switch((String)(((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())){
-                            case "Small":
-                                outputTemp += (amount * 40) / 1000;
-                                break;
-                            case "Medium":
-                                outputTemp += (amount * 55) / 1000;
-                                break;
-                            case "Large":
-                                outputTemp += (amount * 73) / 1000;
-                                break;
-                            default:
-                                System.out.println("Please enter what size of vehicle you were traveling in");
-                                break;
+                        switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
+                            case "Small" -> outputTemp += (amount * 40) / 1000;
+                            case "Medium" -> outputTemp += (amount * 55) / 1000;
+                            case "Large" -> outputTemp += (amount * 73) / 1000;
+                            default -> System.out.println("Please enter what size of vehicle you were traveling in");
                         }
                     }
                     //If no vehicle type has been selected
@@ -159,7 +170,7 @@ public class CalculatorPageController {
                 count++;
             }
             outputVehicle = outputTemp;
-            System.out.println("CO2: " + outputVehicle + "kg");
+            System.out.println("CO2: "+ outputVehicle+"kg");
             amount = 0;
         }
     }
@@ -205,7 +216,7 @@ public class CalculatorPageController {
                         outputAir *= (1 + 0.9 + 1.2);
                     }
                 }
-                System.out.println("CO2: " + outputAir + "kg");
+                System.out.println("CO2: "+outputAir+"kg");
                 amount = 0;
             }
         }
@@ -223,8 +234,30 @@ public class CalculatorPageController {
                 count++;
             }
             outputFood = tempOutput;
-            System.out.println(outputFood);
+            System.out.println("CO2: "+outputFood+"kg");
+            amount = 0;
         }
+    }
+
+    public void CalculatePublicTransport(ActionEvent actionEvent) throws IOException {
+        int count = 0;
+        double outputTemp = 0;
+        for (Node txtTransportAmount : vBoxTransportAmount.getChildren()) {
+            if (!(((TextField) txtTransportAmount).getText().equals("")) && ((TextField) txtTransportAmount).getText().matches("[0-9]+") && ((TextField) txtTransportAmount).getText().length() < 8) {
+                amount = Integer.parseInt(((TextField) txtTransportAmount).getText());
+                switch ((String) (((ChoiceBox) vBoxTransportType.getChildren().toArray()[count]).getValue())) {
+                    case "Bus" -> outputTemp += (amount * 27) / 1000;
+                    case "Train in Sweden" -> outputTemp += (amount * 10) / 1000;
+                    case "Train outside of Sweden" -> outputTemp += (amount * 37) / 1000;
+                    case "Ferry" -> outputTemp += (amount * 170) / 1000;
+                    default -> System.out.println("Please enter what public transport you were traveling with");
+                }
+            }
+            count++;
+        }
+        outputPublicTransport = outputTemp;
+        System.out.println("CO2: "+outputPublicTransport+"kg");
+        amount = 0;
     }
 }
 
