@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,38 +11,17 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.phish.controllers.HomePageController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem fx:id="menuItemClose" mnemonicParsing="false" onAction="#closeApplication" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help" />
-            <Menu mnemonicParsing="false" text="Sign out">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Sign out" />
-              </items>
-            </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <bottom>
-      <HBox alignment="BOTTOM_CENTER" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #00b894;" BorderPane.alignment="CENTER">
          <children>
-             <Button mnemonicParsing="false" onAction="#goHome" text="Home" />
+            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#goHome" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Home" />
+            <Button fx:id="userBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showUserView" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="User" />
+            <Button fx:id="CalcBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showCalcScreen" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Calculator" />
+            <Button fx:id="StatBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStatScreen" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Statistics" />
+            <Button fx:id="Vehicles" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showVehicles" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Vehicles" />
+            <Button fx:id="TransportActivities" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showActivities" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Activities" />
          </children>
-         <padding>
-            <Insets bottom="10.0" top="10.0" />
-         </padding>
       </HBox>
-   </bottom>
+   </top>
    <center>
       <AnchorPane focusTraversable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -55,13 +30,12 @@
                   <Font size="39.0" />
                </font>
             </Text>
-            <Button fx:id="NxtBtn" layoutX="630.0" layoutY="373.0" mnemonicParsing="false" onAction="#showMainSec" prefHeight="25.0" prefWidth="49.0" text="Next" />
             <Text layoutX="63.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back to your enviromental impact calculator. The average emission of carbon dioxide in Sweden is 4.54 tons per person, how well do you fare compared to the average Swede? Calculate it today!" wrappingWidth="261.13671875">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <ImageView fitHeight="218.0" fitWidth="267.0" layoutX="400.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="218.0" fitWidth="267.0" layoutX="453.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="http://www.iciq.org/wp-content/uploads/2014/05/co2-800px-notxt-nobg.png" />
                </image>
@@ -71,7 +45,7 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <Button fx:id="signUpBtn" layoutX="423.0" layoutY="481.0" mnemonicParsing="false" onAction="#showSignUpSec" text="Sign Up" />
+            <Button fx:id="signUpBtn" layoutX="423.0" layoutY="481.0" mnemonicParsing="false" onAction="#showSignUpSec" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Sign Up" />
          </children>
       </AnchorPane>
    </center>

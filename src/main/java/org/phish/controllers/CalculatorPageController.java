@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import javafx.scene.text.Text;
 import org.phish.classes.FoodItem;
 import org.phish.database.DBHandler;
 
@@ -56,7 +57,18 @@ public class CalculatorPageController {
             "Train outside of Sweden",
             "Ferry"
     );
-
+    @FXML
+    Text txtResultAll;
+    @FXML
+    Text txtResultFood;
+    @FXML
+    Text txtResultHouse;
+    @FXML
+    Text txtResultFlight;
+    @FXML
+    Text txtResultVehicle;
+    @FXML
+    Text txtResultPublicTransport;
     @FXML
     TextField txtAmountMember;
     @FXML
@@ -310,7 +322,12 @@ public class CalculatorPageController {
 
     public void CalculateResult(ActionEvent actionEvent) {
         double outputResult = outputVehicle + outputPublicTransport + outputFood + outputAir + outputHousehold;
-        System.out.println("Your total emissions has added up to " + outputResult + "Kg (CO2)");
+        txtResultAll.setText(""+outputResult+"kg CO2");
+        txtResultHouse.setText(""+outputHousehold+"kg CO2");
+        txtResultFood.setText(""+outputFood+"kg CO2");
+        txtResultVehicle.setText(""+outputVehicle+"kg CO2");
+        txtResultPublicTransport.setText(""+outputPublicTransport+"kg CO2");
+        txtResultFlight.setText(""+outputAir+"kg CO2");
     }
 }
 
