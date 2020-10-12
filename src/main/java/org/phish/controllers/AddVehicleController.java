@@ -44,7 +44,7 @@ public class AddVehicleController implements Initializable {
         stage.close();
     }
 
-    public void addVehicle() {
+    public void addVehicle() throws SQLException {
 
         //todo make sure the efficiency is a double
 
@@ -62,8 +62,8 @@ public class AddVehicleController implements Initializable {
             int userId = Main.getCurrentUserId();
 
             String sql = "INSERT INTO vehicles (FKuserId, FKvehicleTypeId, FKfuelType, litresKilometer, vehicleName) VALUES(?,?,?,?,?)";
-                try (Connection conn = dbHandler.connect();
-                     PreparedStatement pstmt = conn.prepareStatement(sql)) { // pstmt : Variable name?
+                if(dbHandler.connect()) {
+                     PreparedStatement pstmt = dbHandler.getConn().prepareStatement(sql); // pstmt : Variable name?
                         pstmt.setInt(1, userId);
                         pstmt.setInt(2,vehicleTypeSelected.getVehicleTypeId());
                         pstmt.setInt(3,fuelTypeSelected.getFuelTypeId());
@@ -71,8 +71,7 @@ public class AddVehicleController implements Initializable {
                         pstmt.setString(5,name);
                         pstmt.executeUpdate();
                         System.out.println("Vehicle successfully added to DB");
-                    } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+
                 }
                 clearFields();
         }

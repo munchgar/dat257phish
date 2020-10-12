@@ -91,27 +91,28 @@ public class CalculatorPageController {
     ChoiceBox chboxHouseType;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         fetchFoodItems();
     }
 
 
-    private void fetchFoodItems() {
+    private void fetchFoodItems() throws SQLException {
         String SQLquery = "SELECT * FROM foodItem";
-        try (Connection conn = dbHandler.connect();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(SQLquery))
-        {
+        dbHandler.connect();
+        ResultSet rs = dbHandler.execQuery(SQLquery);
+//        try (Connection conn = dbHandler.connect();
+//             Statement stmt = conn.createStatement();
+//              = stmt.executeQuery(SQLquery))
+
             while (rs.next()) {
                 foodItemList.add(new FoodItem(rs.getInt("foodID"), rs.getString("foodName"),rs.getDouble("co2g")));
             }
         foodChoices = FXCollections.observableArrayList(foodItemList);
-        } catch(SQLException e) {
-            System.out.println(e.getMessage());
-        }
+//        } catch(SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
 
     }
-
     public void AddVehicle(ActionEvent actionEvent) throws IOException {
         if (actionEvent.getSource() == btnAddVehicle) {
             //Creates a new choiceBox for vehicle types
