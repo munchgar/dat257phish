@@ -48,42 +48,44 @@ public class TransportActivitiesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpTable();
-        loadData();
+        try {
+            loadData();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
-    public void refresh(){
+    public void refresh() throws SQLException {
        // vehicles.clear();
        // transportActivities.clear();
         loadData();
     }
 
-    private void loadData() {
+    private void loadData() throws SQLException {
 
         //have to load in information from DB about the vehicle as I could not get inner join on three tables to work
         vehicles.clear();
         String SQLquery = "SELECT * FROM vehicles WHERE FKuserId=" +Main.getCurrentUserId();
 
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery)){
-            while(rs.next()){
-                try {
-                    vehicles.add(new Vehicle(rs.getInt("vehicleId"), rs.getInt("FKuserId"), rs.getInt("FKvehicleTypeId"),
-                            rs.getInt("FKfuelType"), rs.getDouble("litresKilometer"), rs.getString("vehicleName")));
-                }catch (Exception ex){
-                    ex.printStackTrace();
+        if(dbHandler.connect()){
+             ResultSet rs    = dbHandler.execQuery(SQLquery);
+                while (rs.next()) {
+                    try {
+                        vehicles.add(new Vehicle(rs.getInt("vehicleId"), rs.getInt("FKuserId"), rs.getInt("FKvehicleTypeId"),
+                                rs.getInt("FKfuelType"), rs.getDouble("litresKilometer"), rs.getString("vehicleName")));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
+
+
 
         //load Transport activities from DB
         transportActivities.clear();
         SQLquery = "SELECT * FROM transportActivity WHERE FKuserId=" +Main.getCurrentUserId() + " ORDER BY date ASC";
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery)){
+        if(dbHandler.connect()){
+        ResultSet rs    = dbHandler.execQuery(SQLquery);
             while(rs.next()){
                 try {
                     //todo clean up
@@ -102,8 +104,6 @@ public class TransportActivitiesController implements Initializable {
                     ex.printStackTrace();
                 }
             }
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
         }
         activityTableView.setItems(transportActivities);
     }

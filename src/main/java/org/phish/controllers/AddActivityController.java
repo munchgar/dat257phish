@@ -36,7 +36,7 @@ public class AddActivityController implements Initializable {
     @FXML
     private ChoiceBox<VehicleType> transportTypeBox;
     @FXML
-    private ChoiceBox<Vehicle> vehicleChoiceBox; //todo not use raw data type
+    private ChoiceBox<Vehicle> vehicleChoiceBox;
     @FXML
     private TextField titleField;
     @FXML
@@ -58,6 +58,7 @@ public class AddActivityController implements Initializable {
         //todo if the personal vehicles is selected in the choicebox it shjould update the vehicles available and set it to the personal vehicles list
     }
 
+
     public void updateReoccurring(ActionEvent actionEvent) {
         if(reoccurringCheckBox.isSelected()){
             setReoccurringVisible();
@@ -66,10 +67,10 @@ public class AddActivityController implements Initializable {
         }
     }
 
-    public void addBtnPressed(ActionEvent actionEvent) {
+    public void addBtnPressed(ActionEvent actionEvent) throws SQLException {
 
         //todo fail safe
-        if(!titleField.getText().isBlank()) {
+        if (!titleField.getText().isBlank()) {
             errorText.setVisible(false);
 
 
@@ -80,40 +81,39 @@ public class AddActivityController implements Initializable {
             if (reoccurringCheckBox.isSelected()) {
                 //todo check for additional fields related to the reoccurring components
 
-            } else {
             }
-
             String sql = "INSERT INTO transportActivity (FKuserId, activityName, distanceKm, FKVehicleId, date) VALUES(?, ?, ?, ?, ?)";
-            try {
-                try (Connection conn = dbHandler.connect();
-                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setInt(1, Main.getCurrentUserId());
-                    pstmt.setString(2, titleField.getText());
-                    pstmt.setInt(3, distanceSpinner.getValue());
-                    pstmt.setInt(4, vehicleChoiceBox.getSelectionModel().getSelectedItem().getVehicleId());
-                    pstmt.setString(5, datePicker.getValue().toString());
-                    pstmt.executeUpdate();
-                    System.out.println("Activity successfully added to DB");
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+
+            if (dbHandler.connect()) {
+                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(sql);
+                System.out.println(distanceSpinner.getValue());
+                pstmt.setInt(1, Main.getCurrentUserId());
+                pstmt.setString(2, titleField.getText());
+                pstmt.setInt(3, distanceSpinner.getValue());
+                pstmt.setInt(4, vehicleChoiceBox.getSelectionModel().getSelectedItem().getVehicleId());
+                pstmt.setString(5, datePicker.getValue().toString());
+                pstmt.executeUpdate();
+                System.out.println("Activity successfully added to DB");
+
+            } else {
+                errorText.setText("All fields must be entered");
+                errorText.setVisible(true);
+                errorText.setFill(Color.RED);
             }
-        }
-        else {
-            errorText.setText("All fields must be entered");
-            errorText.setVisible(true);
-            errorText.setFill(Color.RED);
         }
     }
 
         @Override
     public void initialize(URL location, ResourceBundle resources) {
         setReoccurringInvisible();
-        setUpVehicleTypeBox();
-        setUpVehicleBox();
-        setUpSpinners();
+            try {
+                setUpVehicleBox();
+                setUpVehicleTypeBox();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            setUpSpinners();
         //Sets the datepicker to the current date
         LocalDate ld =  LocalDate.now();
         datePicker.setValue(ld);
@@ -134,13 +134,12 @@ public class AddActivityController implements Initializable {
         timesDaySpinner.setValueFactory(timesDayValueFactory);
         //timesDaySpinner.setEditable(true); //todo make sure it only accepts integers
     }
-    private void setUpVehicleTypeBox() {
+    private void setUpVehicleTypeBox() throws SQLException {
         vehicleTypes.clear();
         //VehicleTypeBox
         String SQLquery = "SELECT * FROM vehicleType";
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery)){
+        if(dbHandler.connect()) {
+            ResultSet rs = dbHandler.execQuery(SQLquery);
             while(rs.next()){
                 try {
                     vehicleTypes.add(new VehicleType(rs.getInt("vehicleTypeId"), rs.getString("type")));
@@ -150,19 +149,19 @@ public class AddActivityController implements Initializable {
             }
             transportTypeBox.setItems(vehicleTypes);
             transportTypeBox.setValue(vehicleTypes.get(0));
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
+        } else {
+            System.out.println("Could not execute query!");
         }
+
     }
-    private void setUpVehicleBox() {
+    private void setUpVehicleBox() throws SQLException {
         vehicles.clear();
         //Todo if the selected vehicle type is something else than personal the relevant vehicles should be loaded.
         //todo if the selected vehicle type is personal all the personal vehicles should be loaded. (as follows below)
         String SQLquery = "SELECT * FROM vehicles WHERE FKuserId=" +Main.getCurrentUserId();
 
-        try (Connection conn = dbHandler.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(SQLquery)){
+        if(dbHandler.connect()) {
+            ResultSet rs = dbHandler.execQuery(SQLquery);
             while(rs.next()){
                 try {
                     //public Vehicle(int vehicleId, int userId, int vehicleType, int fuelType, double kmLitre, String vehicleName)
@@ -174,9 +173,10 @@ public class AddActivityController implements Initializable {
             }
             vehicleChoiceBox.setItems(vehicles);
             vehicleChoiceBox.setValue(vehicles.get(0));
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
+        } else {
+            System.out.println("Could not execute query!");
         }
+
 
     }
     //sets the reoccurring activities components invisible
