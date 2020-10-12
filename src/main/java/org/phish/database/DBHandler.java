@@ -56,4 +56,8 @@ public class DBHandler {
 
         return rs;
     }
+
+    public Connection getConn() {
+        return conn;
+    }
 }

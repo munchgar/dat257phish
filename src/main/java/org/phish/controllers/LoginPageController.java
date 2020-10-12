@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.phish.classes.DB;
 import org.phish.database.DBHandler;
 
 
@@ -13,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class LoginPageController implements DB {
+public class LoginPageController {
 
     @FXML
     public TextField idUsername;

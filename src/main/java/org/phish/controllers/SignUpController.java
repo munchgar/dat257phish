@@ -2,23 +2,18 @@ package org.phish.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.phish.Main;
-import org.phish.classes.DB;
 import org.phish.database.DBHandler;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
 
-public class SignUpController implements DB {
+public class SignUpController {
 
    private DBHandler dbHandler = new DBHandler();
 
@@ -35,11 +30,11 @@ public class SignUpController implements DB {
 
 
     public void SignUp (ActionEvent actionEvent)throws SQLException{
-        String sql = "INSERT INTO userTable (username, password) VALUES(?,?)";
-        Connection connection = dbHandler.connect();
+        String sql = "INSERT INTO userTable (userName, password) VALUES(?,?)";
+        dbHandler.connect();
         try {
             try (
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            PreparedStatement preparedStatement = dbHandler.getConn().prepareStatement(sql)){
                 preparedStatement.setString(1,txtUserName.getText());
                 preparedStatement.setString(2,psfPassword.getText());
                 preparedStatement.executeUpdate();
@@ -48,8 +43,8 @@ public class SignUpController implements DB {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (connection != null){
-                connection.close();
+            if (dbHandler.getConn() != null){
+               // dbHandler.kill();
             }
         }
 
