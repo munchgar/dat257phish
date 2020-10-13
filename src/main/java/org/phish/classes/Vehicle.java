@@ -22,7 +22,7 @@ public class Vehicle {
     private SimpleStringProperty fuelTypeString;
 
     //To handle the foreign keys to fueltype and vehicletype (to get the strings attached)
-    private DBHandler dbHandler = new DBHandler();
+    private DBHandler dbHandler = DBHandler.getInstance();
 
 
 

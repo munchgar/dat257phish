@@ -25,7 +25,7 @@ public class VehiclesPageController implements Initializable {
 
 
     private ObservableList<Vehicle> vehicles = FXCollections.observableArrayList();
-    private DBHandler dbHandler = new DBHandler();
+    private DBHandler dbHandler = DBHandler.getInstance();
 
     @FXML
     private TableView<Vehicle> vehiclesTableView;

@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class LoginPageController implements DB {
+public class LoginPageController{
 
     @FXML
     public TextField idUsername;
@@ -23,7 +23,7 @@ public class LoginPageController implements DB {
     public Button cancelBtn;
 
     public void login() throws SQLException {
-        DBHandler dbHandler = new DBHandler();
+        DBHandler dbHandler = DBHandler.getInstance();
 
         if(dbHandler.connect()) { // Attempt to connect to database.
             ResultSet rs = dbHandler.execQuery("SELECT * FROM userTable"); // Execute query

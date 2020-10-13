@@ -11,7 +11,7 @@ public class User {
     private final SimpleStringProperty fName;
     private final SimpleStringProperty lName;
 
-    private DBHandler dbHandler = new DBHandler();
+    private DBHandler dbHandler = DBHandler.getInstance();
 
     public User(int id, String fName, String lName) {
         this.id = new SimpleIntegerProperty(id);

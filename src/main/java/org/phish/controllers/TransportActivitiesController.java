@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class TransportActivitiesController implements Initializable {
 
-    private DBHandler dbHandler = new DBHandler();
+    private DBHandler dbHandler = DBHandler.getInstance();
     private ObservableList<TransportActivity>  transportActivities = FXCollections.observableArrayList();
     private ObservableList<Vehicle> vehicles = FXCollections.observableArrayList();
 
