@@ -29,13 +29,13 @@ public class LoginPageController implements Initializable {
     @FXML
     public TextField idPassword;
     @FXML
-    public Button cancelBtn;
+    public Button signupBtn;
     @FXML
     public Text fieldsFilledCheckText;
     @FXML
     public Text wrongInputCheckText;
 
-    public void login() throws SQLException {
+    public int login() throws SQLException, IOException {
         DBHandler dbHandler = DBHandler.getInstance();
 
         if(!idUsername.getText().isBlank() && !idPassword.getText().isBlank()){
@@ -70,7 +70,7 @@ public class LoginPageController implements Initializable {
                 }
             }
         }
-        return; // Login failed, also no reason for a return?
+        return -1; // Login failed, also no reason for a return?
     }
 
     public void closeWindow(ActionEvent actionEvent) throws IOException {
