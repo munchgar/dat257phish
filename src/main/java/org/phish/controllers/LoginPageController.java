@@ -26,6 +26,7 @@ public class LoginPageController implements Initializable {
 
     @FXML
     public TextField idUsername;
+    @FXML
     public TextField idPassword;
     @FXML
     public Button cancelBtn;
@@ -74,11 +75,7 @@ public class LoginPageController implements Initializable {
     }
 
     public void closeWindow(ActionEvent actionEvent) throws IOException {
-        Stage stage = (Stage) cancelBtn.getScene().getWindow();
-        stage.close();
         Main.showMainView();
-        //Returns the stage associated with the button. In this case, the cancel button
-
     }
 
 

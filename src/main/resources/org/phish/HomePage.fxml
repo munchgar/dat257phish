@@ -72,6 +72,7 @@
                </font>
             </Text>
             <Button fx:id="signUpBtn" layoutX="423.0" layoutY="481.0" mnemonicParsing="false" onAction="#showSignUpSec" text="Sign Up" />
+             <Button fx:id="loginBtn" layoutX="500.0" layoutY="481.0" mnemonicParsing="false" onAction="#showLogin" text="Login" />
          </children>
       </AnchorPane>
    </center>
