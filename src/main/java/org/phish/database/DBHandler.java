@@ -6,7 +6,7 @@ public class DBHandler {
 
     //private static final String url = "jdbc:sqlite:src/main/java/org/phish/database/userDB.db";
     private static final String url = "jdbc:sqlite:src/main/java/org/phish/database/userDBv2.db";
-    Connection conn;
+    Connection conn = null;
 
     public static DBHandler handler = new DBHandler();
 
@@ -45,14 +45,17 @@ public class DBHandler {
 
 
     public boolean connect() {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
+        if (this.conn == null) {
+            Connection conn = null;
+            try {
+                conn = DriverManager.getConnection(url);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
+            this.conn = conn;
+            return true;
         }
-        this.conn = conn;
         return true;
     }
 
