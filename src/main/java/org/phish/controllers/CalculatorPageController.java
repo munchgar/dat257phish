@@ -8,16 +8,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.phish.classes.FoodItem;
 import org.phish.database.DBHandler;
-
 import java.lang.Math;
-
 import javafx.scene.layout.VBox;
 import org.phish.Main;
-
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -58,6 +55,8 @@ public class CalculatorPageController {
             "Ferry"
     );
     @FXML
+    StackPane stackPaneCalc;
+    @FXML
     Text txtResultAll;
     @FXML
     Text txtResultFood;
@@ -73,16 +72,6 @@ public class CalculatorPageController {
     TextField txtAmountMember;
     @FXML
     TextField txtBillPrice;
-    @FXML
-    Button btnCalcAir;
-    @FXML
-    Button btnCalcVehicle;
-    @FXML
-    Button btnAddMoreFood;
-    @FXML
-    Button btnAddVehicle;
-    @FXML
-    Button btnCalcFood;
     @FXML
     TextField txtKilometerAir;
     @FXML
@@ -107,7 +96,6 @@ public class CalculatorPageController {
         fetchFoodItems();
     }
 
-
     private void fetchFoodItems() throws SQLException {
         String SQLquery = "SELECT * FROM foodItem";
         dbHandler.connect();
@@ -123,46 +111,44 @@ public class CalculatorPageController {
 //        } catch(SQLException e) {
 //            System.out.println(e.getMessage());
 //        }
-
     }
 
+    //Adds public vehicle UI-elements such as choice boxes and text field
     public void AddVehicle(ActionEvent actionEvent) throws IOException {
-        if (actionEvent.getSource() == btnAddVehicle) {
-            //Creates a new choiceBox for vehicle types
-            ChoiceBox choiceVehicleType = new ChoiceBox<String>(vehicleTypes);
-            choiceVehicleType.setId("choiceVehicleType" + vehicleCount);
-            choiceVehicleType.setValue("Type of Vehicle");
-            //Creates a new choiceBox for vehicle sizes
-            ChoiceBox choiceVehicleSize = new ChoiceBox<String>(vehicleSizes);
-            choiceVehicleSize.setId("choiceVehicleSize" + vehicleCount);
-            choiceVehicleSize.setValue("Size");
-            //Creates a new textField for driven amount
-            TextField txtVehicleAmount = new TextField();
-            txtVehicleAmount.setId("txtVehicleAmount" + vehicleCount);
-            vehicleCount++;
-            //Adds all of the created elements to their designated vBox
-            vBoxVehicleType.getChildren().add(choiceVehicleType);
-            vBoxVehicleSize.getChildren().add(choiceVehicleSize);
-            vBoxVehicleAmount.getChildren().add(txtVehicleAmount);
-        }
+        //Creates a new choiceBox for vehicle types
+        ChoiceBox choiceVehicleType = new ChoiceBox<String>(vehicleTypes);
+        choiceVehicleType.setId("choiceVehicleType" + vehicleCount);
+        choiceVehicleType.setValue("Type of Vehicle");
+        //Creates a new choiceBox for vehicle sizes
+        ChoiceBox choiceVehicleSize = new ChoiceBox<String>(vehicleSizes);
+        choiceVehicleSize.setId("choiceVehicleSize" + vehicleCount);
+        choiceVehicleSize.setValue("Size");
+        //Creates a new textField for driven amount
+        TextField txtVehicleAmount = new TextField();
+        txtVehicleAmount.setId("txtVehicleAmount" + vehicleCount);
+        vehicleCount++;
+        //Adds all of the created elements to their designated vBox
+        vBoxVehicleType.getChildren().add(choiceVehicleType);
+        vBoxVehicleSize.getChildren().add(choiceVehicleSize);
+        vBoxVehicleAmount.getChildren().add(txtVehicleAmount);
     }
 
+    //Adds public food UI-elements such as choice box and text field
     public void AddFood(ActionEvent actionEvent) throws IOException {
-        if (actionEvent.getSource() == btnAddMoreFood) {
-            //Creates a new choiceBox for food types
-            ChoiceBox choiceFoodType = new ChoiceBox<FoodItem>(foodChoices);
-            choiceFoodType.setId("choiceFoodType" + foodCount);
-            choiceFoodType.setValue("Type of Food");
-            //Creates a new textField for food amount
-            TextField txtFoodAmount = new TextField();
-            txtFoodAmount.setId("txtFoodAmount" + foodCount);
-            foodCount++;
-            //Adds all of the created elements to their designated vBox
-            vBoxFoodType.getChildren().add(choiceFoodType);
-            vBoxFoodAmount.getChildren().add(txtFoodAmount);
-        }
+        //Creates a new choiceBox for food types
+        ChoiceBox choiceFoodType = new ChoiceBox<FoodItem>(foodChoices);
+        choiceFoodType.setId("choiceFoodType" + foodCount);
+        choiceFoodType.setValue("Type of Food");
+        //Creates a new textField for food amount
+        TextField txtFoodAmount = new TextField();
+        txtFoodAmount.setId("txtFoodAmount" + foodCount);
+        foodCount++;
+        //Adds all of the created elements to their designated vBox
+        vBoxFoodType.getChildren().add(choiceFoodType);
+        vBoxFoodAmount.getChildren().add(txtFoodAmount);
     }
 
+    //Adds public transport UI-elements such as choice box and text field
     public void AddPublicTransport(ActionEvent actionEvent) throws IOException {
         //Creates a new choiceBox for public transport types
         ChoiceBox choiceTransportType = new ChoiceBox<String>(publicTransportType);
@@ -177,109 +163,104 @@ public class CalculatorPageController {
         vBoxTransportAmount.getChildren().add(txtTransportAmount);
     }
 
+    //Calculates the co2 emissions generated by personal vehicle travel
     public void CalculateVehicle(ActionEvent actionEvent) throws IOException {
         double outputTemp = 0;
         int count = 0;
-        if (actionEvent.getSource() == btnCalcVehicle) {
-            for (Node txtVehicleAmount : vBoxVehicleAmount.getChildren()) {
-                if (!(((TextField) txtVehicleAmount).getText().equals("")) && ((TextField) txtVehicleAmount).getText().matches("[0-9]+") && ((TextField) txtVehicleAmount).getText().length() < 8) {
-                    amount = Integer.parseInt(((TextField) txtVehicleAmount).getText());
-                    //If The choice is a petrol car, then check what size they chose and calculate co2 based on km
-                    if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Petrol Car")) {
-                        switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
-                            case "Small" -> outputTemp += (amount * 63) / 1000;
-                            case "Medium" -> outputTemp += (amount * 79) / 1000;
-                            case "Large" -> outputTemp += (amount * 106) / 1000;
-                            default -> System.out.println("Please enter what size of vehicle you were traveling in");
-                        }
-                    }
-                    //If The choice is a diesel car, then check what size they chose and calculate co2 based on km
-                    else if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Diesel Car")) {
-                        switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
-                            case "Small" -> outputTemp += (amount * 40) / 1000;
-                            case "Medium" -> outputTemp += (amount * 55) / 1000;
-                            case "Large" -> outputTemp += (amount * 73) / 1000;
-                            default -> System.out.println("Please enter what size of vehicle you were traveling in");
-                        }
-                    }
-                    //If no vehicle type has been selected
-                    else if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Type of Vehicle")) {
-                        System.out.println("Please choose a type of vehicle OR remove the entered kilometers before calculating");
-                        //Block from calculating until fixed? Display a warning or something?
+        for (Node txtVehicleAmount : vBoxVehicleAmount.getChildren()) {
+            if (!(((TextField) txtVehicleAmount).getText().equals("")) && ((TextField) txtVehicleAmount).getText().matches("[0-9]+") && ((TextField) txtVehicleAmount).getText().length() < 8) {
+                amount = Integer.parseInt(((TextField) txtVehicleAmount).getText());
+                //If The choice is a petrol car, then check what size they chose and calculate co2 based on km
+                if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Petrol Car")) {
+                    switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
+                        case "Small" -> outputTemp += (amount * 63) / 1000;
+                        case "Medium" -> outputTemp += (amount * 79) / 1000;
+                        case "Large" -> outputTemp += (amount * 106) / 1000;
+                        default -> System.out.println("Please enter what size of vehicle you were traveling in");
                     }
                 }
-                count++;
+                //If The choice is a diesel car, then check what size they chose and calculate co2 based on km
+                else if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Diesel Car")) {
+                    switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
+                        case "Small" -> outputTemp += (amount * 40) / 1000;
+                        case "Medium" -> outputTemp += (amount * 55) / 1000;
+                        case "Large" -> outputTemp += (amount * 73) / 1000;
+                        default -> System.out.println("Please enter what size of vehicle you were traveling in");
+                    }
+                }
+                //If no vehicle type has been selected
+                else if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Type of Vehicle")) {
+                    System.out.println("Please choose a type of vehicle OR remove the entered kilometers before calculating");
+                    //Block from calculating until fixed? Display a warning or something?
+                }
             }
-            outputVehicle = outputTemp;
-            System.out.println("CO2: " + outputVehicle + "kg");
+            count++;
+        }
+        outputVehicle = outputTemp;
+        System.out.println("CO2: " + outputVehicle + "kg");
+        amount = 0;
+    }
+
+    //Calculates the co2 emissions produced by airplane-travel
+    public void CalculateAir(ActionEvent actionEvent) throws IOException {
+        if (!txtKilometerAir.getText().equals("") && txtKilometerAir.getText().matches("[0-9]+") && txtKilometerAir.getText().length() > 2 && txtKilometerAir.getText().length() < 8) {
+            //If the kilometers traveled are less than 1500km this equation will be used
+            if (Integer.parseInt(txtKilometerAir.getText()) < 1500) {
+                amount = Integer.parseInt(txtKilometerAir.getText());
+                outputAir = ((amount + 50) * 114 * (Math.pow(amount, -0.658)) * 0.0735 * 0.8);
+                if (amount < 500) {
+                    outputAir *= (1 + 1.2);
+                } else if (amount <= 1000 && amount >= 500) {
+                    outputAir *= (1 + (0.9 * ((amount - 500) / 500)) + 1.2);
+                } else if (amount > 1000)
+                    outputAir *= (1 + 0.9 + 1.2);
+            }
+            //If the kilometers traveled are less than 5000km and more than 1500km this equation will be used
+            else if (Integer.parseInt(txtKilometerAir.getText()) > 1499 && Integer.parseInt(txtKilometerAir.getText()) < 5001) {
+                amount = Integer.parseInt(txtKilometerAir.getText());
+                outputAir = ((amount + 50) * (0.94 - 1.1 * Math.pow(10, -5)) * 0.0735 * 0.8);
+                if (amount < 500) {
+                    outputAir *= (1 + 1.2);
+                } else if (amount <= 1000 && amount >= 500) {
+                    outputAir *= (1 + (0.9 * ((amount - 500) / 500)) + 1.2);
+                } else if (amount > 1000) {
+                    outputAir *= (1 + 0.9 + 1.2);
+                }
+            }
+            //If the kilometers traveled are more than 5000km this equation will be used
+            else if (Integer.parseInt(txtKilometerAir.getText()) > 5000) {
+                amount = Integer.parseInt(txtKilometerAir.getText());
+                outputAir = ((amount + 50) * 0.89 * 0.0735 * 0.8);
+                if (amount < 500) {
+                    outputAir *= (1 + 1.2);
+                } else if (amount <= 1000 && amount >= 500) {
+                    outputAir *= (1 + (0.9 * ((amount - 500) / 500)) + 1.2);
+                } else if (amount > 1000) {
+                    outputAir *= (1 + 0.9 + 1.2);
+                }
+            }
+            System.out.println("CO2: " + outputAir + "kg");
             amount = 0;
         }
     }
 
-    public void CalculateAir(ActionEvent actionEvent) throws IOException {
-        if (actionEvent.getSource() == btnCalcAir) {
-            if (!txtKilometerAir.getText().equals("") && txtKilometerAir.getText().matches("[0-9]+") && txtKilometerAir.getText().length() > 1 && txtKilometerAir.getText().length() < 8) {
-                //If the kilometers traveled are less than 1500km this equation will be used
-                if (Integer.parseInt(txtKilometerAir.getText()) < 1500) {
-                    //This is the equation used here -> ((x+50)•114x^-0,658•uTtw•LF)•(1+HF(x)+uWtT)
-                    amount = Integer.parseInt(txtKilometerAir.getText());
-                    outputAir = ((amount + 50) * 114 * (Math.pow(amount, -0.658)) * 0.0735 * 0.8);
-                    if (amount < 500) {
-                        outputAir *= (1 + 1.2);
-                    } else if (amount <= 1000 && amount >= 500) {
-                        outputAir *= (1 + (0.9 * ((amount - 500) / 500)) + 1.2);
-                    } else if (amount > 1000)
-                        outputAir *= (1 + 0.9 + 1.2);
-                }
-                //If the kilometers traveled are less than 5000km and more than 1500km this equation will be used
-                else if (Integer.parseInt(txtKilometerAir.getText()) > 1499 && Integer.parseInt(txtKilometerAir.getText()) < 5001) {
-                    //This is the equation used here -> ((x+50)•(0,94 - 1,1•10^-5x)•uTtw•LF)•(1+HF(x)+uWtT)
-                    amount = Integer.parseInt(txtKilometerAir.getText());
-                    outputAir = ((amount + 50) * (0.94 - 1.1 * Math.pow(10, -5)) * 0.0735 * 0.8);
-                    if (amount < 500) {
-                        outputAir *= (1 + 1.2);
-                    } else if (amount <= 1000 && amount >= 500) {
-                        outputAir *= (1 + (0.9 * ((amount - 500) / 500)) + 1.2);
-                    } else if (amount > 1000) {
-                        outputAir *= (1 + 0.9 + 1.2);
-                    }
-                }
-                //If the kilometers traveled are more than 5000km this equation will be used
-                else if (Integer.parseInt(txtKilometerAir.getText()) > 5000) {
-                    //This is the equation used here -> ((x+50)•0,89•uTtw•LF)•(1+HF(x)+uWtT)
-                    amount = Integer.parseInt(txtKilometerAir.getText());
-                    outputAir = ((amount + 50) * 0.89 * 0.0735 * 0.8);
-                    if (amount < 500) {
-                        outputAir *= (1 + 1.2);
-                    } else if (amount <= 1000 && amount >= 500) {
-                        outputAir *= (1 + (0.9 * ((amount - 500) / 500)) + 1.2);
-                    } else if (amount > 1000) {
-                        outputAir *= (1 + 0.9 + 1.2);
-                    }
-                }
-                System.out.println("CO2: " + outputAir + "kg");
-                amount = 0;
-            }
-        }
-    }
-
+    //Calculates co2 emissions from food-consumptions
     public void CalculateFood(ActionEvent actionEvent) throws IOException {
         int count = 0;
         double tempOutput = 0;
-        if (actionEvent.getSource() == btnCalcFood) {
-            for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
-                if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
-                    amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
-                    tempOutput += (amount * (((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue()).getCo2g())) / 1000; // ¯\_(ツ)_/¯ <-- WTF
-                }
-                count++;
+        for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
+            if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
+                amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
+                tempOutput += (amount * (((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue()).getCo2g())) / 1000; // ¯\_(ツ)_/¯ <-- WTF
             }
-            outputFood = tempOutput;
-            System.out.println("CO2: " + outputFood + "kg");
-            amount = 0;
+            count++;
         }
+        outputFood = tempOutput;
+        System.out.println("CO2: " + outputFood + "kg");
+        amount = 0;
     }
 
+    //Calculates the co2 generated from traveling with public transport
     public void CalculatePublicTransport(ActionEvent actionEvent) throws IOException {
         int count = 0;
         double outputTemp = 0;
@@ -301,11 +282,11 @@ public class CalculatorPageController {
         amount = 0;
     }
 
+    //Calculates co2 emissions from household based on the electrical bill
     public void CalculateHousehold(ActionEvent actionEvent) throws IOException {
         if (!(txtBillPrice.getText().equals("")) && txtBillPrice.getText().matches("[0-9]+") && txtBillPrice.getText().length() < 8) {
             if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
                 switch ((String) chboxHouseType.getValue()) {
-                    //Calcs blir till int, vilket inte är så nice så ska fixa det så det blir double
                     case "Apartment" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
                     case "Villa" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
                     case "Town House" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
@@ -320,6 +301,7 @@ public class CalculatorPageController {
         }
     }
 
+    //Outputs result to result-page
     public void CalculateResult(ActionEvent actionEvent) {
         double outputResult = outputVehicle + outputPublicTransport + outputFood + outputAir + outputHousehold;
         txtResultAll.setText(""+outputResult+"kg CO2");
@@ -329,5 +311,25 @@ public class CalculatorPageController {
         txtResultPublicTransport.setText(""+outputPublicTransport+"kg CO2");
         txtResultFlight.setText(""+outputAir+"kg CO2");
     }
-}
 
+    //Switches the scene in calculator-page
+    public void showScene(ActionEvent actionEvent){
+        int btnValue;
+        switch (((Button)actionEvent.getSource()).getText()) {
+            case "Food" -> btnValue = 1;
+            case "House" -> btnValue = 2;
+            case "Flight" -> btnValue = 3;
+            case "Vehicle" -> btnValue = 4;
+            case "Public Transport" -> btnValue = 5;
+            case "Results" -> btnValue = 6;
+            default -> btnValue = 0;
+        }
+        for (Node anchorPaneStack : stackPaneCalc.getChildren()) {
+            if (anchorPaneStack.getId().equals("anchor"+btnValue)) {
+                anchorPaneStack.setVisible(true);
+            } else {
+                anchorPaneStack.setVisible(false);
+            }
+        }
+    }
+}
