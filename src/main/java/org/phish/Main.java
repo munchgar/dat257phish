@@ -26,6 +26,10 @@ public class Main extends Application {
         return currentUserId;
     }
 
+    public static void setCurrentUserId(int id) {
+        currentUserId = id;
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
