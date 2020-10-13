@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 public class UserViewController implements Initializable {
 
 
-    private DBHandler dbHandler = new DBHandler();
+    private DBHandler dbHandler = DBHandler.getInstance();
 
     @FXML
     private TableView <User> userTableView;

@@ -22,7 +22,7 @@ public class LoginPageController {
     public Button cancelBtn;
 
     public void login() throws SQLException {
-        DBHandler dbHandler = new DBHandler();
+        DBHandler dbHandler = DBHandler.getInstance();
 
         if(dbHandler.connect()) { // Attempt to connect to database.
             ResultSet rs = dbHandler.execQuery("SELECT * FROM userTable"); // Execute query
