@@ -93,6 +93,7 @@ public class CalculatorPageController {
 
     @FXML
     public void initialize() throws SQLException {
+        foodItemList.clear(); // Avoid duplicating the list when user re-initializes the view
         fetchFoodItems();
     }
 
