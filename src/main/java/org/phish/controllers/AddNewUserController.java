@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class AddNewUserController implements Initializable {
 
-    private DBHandler dbHandler = new DBHandler();
+    private DBHandler dbHandler = DBHandler.getInstance();
 
     @FXML
     public TextField fNameField;

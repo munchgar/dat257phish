@@ -33,8 +33,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        DBHandler dbHandler = new DBHandler();
-        dbHandler.Testconnection();
+        DBHandler dbHandler = DBHandler.getInstance();
+
 
         this.primaryStage=primaryStage;
         this.primaryStage.setTitle("Environment calculator");
