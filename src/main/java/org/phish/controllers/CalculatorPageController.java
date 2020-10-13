@@ -19,6 +19,7 @@ import org.phish.Main;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -98,20 +99,17 @@ public class CalculatorPageController {
 
     private void fetchFoodItems() throws SQLException {
         String SQLquery = "SELECT * FROM foodItem";
-        dbHandler.connect();
-        ResultSet rs = dbHandler.execQuery(SQLquery);
-//        try (Connection conn = dbHandler.connect();
-//             Statement stmt = conn.createStatement();
-//              = stmt.executeQuery(SQLquery))
+        if (dbHandler.connect()) {
+            ResultSet rs = dbHandler.execQuery(SQLquery);
 
-        while (rs.next()) {
-            foodItemList.add(new FoodItem(rs.getInt("foodID"), rs.getString("foodName"), rs.getDouble("co2g")));
+            while (rs.next()) {
+                foodItemList.add(new FoodItem(rs.getInt("foodID"), rs.getString("foodName"), rs.getDouble("co2g")));
+            }
+            foodChoices = FXCollections.observableArrayList(foodItemList);
+
+        } else {
+            System.err.println("bad :(");
         }
-        foodChoices = FXCollections.observableArrayList(foodItemList);
-//        } catch(SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-
     }
 
     public void AddVehicle(ActionEvent actionEvent) throws IOException {
@@ -257,14 +255,51 @@ public class CalculatorPageController {
         if (actionEvent.getSource() == btnCalcFood) {
             for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
                 if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
+                    FoodItem foodItem = ((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue());  // ¯\_(ツ)_/¯ <-- WTF
                     amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
-                    tempOutput += (amount * (((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue()).getCo2g())) / 1000; // ¯\_(ツ)_/¯ <-- WTF
+                    addFoodConsumptionActivity(foodItem, amount);
+
+                    tempOutput += (amount * foodItem.getCo2g()) / 1000;
                 }
                 count++;
             }
             outputFood = tempOutput;
             System.out.println("CO2: " + outputFood + "kg");
             amount = 0;
+        }
+    }
+
+    // Adds a new consumption activity in the database. The database will automatically append the date column with the current date.
+    private void addFoodConsumptionActivity(FoodItem foodItem, double weight) {
+        String SQLquery = "INSERT INTO foodConsumptionActivity (userID, foodID, weight) VALUES (?,?,?)";
+        if (dbHandler.connect()) {
+            try {
+                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(SQLquery);
+                pstmt.setInt(1, Main.getCurrentUserId());
+                pstmt.setInt(2, foodItem.getID());
+                pstmt.setDouble(3, weight);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                if (e.getErrorCode() == 19) {
+                    try {
+                        // If met with a constraint error (code 19), the user has already logged this food item for today.
+                        // Just add the additional weight to the already existing entry.
+                        String addQuery = "UPDATE foodConsumptionActivity SET weight = weight + ? WHERE userID = ? AND foodID = ? AND date = ?";
+                        PreparedStatement updateStmt = dbHandler.getConn().prepareStatement(addQuery);
+                        updateStmt.setDouble(1, weight);
+                        updateStmt.setInt(2, Main.getCurrentUserId());
+                        updateStmt.setInt(3, foodItem.getID());
+                        updateStmt.setString(4, LocalDate.now().toString()); // YYYY-MM-DD
+                        updateStmt.executeUpdate();
+                    } catch (SQLException exception) {
+                        System.err.println(exception.getMessage());
+                    }
+                } else {
+                    System.err.println(e.getMessage());
+                }
+            }
+        } else {
+            System.err.println("Connection not good :(");
         }
     }
 
