@@ -19,7 +19,7 @@ public class LoginPageController {
     @FXML
     public TextField idPassword;
     @FXML
-    public Button cancelBtn;
+    public Button signupBtn;
 
     public void login() throws SQLException {
         DBHandler dbHandler = new DBHandler();
@@ -42,7 +42,7 @@ public class LoginPageController {
     */
 
         //Returns the stage associated with the button. In this case, the cancel button
-        Stage stage = (Stage) cancelBtn.getScene().getWindow();
+        Stage stage = (Stage) signupBtn.getScene().getWindow();
         stage.close();
     }
 
