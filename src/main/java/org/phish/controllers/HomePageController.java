@@ -46,4 +46,7 @@ public class HomePageController {
         Main.loadCenter("SignUp.fxml");
     }
 
+    public void showLogin(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("LoginPage.fxml");
+    }
 }

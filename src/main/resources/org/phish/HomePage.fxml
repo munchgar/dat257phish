@@ -46,6 +46,7 @@
                </font>
             </Text>
             <Button fx:id="signUpBtn" layoutX="423.0" layoutY="481.0" mnemonicParsing="false" onAction="#showSignUpSec" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Sign Up" />
+            <Button fx:id="loginBtn" layoutX="500.0" layoutY="481.0" mnemonicParsing="false" onAction="#showLogin" text="Login" />
          </children>
       </AnchorPane>
    </center>
