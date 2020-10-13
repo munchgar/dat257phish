@@ -53,7 +53,6 @@ public class LoginPageController implements Initializable {
         if(dbHandler.connect()) { // Attempt to connect to database.
             ResultSet rs = dbHandler.execQuery("SELECT * FROM userTable"); // Execute query
             while (rs.next()) {
-                System.out.println(rs.getString("username"));
                 if (rs.getString("username").equals(idUsername.getText()) && (rs.getString("password").equals(idPassword.getText()))) {
                     System.out.println("USER LOGGED IN"); // Implement login for user ID PRIMARY KEY IN DB
                     System.out.println(rs.getString("username"));
