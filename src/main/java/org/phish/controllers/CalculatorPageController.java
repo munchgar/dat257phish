@@ -29,9 +29,9 @@ public class CalculatorPageController {
     double outputFood = 0;
     double outputPublicTransport = 0;
     double amount = 0;
-    int foodCount = 0;
-    int vehicleCount = 0;
-    int publicTransportCount = 0;
+    int foodCount = 1;
+    int vehicleCount = 1;
+    int publicTransportCount = 1;
     private static ArrayList<FoodItem> foodItemList = new ArrayList<>();
 
     static ObservableList<FoodItem> foodChoices;
@@ -92,8 +92,11 @@ public class CalculatorPageController {
     ChoiceBox chboxHouseType;
 
     @FXML
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, IOException {
         fetchFoodItems();
+        AddFood(null);
+        AddPublicTransport(null);
+        AddVehicle(null);
     }
 
     private void fetchFoodItems() throws SQLException {
