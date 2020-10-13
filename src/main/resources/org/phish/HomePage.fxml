@@ -42,36 +42,4 @@
          </padding>
       </HBox>
    </bottom>
-<<<<<<< Updated upstream
-=======
-   <center>
-      <AnchorPane focusTraversable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text layoutX="63.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good Evening {User}" textAlignment="CENTER" wrappingWidth="361.13671875" AnchorPane.rightAnchor="375.86328125" AnchorPane.topAnchor="55.0">
-               <font>
-                  <Font size="39.0" />
-               </font>
-            </Text>
-            <Button fx:id="NxtBtn" layoutX="630.0" layoutY="373.0" mnemonicParsing="false" onAction="#showMainSec" prefHeight="25.0" prefWidth="49.0" text="Next" />
-            <Text layoutX="63.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back to your enviromental impact calculator. The average emission of carbon dioxide in Sweden is 4.54 tons per person, how well do you fare compared to the average Swede? Calculate it today!" wrappingWidth="261.13671875">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <ImageView fitHeight="218.0" fitWidth="267.0" layoutX="400.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="http://www.iciq.org/wp-content/uploads/2014/05/co2-800px-notxt-nobg.png" />
-               </image>
-            </ImageView>
-            <Text layoutX="235.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account? Sign up here!" textAlignment="CENTER" wrappingWidth="178.599609375">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Button fx:id="signUpBtn" layoutX="423.0" layoutY="481.0" mnemonicParsing="false" onAction="#showSignUpSec" text="Sign Up" />
-             <Button fx:id="loginBtn" layoutX="500.0" layoutY="481.0" mnemonicParsing="false" onAction="#showLogin" text="Login" />
-         </children>
-      </AnchorPane>
-   </center>
->>>>>>> Stashed changes
 </BorderPane>
