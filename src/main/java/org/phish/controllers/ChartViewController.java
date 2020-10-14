@@ -1,7 +1,28 @@
 package org.phish.controllers;
 
+import javafx.beans.binding.ObjectExpression;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import org.phish.classes.DateAxis;
+
+
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
+import org.phish.Main;
+import org.phish.database.DBHandler;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+
 
 public class ChartViewController {
 
@@ -11,48 +32,23 @@ public class ChartViewController {
         LAST_YEAR
     }
 
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    private final ObservableList<XYChart.Data<Date, Number>> co2OverTimeList = FXCollections.observableArrayList();
+
     @FXML
-    private LineChart<String,Number> co2OverTimeChart;
+    private DateAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
+
+    @FXML
+    private LineChart<Date,Number> co2OverTimeChart;
 
     @FXML
     private PieChart co2SourcePieChart;
 
-    private final XYChart.Series<String, Number> co2OverTimeSeries = new XYChart.Series<>();
-
-    public void initialize() {
-        // Having animations on this chart causes series duplication errors (https://stackoverflow.com/questions/32151435/)
-        co2OverTimeChart.setAnimated(false);
-    }
-
-    // Currently a dummy method, should connect to db and append data relevant to specified timeframe and possibly other factors
-    private void populateLineChart (TimeFrame timeFrame, XYChart.Series<String, Number> chartSeries) {
-        switch (timeFrame) {
-            case LAST_WEEK:
-                chartSeries.getData().add(new XYChart.Data("Sunday", 20));
-                chartSeries.getData().add(new XYChart.Data("Monday", 55));
-                chartSeries.getData().add(new XYChart.Data("Tuesday", 12));
-                break;
-            case LAST_MONTH:
-                chartSeries.getData().add(new XYChart.Data("Sep 17", 30));
-                chartSeries.getData().add(new XYChart.Data("Sep 18", 32));
-                chartSeries.getData().add(new XYChart.Data("Sep 19", 40));
-                chartSeries.getData().add(new XYChart.Data("Sep 20", 20));
-                chartSeries.getData().add(new XYChart.Data("Sep 21", 55));
-                chartSeries.getData().add(new XYChart.Data("Sep 22", 12));
-                break;
-            default:
-                chartSeries.getData().add(new XYChart.Data("Jan", 10));
-                chartSeries.getData().add(new XYChart.Data("Feb", 15));
-                chartSeries.getData().add(new XYChart.Data("Mar", 25));
-                chartSeries.getData().add(new XYChart.Data("Apr", 30));
-                chartSeries.getData().add(new XYChart.Data("May", 32));
-                chartSeries.getData().add(new XYChart.Data("Jun", 40));
-                chartSeries.getData().add(new XYChart.Data("Jul", 20));
-                chartSeries.getData().add(new XYChart.Data("Aug", 55));
-                chartSeries.getData().add(new XYChart.Data("Sep", 12));
-                break;
-        }
-    }
+    private DBHandler dbHandler = DBHandler.getInstance();
 
     private void populatePieChart (TimeFrame timeFrame, PieChart chart) {
         switch (timeFrame) {
@@ -80,21 +76,64 @@ public class ChartViewController {
     // Populates all the charts with the timeFrame and category provided.
     public void populate (TimeFrame timeFrame, String category) {
         clearCharts();
-        co2OverTimeChart.getData().add(co2OverTimeSeries);
+        co2OverTimeChart.getData().add(new XYChart.Series<>(co2OverTimeList));
         switch (category) {
             case "Total":
-                populateLineChart(timeFrame, co2OverTimeSeries);
+                //populateLineChart(timeFrame, co2OverTimeList);
                 populatePieChart(timeFrame, co2SourcePieChart);
                 break;
             case "Housing":
-                populateLineChart(timeFrame, co2OverTimeSeries);
+                //populateLineChart(timeFrame, co2OverTimeList);
+                break;
+            case "Food":
+                // This query will return the current user's total co2 emissions from food by date
+                String SQLquery = "SELECT date, SUM(co2g*weight) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
+                        "WHERE userID = ? AND date BETWEEN datetime('now',?) AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
+                populateCo2OverTimeChart(timeFrame, SQLquery);
                 break;
         }
+    }
+
+    private void populateCo2OverTimeChart(TimeFrame timeFrame, String query) {
+        if (dbHandler.connect()) {
+            try {
+                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(query);
+                pstmt.setInt(1, Main.getCurrentUserId());
+                pstmt.setString(2,timeFrame == TimeFrame.LAST_WEEK ? "-6 days" : timeFrame == TimeFrame.LAST_MONTH ? "-30 days" : "-364 days");
+                ResultSet rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    try {
+                        XYChart.Data<Date, Number> data = new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("co2"));
+                        data.setNode(createDataNode(data.YValueProperty()));
+                        co2OverTimeList.add(new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("co2")));
+                    } catch(ParseException e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+            } catch(SQLException e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
+    }
+
+    private static Node createDataNode(ObjectExpression<Number> value) {
+        Label label = new Label();
+        label.textProperty().bind(value.asString("%,.2f"));
+
+        Pane pane = new Pane();
+        pane.setShape(new Circle(6));
+        pane.setScaleShape(false);
+
+        label.translateYProperty().bind(label.heightProperty().divide(-1.5));
+
+        return pane;
     }
 
     private void clearCharts() {
         co2SourcePieChart.getData().clear();
         co2OverTimeChart.getData().clear();
-        co2OverTimeSeries.getData().clear();
+        co2OverTimeList.clear();
     }
 }
