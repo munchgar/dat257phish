@@ -15,7 +15,7 @@ import java.sql.*;
 
 public class SignUpController {
 
-   private DBHandler dbHandler = new DBHandler();
+   private DBHandler dbHandler = DBHandler.getInstance();;
 
     @FXML
     public Text fieldsFilledCheckText;

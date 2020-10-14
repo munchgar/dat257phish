@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 public class AddVehicleController implements Initializable {
 
-    private DBHandler dbHandler = new DBHandler();
+    private DBHandler dbHandler = DBHandler.getInstance();
     ObservableList<VehicleType> vehicleTypes = FXCollections.observableArrayList();
     ObservableList<FuelType> fuelTypes = FXCollections.observableArrayList();
 

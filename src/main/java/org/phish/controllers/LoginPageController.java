@@ -29,14 +29,14 @@ public class LoginPageController implements Initializable {
     @FXML
     public TextField idPassword;
     @FXML
-    public Button cancelBtn;
+    public Button signupBtn;
     @FXML
     public Text fieldsFilledCheckText;
     @FXML
     public Text wrongInputCheckText;
 
     public int login() throws SQLException, IOException {
-        DBHandler dbHandler = new DBHandler();
+        DBHandler dbHandler = DBHandler.getInstance();
 
         if(!idUsername.getText().isBlank() && !idPassword.getText().isBlank()){
             //System.out.println(fNameField.getText() + " " + lNameField.getText());

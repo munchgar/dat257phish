@@ -29,7 +29,7 @@ public class AddActivityController implements Initializable {
     private final ObservableList <Vehicle> vehicles = FXCollections.observableArrayList();
     private final ObservableList <Vehicle> personalVehicles = FXCollections.observableArrayList(); //todo make dynamic drop down list
 
-    private final DBHandler dbHandler = new DBHandler();
+    private final DBHandler dbHandler = DBHandler.getInstance();
 
     private Calendar calendar = Calendar.getInstance();
 

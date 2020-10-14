@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class CalculatorPageController {
-    DBHandler dbHandler = new DBHandler();
+    DBHandler dbHandler = DBHandler.getInstance();
 
     double outputHousehold = 0;
     double outputAir = 0;
