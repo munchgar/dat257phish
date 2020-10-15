@@ -34,6 +34,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
+                    <compilerArgs>
+                        <arg>--add-exports</arg>
+                        <arg>javafx.controls/com.sun.javafx.charts=org.phish</arg>
+                    </compilerArgs>
                     <release>14</release>
                 </configuration>
             </plugin>
