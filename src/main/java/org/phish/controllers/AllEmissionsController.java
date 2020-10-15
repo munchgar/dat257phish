@@ -29,6 +29,7 @@ public class AllEmissionsController implements Initializable {
     private ObservableList<Vehicle> vehicles = FXCollections.observableArrayList();
     private ObservableList<TransportActivity> transportActivities = FXCollections.observableArrayList();
 
+    private ObservableList<GeneralEmission> foodEmissions = FXCollections.observableArrayList();
 
     @FXML
     private TableView<GeneralEmission> emissionsTableview;
@@ -85,8 +86,10 @@ public class AllEmissionsController implements Initializable {
             transportField.setText(Double.toString(transportSum));
         }
         if(foodToggle.isSelected()){
-           //Todo emissions.addAll(foodEmissions);
-
+            emissions.addAll(foodEmissions);
+            for (GeneralEmission ge: foodEmissions) {
+                foodSum += ge.getEmission();
+            }
             foodField.setText(Double.toString(foodSum));
         }
         if(houseToggle.isSelected()){
@@ -102,8 +105,17 @@ public class AllEmissionsController implements Initializable {
         //todo
     }
 
-    private void loadFoodData() {
-        //todo
+    private void loadFoodData() throws SQLException{
+        foodEmissions.clear();
+        String SQLquery = "SELECT foodName, date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
+                "WHERE userID=" + Main.getCurrentUserId() + " GROUP BY foodName, date ORDER BY date ASC;";
+        if (dbHandler.connect()) {
+            ResultSet rs = dbHandler.execQuery(SQLquery);
+            while (rs.next()) {
+                // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
+                foodEmissions.add(new GeneralEmission("Food",-1,rs.getString("date"),rs.getString("foodName"),rs.getDouble("co2")));
+            }
+        }
     }
 
     private void loadVehicleData() throws SQLException {
@@ -177,8 +189,9 @@ public class AllEmissionsController implements Initializable {
         loadData();
     }
 
-    public void filterFood() {
+    public void filterFood() throws SQLException {
         allToggle.setSelected(false);
+        loadData();
     }
 
     public void filterTransport() throws SQLException {
