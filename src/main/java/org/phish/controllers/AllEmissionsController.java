@@ -55,7 +55,7 @@ public class AllEmissionsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        SetupTable();
+        setupTable();
         try {
             loadData();
         } catch (SQLException throwables) {
@@ -71,8 +71,8 @@ public class AllEmissionsController implements Initializable {
         fromDate.setDisable(true);
         toDate.setDisable(true);
         }
-        fromDate.setValue(LocalDate.now());
-        toDate.setValue(LocalDate.now());
+        fromDate.setValue(LocalDate.now().minusDays(1));
+        toDate.setValue(LocalDate.now().plusDays(1));
     }
 
     private void loadData() throws SQLException {
@@ -166,13 +166,24 @@ public class AllEmissionsController implements Initializable {
         transportEmissions.clear();
         //loadFoodData-implementation
         for (TransportActivity transportActivity : transportActivities) {
-            //(String category, int FKId, LocalDate date, String title, double emission) {
-            transportEmissions.add(new GeneralEmission("Transport", transportActivity.getActivityId(), transportActivity.getDate(), transportActivity.getActivityName(), transportActivity.getCalculatedCO2()));
-        }
+            if (dateFilterCheck.isSelected()) {//Todo implement date filter
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String datetoCheckString = transportActivity.getDate();
 
+                //convert String to LocalDate
+                LocalDate date = LocalDate.parse(datetoCheckString, formatter);
+                if (date.isAfter(fromDate.getValue()) && date.isBefore(toDate.getValue())) {
+                    //(String category, int FKId, LocalDate date, String title, double emission)
+                    transportEmissions.add(new GeneralEmission("Transport", transportActivity.getActivityId(), transportActivity.getDate(), transportActivity.getActivityName(), transportActivity.getCalculatedCO2()));
+                }
+            }else
+            {
+                transportEmissions.add(new GeneralEmission("Transport", transportActivity.getActivityId(), transportActivity.getDate(), transportActivity.getActivityName(), transportActivity.getCalculatedCO2()));
+            }
+        }
     }
 
-    private void SetupTable() {
+    private void setupTable() {
         dateCol.setCellValueFactory(new PropertyValueFactory<GeneralEmission, String>("date"));
         titleCol.setCellValueFactory(new PropertyValueFactory<GeneralEmission, String>("title"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<GeneralEmission, String>("category"));
