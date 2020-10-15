@@ -164,7 +164,7 @@ public class AllEmissionsController implements Initializable {
             }
         }
         transportEmissions.clear();
-        loadFoodData-implementation
+        //loadFoodData-implementation
         for (TransportActivity transportActivity : transportActivities) {
             //(String category, int FKId, LocalDate date, String title, double emission) {
             transportEmissions.add(new GeneralEmission("Transport", transportActivity.getActivityId(), transportActivity.getDate(), transportActivity.getActivityName(), transportActivity.getCalculatedCO2()));
