@@ -80,14 +80,14 @@ public class AllEmissionsController implements Initializable {
         loadHouseData();
         if(transportToggle.isSelected()){
             emissions.addAll(transportEmissions);
-            for(int i = 0; i <transportEmissions.size(); i++){
-                transportSum += transportEmissions.get(i).getEmission();
+            for (GeneralEmission ge : transportEmissions) {
+                transportSum += ge.getEmission();
             }
             transportField.setText(Double.toString(transportSum));
         }
         if(foodToggle.isSelected()){
             emissions.addAll(foodEmissions);
-            for (GeneralEmission ge: foodEmissions) {
+            for (GeneralEmission ge : foodEmissions) {
                 foodSum += ge.getEmission();
             }
             foodField.setText(Double.toString(foodSum));
@@ -160,9 +160,9 @@ public class AllEmissionsController implements Initializable {
             }
         }
         transportEmissions.clear();
-        for (int i =0; i<transportActivities.size();i++){
+        for (TransportActivity transportActivity : transportActivities) {
             //(String category, int FKId, LocalDate date, String title, double emission) {
-            transportEmissions.add(new GeneralEmission("Transport", transportActivities.get(i).getActivityId(), transportActivities.get(i).getDate(), transportActivities.get(i).getActivityName(), transportActivities.get(i).getCalculatedCO2()));
+            transportEmissions.add(new GeneralEmission("Transport", transportActivity.getActivityId(), transportActivity.getDate(), transportActivity.getActivityName(), transportActivity.getCalculatedCO2()));
         }
 
     }
