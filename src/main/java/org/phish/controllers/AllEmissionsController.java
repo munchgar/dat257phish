@@ -16,6 +16,8 @@ import org.phish.database.DBHandler;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class AllEmissionsController implements Initializable {
@@ -69,6 +71,8 @@ public class AllEmissionsController implements Initializable {
         fromDate.setDisable(true);
         toDate.setDisable(true);
         }
+        fromDate.setValue(LocalDate.now());
+        toDate.setValue(LocalDate.now());
     }
 
     private void loadData() throws SQLException {
@@ -160,6 +164,7 @@ public class AllEmissionsController implements Initializable {
             }
         }
         transportEmissions.clear();
+        loadFoodData-implementation
         for (TransportActivity transportActivity : transportActivities) {
             //(String category, int FKId, LocalDate date, String title, double emission) {
             transportEmissions.add(new GeneralEmission("Transport", transportActivity.getActivityId(), transportActivity.getDate(), transportActivity.getActivityName(), transportActivity.getCalculatedCO2()));
