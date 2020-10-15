@@ -116,8 +116,22 @@ public class AllEmissionsController implements Initializable {
         if (dbHandler.connect()) {
             ResultSet rs = dbHandler.execQuery(SQLquery);
             while (rs.next()) {
+                if(dateFilterCheck.isSelected()){
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    String datetoCheckString = rs.getString("date");
+
+                    //convert String to LocalDate
+                    LocalDate date = LocalDate.parse(datetoCheckString, formatter);
+                    if (date.isAfter(fromDate.getValue()) && date.isBefore(toDate.getValue())) {
+                        // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
+                        foodEmissions.add(new GeneralEmission("Food",-1,rs.getString("date"),rs.getString("foodName"),rs.getDouble("co2")));
+                    }
+                }else
+                {
                 // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
                 foodEmissions.add(new GeneralEmission("Food",-1,rs.getString("date"),rs.getString("foodName"),rs.getDouble("co2")));
+
+                }
             }
         }
     }
@@ -166,7 +180,7 @@ public class AllEmissionsController implements Initializable {
         transportEmissions.clear();
         //loadFoodData-implementation
         for (TransportActivity transportActivity : transportActivities) {
-            if (dateFilterCheck.isSelected()) {//Todo implement date filter
+            if (dateFilterCheck.isSelected()) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 String datetoCheckString = transportActivity.getDate();
 
