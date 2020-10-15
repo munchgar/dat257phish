@@ -31,6 +31,7 @@ public class AllEmissionsController implements Initializable {
     private ObservableList<Vehicle> vehicles = FXCollections.observableArrayList();
     private ObservableList<TransportActivity> transportActivities = FXCollections.observableArrayList();
 
+    private ObservableList<GeneralEmission> foodEmissions = FXCollections.observableArrayList();
 
     @FXML
     private TableView<GeneralEmission> emissionsTableview;
@@ -83,14 +84,16 @@ public class AllEmissionsController implements Initializable {
         loadHouseData();
         if(transportToggle.isSelected()){
             emissions.addAll(transportEmissions);
-            for(int i = 0; i <transportEmissions.size(); i++){
-                transportSum += transportEmissions.get(i).getEmission();
+            for (GeneralEmission ge : transportEmissions) {
+                transportSum += ge.getEmission();
             }
             transportField.setText(Double.toString(transportSum));
         }
         if(foodToggle.isSelected()){
-           //Todo emissions.addAll(foodEmissions);
-
+            emissions.addAll(foodEmissions);
+            for (GeneralEmission ge : foodEmissions) {
+                foodSum += ge.getEmission();
+            }
             foodField.setText(Double.toString(foodSum));
         }
         if(houseToggle.isSelected()){
@@ -106,8 +109,17 @@ public class AllEmissionsController implements Initializable {
         //todo
     }
 
-    private void loadFoodData() {
-        //todo
+    private void loadFoodData() throws SQLException{
+        foodEmissions.clear();
+        String SQLquery = "SELECT foodName, date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
+                "WHERE userID=" + Main.getCurrentUserId() + " GROUP BY foodName, date ORDER BY date ASC;";
+        if (dbHandler.connect()) {
+            ResultSet rs = dbHandler.execQuery(SQLquery);
+            while (rs.next()) {
+                // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
+                foodEmissions.add(new GeneralEmission("Food",-1,rs.getString("date"),rs.getString("foodName"),rs.getDouble("co2")));
+            }
+        }
     }
 
     private void loadVehicleData() throws SQLException {
@@ -152,20 +164,10 @@ public class AllEmissionsController implements Initializable {
             }
         }
         transportEmissions.clear();
-        for (int i =0; i<transportActivities.size();i++){
-              /*  if(dateFilterCheck.isSelected()){
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                    String dateloaded = transportEmissions.get(i).getDate();
-                    //convert String to LocalDate
-                    LocalDate dateToCheck = LocalDate.parse(dateloaded, formatter);
-
-                    if(dateToCheck.isAfter(fromDate.getValue()) && dateToCheck.isBefore(toDate.getValue())){
-                        transportEmissions.add(new GeneralEmission("Transport", transportActivities.get(i).getActivityId(), transportActivities.get(i).getDate(), transportActivities.get(i).getActivityName(), transportActivities.get(i).getCalculatedCO2()));
-                    }
-
-                }else {*/
-                    transportEmissions.add(new GeneralEmission("Transport", transportActivities.get(i).getActivityId(), transportActivities.get(i).getDate(), transportActivities.get(i).getActivityName(), transportActivities.get(i).getCalculatedCO2()));
-                //}
+        loadFoodData-implementation
+        for (TransportActivity transportActivity : transportActivities) {
+            //(String category, int FKId, LocalDate date, String title, double emission) {
+            transportEmissions.add(new GeneralEmission("Transport", transportActivity.getActivityId(), transportActivity.getDate(), transportActivity.getActivityName(), transportActivity.getCalculatedCO2()));
         }
 
     }
@@ -192,8 +194,9 @@ public class AllEmissionsController implements Initializable {
         loadData();
     }
 
-    public void filterFood() {
+    public void filterFood() throws SQLException {
         allToggle.setSelected(false);
+        loadData();
     }
 
     public void filterTransport() throws SQLException {
