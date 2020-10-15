@@ -38,6 +38,8 @@ public class TransportActivitiesController implements Initializable {
     private TableColumn<TransportActivity, String> vehicleNameCol;
     @FXML
     private TableColumn<TransportActivity, Double> co2Col;
+    @FXML
+    private TableColumn<TransportActivity, String> titleCol;
 
 
     public void openAddActivitiesWindow(ActionEvent actionEvent) throws IOException {
@@ -113,5 +115,6 @@ public class TransportActivitiesController implements Initializable {
         distanceCol.setCellValueFactory(new PropertyValueFactory<TransportActivity, Integer>("distance"));
         vehicleNameCol.setCellValueFactory(new PropertyValueFactory<TransportActivity, String>("vehicleName"));
         co2Col.setCellValueFactory(new PropertyValueFactory<TransportActivity, Double>("calculatedCO2"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<TransportActivity, String> ("title"));
     }
 }
