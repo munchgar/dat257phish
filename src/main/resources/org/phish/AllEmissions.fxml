@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,6 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.phish.controllers.AllEmissionsController">
@@ -36,39 +40,52 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <VBox layoutX="24.0" layoutY="-29.0" prefHeight="398.0" prefWidth="97.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="24.0" layoutY="-29.0" prefHeight="398.0" prefWidth="97.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <GridPane>
+                        <HBox alignment="TOP_CENTER">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filters">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                        <CheckBox fx:id="dateFilterCheck" mnemonicParsing="false" onAction="#checkDateFilter" text="Date filters" />
+                        <DatePicker fx:id="fromDate" editable="false" promptText="From date" />
+                        <DatePicker fx:id="toDate" editable="false" promptText="To date" />
+                        <Separator prefWidth="200.0" />
+                        <ToggleButton fx:id="allToggle" mnemonicParsing="false" onAction="#filterAll" prefWidth="200.0" text="All" />
+                        <GridPane VBox.vgrow="NEVER">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <ToggleButton fx:id="foodToggle" mnemonicParsing="false" onAction="#filterFood" prefWidth="100.0" text="Food" GridPane.rowIndex="1" />
-                              <ToggleButton fx:id="transportToggle" mnemonicParsing="false" onAction="#filterTransport" prefWidth="100.0" text="Transport" GridPane.rowIndex="2" />
-                              <ToggleButton fx:id="houseToggle" mnemonicParsing="false" onAction="#filterHouse" prefWidth="100.0" text="House" GridPane.rowIndex="3" />
-                              <ToggleButton fx:id="allToggle" mnemonicParsing="false" onAction="#filterAll" prefWidth="100.0" text="All" />
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                              <ToggleButton fx:id="foodToggle" mnemonicParsing="false" onAction="#filterFood" prefWidth="100.0" text="Food" />
+                              <ToggleButton fx:id="transportToggle" mnemonicParsing="false" onAction="#filterTransport" prefWidth="100.0" text="Transport" GridPane.rowIndex="1" />
+                              <ToggleButton fx:id="houseToggle" mnemonicParsing="false" onAction="#filterHouse" prefWidth="100.0" text="House" GridPane.rowIndex="2" />
+                              <HBox alignment="CENTER" prefWidth="100.0" GridPane.rowIndex="3">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total" />
                                  </children>
                               </HBox>
-                              <TextField fx:id="foodField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="transportField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="houseField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField fx:id="totalField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="foodField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="transportField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="houseField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="totalField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                      </children>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="40.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
                      </padding>
                   </VBox>
                </children>

@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.phish.Main;
 import org.phish.classes.GeneralEmission;
@@ -45,6 +42,10 @@ public class AllEmissionsController implements Initializable {
     private TableColumn<GeneralEmission, Double> co2Col;
     @FXML
     private TextField foodField, transportField, houseField, totalField;
+    @FXML
+    private CheckBox dateFilterCheck;
+    @FXML
+    private DatePicker fromDate, toDate;
 
     @FXML
     private ToggleButton allToggle, foodToggle, transportToggle, houseToggle;
@@ -62,6 +63,10 @@ public class AllEmissionsController implements Initializable {
             filterAll();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+        if(!dateFilterCheck.isSelected()){
+        fromDate.setDisable(true);
+        toDate.setDisable(true);
         }
     }
 
@@ -94,10 +99,11 @@ public class AllEmissionsController implements Initializable {
     }
 
     private void loadHouseData() {
+        //todo
     }
 
     private void loadFoodData() {
-
+        //todo
     }
 
     private void loadVehicleData() throws SQLException {
@@ -178,10 +184,20 @@ public class AllEmissionsController implements Initializable {
     public void filterTransport() throws SQLException {
         allToggle.setSelected(false);
         loadData();
-
     }
 
     public void filterHouse() {
         allToggle.setSelected(false);
+    }
+
+    public void checkDateFilter(ActionEvent actionEvent) {
+        if(!dateFilterCheck.isSelected()){
+            fromDate.setDisable(true);
+            toDate.setDisable(true);
+        }else
+        {
+            fromDate.setDisable(false);
+            toDate.setDisable(false);
+        }
     }
 }
