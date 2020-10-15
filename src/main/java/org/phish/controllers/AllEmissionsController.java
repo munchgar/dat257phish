@@ -16,6 +16,8 @@ import org.phish.database.DBHandler;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class AllEmissionsController implements Initializable {
@@ -68,6 +70,8 @@ public class AllEmissionsController implements Initializable {
         fromDate.setDisable(true);
         toDate.setDisable(true);
         }
+        fromDate.setValue(LocalDate.now());
+        toDate.setValue(LocalDate.now());
     }
 
     private void loadData() throws SQLException {
@@ -149,8 +153,19 @@ public class AllEmissionsController implements Initializable {
         }
         transportEmissions.clear();
         for (int i =0; i<transportActivities.size();i++){
-            //(String category, int FKId, LocalDate date, String title, double emission) {
-            transportEmissions.add(new GeneralEmission("Transport", transportActivities.get(i).getActivityId(), transportActivities.get(i).getDate(), transportActivities.get(i).getActivityName(), transportActivities.get(i).getCalculatedCO2()));
+              /*  if(dateFilterCheck.isSelected()){
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    String dateloaded = transportEmissions.get(i).getDate();
+                    //convert String to LocalDate
+                    LocalDate dateToCheck = LocalDate.parse(dateloaded, formatter);
+
+                    if(dateToCheck.isAfter(fromDate.getValue()) && dateToCheck.isBefore(toDate.getValue())){
+                        transportEmissions.add(new GeneralEmission("Transport", transportActivities.get(i).getActivityId(), transportActivities.get(i).getDate(), transportActivities.get(i).getActivityName(), transportActivities.get(i).getCalculatedCO2()));
+                    }
+
+                }else {*/
+                    transportEmissions.add(new GeneralEmission("Transport", transportActivities.get(i).getActivityId(), transportActivities.get(i).getDate(), transportActivities.get(i).getActivityName(), transportActivities.get(i).getCalculatedCO2()));
+                //}
         }
 
     }
