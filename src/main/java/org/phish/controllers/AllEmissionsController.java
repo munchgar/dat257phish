@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.phish.Main;
@@ -24,6 +25,7 @@ public class AllEmissionsController implements Initializable {
 
 
 
+    private ObservableList<GeneralEmission> transportEmissions = FXCollections.observableArrayList();
     private ObservableList<GeneralEmission> emissions = FXCollections.observableArrayList();
     private DBHandler dbHandler = new DBHandler();
 
@@ -41,6 +43,8 @@ public class AllEmissionsController implements Initializable {
     private TableColumn<GeneralEmission, String> categoryCol;
     @FXML
     private TableColumn<GeneralEmission, Double> co2Col;
+    @FXML
+    private TextField foodField, transportField, houseField, totalField;
 
     @FXML
     private ToggleButton allToggle, foodToggle, transportToggle, houseToggle;
@@ -53,12 +57,40 @@ public class AllEmissionsController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        allToggle.setSelected(true);
+        try {
+            filterAll();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     private void loadData() throws SQLException {
+        emissions.clear();
+        double transportSum=0, foodSum=0, houseSum = 0, totalSum=0;
+
         loadVehicleData();
         loadFoodData();
         loadHouseData();
+        if(transportToggle.isSelected()){
+            emissions.addAll(transportEmissions);
+            for(int i = 0; i <transportEmissions.size(); i++){
+                transportSum += transportEmissions.get(i).getEmission();
+            }
+            transportField.setText(Double.toString(transportSum));
+        }
+        if(foodToggle.isSelected()){
+           //Todo emissions.addAll(foodEmissions);
+
+            foodField.setText(Double.toString(foodSum));
+        }
+        if(houseToggle.isSelected()){
+            //Todo emissions.addAll(houseEmissions);
+
+            houseField.setText(Double.toString(houseSum));
+        }
+        totalSum= transportSum+foodSum+houseSum;
+        totalField.setText(Double.toString(totalSum));
     }
 
     private void loadHouseData() {
@@ -109,10 +141,10 @@ public class AllEmissionsController implements Initializable {
                 }
             }
         }
-
+        transportEmissions.clear();
         for (int i =0; i<transportActivities.size();i++){
             //(String category, int FKId, LocalDate date, String title, double emission) {
-            emissions.add(new GeneralEmission("Transport", transportActivities.get(i).getActivityId(), transportActivities.get(i).getDate(), transportActivities.get(i).getActivityName(), transportActivities.get(i).getCalculatedCO2()));
+            transportEmissions.add(new GeneralEmission("Transport", transportActivities.get(i).getActivityId(), transportActivities.get(i).getDate(), transportActivities.get(i).getActivityName(), transportActivities.get(i).getCalculatedCO2()));
         }
 
     }
@@ -126,16 +158,30 @@ public class AllEmissionsController implements Initializable {
         emissionsTableview.setItems(emissions);
     }
 
-    public void filterAll(ActionEvent actionEvent) {
+    public void filterAll() throws SQLException {
+        if(allToggle.isSelected()){
+            foodToggle.setSelected(true);
+            houseToggle.setSelected(true);
+            transportToggle.setSelected(true);
+        }else{
+            foodToggle.setSelected(false);
+            houseToggle.setSelected(false);
+            transportToggle.setSelected(false);
+        }
+        loadData();
+    }
+
+    public void filterFood() {
+        allToggle.setSelected(false);
+    }
+
+    public void filterTransport() throws SQLException {
+        allToggle.setSelected(false);
+        loadData();
 
     }
 
-    public void filterFood(ActionEvent actionEvent) {
-    }
-
-    public void filterTransport(ActionEvent actionEvent) {
-    }
-
-    public void filterHouse(ActionEvent actionEvent) {
+    public void filterHouse() {
+        allToggle.setSelected(false);
     }
 }
