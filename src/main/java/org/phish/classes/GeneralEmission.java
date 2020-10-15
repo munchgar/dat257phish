@@ -8,35 +8,35 @@ import java.time.LocalDate;
 
 public class GeneralEmission {
     private SimpleIntegerProperty GeneralEmissionId;
-    private SimpleIntegerProperty categoryId;
+    private SimpleStringProperty category;
     private SimpleIntegerProperty FKId;
-    private LocalDate date;
+    private SimpleStringProperty date;
     private SimpleStringProperty title;
     private SimpleDoubleProperty emission;
 
-    public GeneralEmission(int generalEmissionId, int categoryId, int FKId, LocalDate date, String title, double emission) {
-        GeneralEmissionId = new SimpleIntegerProperty(generalEmissionId);
-        this.categoryId = new SimpleIntegerProperty(categoryId);
+    public GeneralEmission(/*int generalEmissionId,*/ String category, int FKId, String date, String title, double emission) {
+        //GeneralEmissionId = new SimpleIntegerProperty(generalEmissionId);
+        this.category = new SimpleStringProperty(category);
         this.FKId = new SimpleIntegerProperty(FKId);
-        this.date = date;
+        this.date = new SimpleStringProperty(date);
         this.title = new SimpleStringProperty(title);
         this.emission = new SimpleDoubleProperty(emission);
     }
 
-    public int getGeneralEmissionId() {
+   /* public int getGeneralEmissionId() {
         return GeneralEmissionId.get();
     }
 
     public SimpleIntegerProperty generalEmissionIdProperty() {
         return GeneralEmissionId;
+    }*/
+
+    public String getCategory() {
+        return category.get();
     }
 
-    public int getCategoryId() {
-        return categoryId.get();
-    }
-
-    public SimpleIntegerProperty categoryIdProperty() {
-        return categoryId;
+    public  SimpleStringProperty categoryProperty() {
+        return category;
     }
 
     public int getFKId() {
@@ -47,7 +47,11 @@ public class GeneralEmission {
         return FKId;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
+        return date.get();
+    }
+
+    public SimpleStringProperty getDateProperty(){
         return date;
     }
 
