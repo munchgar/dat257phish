@@ -27,9 +27,15 @@ import java.util.Date;
 public class ChartViewController {
 
     public enum TimeFrame {
-        LAST_WEEK,
-        LAST_MONTH,
-        LAST_YEAR
+        LAST_WEEK("-6 days"),
+        LAST_MONTH("-30 days"),
+        LAST_YEAR("-364 days");
+
+        public final String value;
+
+        TimeFrame(String value) {
+            this.value = value;
+        }
     }
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -37,18 +43,12 @@ public class ChartViewController {
     private final ObservableList<XYChart.Data<Date, Number>> co2OverTimeList = FXCollections.observableArrayList();
 
     @FXML
-    private DateAxis xAxis;
-
-    @FXML
-    private NumberAxis yAxis;
-
-    @FXML
     private LineChart<Date,Number> co2OverTimeChart;
 
     @FXML
     private PieChart co2SourcePieChart;
 
-    private DBHandler dbHandler = DBHandler.getInstance();
+    private final DBHandler dbHandler = DBHandler.getInstance();
 
     private void populatePieChart (TimeFrame timeFrame, PieChart chart) {
         switch (timeFrame) {
@@ -77,38 +77,46 @@ public class ChartViewController {
     public void populate (TimeFrame timeFrame, String category) {
         clearCharts();
         co2OverTimeChart.getData().add(new XYChart.Series<>());
-        String SQLquery;
+        String co2OverTimeQuery = "";
+
         switch (category) {
             case "Total":
-                //populateLineChart(timeFrame, co2OverTimeList);
-                populatePieChart(timeFrame, co2SourcePieChart);
+                // TODO: Add more categories to total (and maybe implement this in a way that doesn't result in a gigantic union of selects)
+                co2OverTimeQuery = "SELECT date, round(SUM(co2),2) AS co2 FROM (SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
+                        "FROM transportActivity INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
+                        "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId= ? AND date BETWEEN datetime('now','"+timeFrame.value+"') " +
+                        "AND datetime('now','localtime') GROUP BY date UNION SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity " +
+                        "INNER JOIN foodItem USING(foodID) WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date) " +
+                        "GROUP BY date ORDER BY date ASC;";
                 break;
             case "Housing":
-                //populateLineChart(timeFrame, co2OverTimeList);
+                // TODO: Implement
                 break;
             case "Transport":
-                SQLquery = "SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 from transportActivity " +
+                co2OverTimeQuery = "SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 from transportActivity " +
                         "INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId=? " +
-                        "AND date BETWEEN datetime('now',?) AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
-                populateCo2OverTimeChart(timeFrame, SQLquery);
+                        "AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
                 break;
 
             case "Food":
                 // This query will return the current user's total co2 emissions from food by date
-                SQLquery = "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
-                        "WHERE userID = ? AND date BETWEEN datetime('now',?) AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
-                populateCo2OverTimeChart(timeFrame, SQLquery);
+                co2OverTimeQuery = "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
+                        "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
                 break;
         }
+        // Run the selected query and populate the chart with the results
+        populateCo2OverTimeChart(timeFrame, co2OverTimeQuery);
     }
 
     private void populateCo2OverTimeChart(TimeFrame timeFrame, String query) {
         if (dbHandler.connect()) {
             try {
                 PreparedStatement pstmt = dbHandler.getConn().prepareStatement(query);
-                pstmt.setInt(1, Main.getCurrentUserId());
-                pstmt.setString(2,timeFrame == TimeFrame.LAST_WEEK ? "-6 days" : timeFrame == TimeFrame.LAST_MONTH ? "-30 days" : "-364 days");
+                // Total statement contains user id varchar in multiple places. NOTE: The queries are assumed to only contain user id varchars
+                for (int i = 1; i <= pstmt.getParameterMetaData().getParameterCount(); ++i) {
+                    pstmt.setInt(i, Main.getCurrentUserId());
+                }
                 ResultSet rs = pstmt.executeQuery();
 
                 while (rs.next()) {
@@ -121,6 +129,7 @@ public class ChartViewController {
                     }
                 }
                 co2OverTimeChart.getData().get(0).getData().addAll(co2OverTimeList);
+                System.out.println(co2OverTimeList);
             } catch(SQLException e) {
                 System.err.println(e.getMessage());
             }
