@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import org.phish.Main;
 import org.phish.classes.GeneralEmission;
 import org.phish.classes.TransportActivity;
@@ -21,7 +22,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class AllEmissionsController implements Initializable {
-
 
 
     private ObservableList<GeneralEmission> transportEmissions = FXCollections.observableArrayList();
@@ -49,6 +49,8 @@ public class AllEmissionsController implements Initializable {
     private CheckBox dateFilterCheck;
     @FXML
     private DatePicker fromDate, toDate;
+    @FXML
+    private Text errorText;
 
     @FXML
     private ToggleButton allToggle, foodToggle, transportToggle, houseToggle;
@@ -73,6 +75,8 @@ public class AllEmissionsController implements Initializable {
         }
         fromDate.setValue(LocalDate.now().minusDays(1));
         toDate.setValue(LocalDate.now().plusDays(1));
+        errorText.setText("From date cannot \nbe after To date");
+        errorText.setVisible(false);
     }
 
     private void loadData() throws SQLException {
@@ -233,7 +237,7 @@ public class AllEmissionsController implements Initializable {
         allToggle.setSelected(false);
     }
 
-    public void checkDateFilter(ActionEvent actionEvent) {
+    public void checkDateFilter(ActionEvent actionEvent) throws SQLException {
         if(!dateFilterCheck.isSelected()){
             fromDate.setDisable(true);
             toDate.setDisable(true);
@@ -242,5 +246,23 @@ public class AllEmissionsController implements Initializable {
             fromDate.setDisable(false);
             toDate.setDisable(false);
         }
+        loadData();
+    }
+
+    public void checkDatePickers(ActionEvent actionEvent) throws SQLException {
+        if(!fromDate.getValue().isBefore(toDate.getValue())){
+            errorText.setVisible(true);
+            allToggle.setDisable(true);
+            transportToggle.setDisable(true);
+            houseToggle.setDisable(true);
+            foodToggle.setDisable(true);
+        }else{
+            errorText.setVisible(false);
+            allToggle.setDisable(false);
+            transportToggle.setDisable(false);
+            houseToggle.setDisable(false);
+            foodToggle.setDisable(false);
+        }
+        loadData();
     }
 }
