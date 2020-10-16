@@ -26,7 +26,7 @@ public class AllEmissionsController implements Initializable {
 
     private ObservableList<GeneralEmission> transportEmissions = FXCollections.observableArrayList();
     private ObservableList<GeneralEmission> emissions = FXCollections.observableArrayList();
-    private DBHandler dbHandler = new DBHandler();
+    private DBHandler dbHandler = DBHandler.getInstance();
 
     private ObservableList<Vehicle> vehicles = FXCollections.observableArrayList();
     private ObservableList<TransportActivity> transportActivities = FXCollections.observableArrayList();
