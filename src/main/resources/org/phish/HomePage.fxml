@@ -31,7 +31,7 @@
           <Menu mnemonicParsing="false" text="Help" />
             <Menu mnemonicParsing="false" text="Sign out">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Sign out" />
+                <MenuItem mnemonicParsing="false" onAction="#signOut" text="Sign out" />
               </items>
             </Menu>
         </menus>
