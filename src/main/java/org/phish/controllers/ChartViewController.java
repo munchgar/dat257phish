@@ -76,7 +76,8 @@ public class ChartViewController {
     // Populates all the charts with the timeFrame and category provided.
     public void populate (TimeFrame timeFrame, String category) {
         clearCharts();
-        co2OverTimeChart.getData().add(new XYChart.Series<>(co2OverTimeList));
+        co2OverTimeChart.getData().add(new XYChart.Series<>());
+        String SQLquery;
         switch (category) {
             case "Total":
                 //populateLineChart(timeFrame, co2OverTimeList);
@@ -85,9 +86,17 @@ public class ChartViewController {
             case "Housing":
                 //populateLineChart(timeFrame, co2OverTimeList);
                 break;
+            case "Transport":
+                SQLquery = "SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 from transportActivity " +
+                        "INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
+                        "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId=? " +
+                        "AND date BETWEEN datetime('now',?) AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
+                populateCo2OverTimeChart(timeFrame, SQLquery);
+                break;
+
             case "Food":
                 // This query will return the current user's total co2 emissions from food by date
-                String SQLquery = "SELECT date, SUM(co2g*weight) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
+                SQLquery = "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
                         "WHERE userID = ? AND date BETWEEN datetime('now',?) AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
                 populateCo2OverTimeChart(timeFrame, SQLquery);
                 break;
@@ -106,11 +115,12 @@ public class ChartViewController {
                     try {
                         XYChart.Data<Date, Number> data = new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("co2"));
                         data.setNode(createDataNode(data.YValueProperty()));
-                        co2OverTimeList.add(new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("co2")));
+                        co2OverTimeList.add(data);
                     } catch(ParseException e) {
                         System.err.println(e.getMessage());
                     }
                 }
+                co2OverTimeChart.getData().get(0).getData().addAll(co2OverTimeList);
             } catch(SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -125,8 +135,10 @@ public class ChartViewController {
         Pane pane = new Pane();
         pane.setShape(new Circle(6));
         pane.setScaleShape(false);
+        pane.getChildren().add(label);
 
         label.translateYProperty().bind(label.heightProperty().divide(-1.5));
+        // label.translateXProperty().bind(label.widthProperty().divide(3));
 
         return pane;
     }
