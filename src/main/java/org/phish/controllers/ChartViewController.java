@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import org.phish.classes.DateAxis;
@@ -21,7 +22,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.*;
 
 
 public class ChartViewController {
@@ -50,34 +51,12 @@ public class ChartViewController {
 
     private final DBHandler dbHandler = DBHandler.getInstance();
 
-    private void populatePieChart (TimeFrame timeFrame, PieChart chart) {
-        switch (timeFrame) {
-            case LAST_WEEK:
-                chart.getData().add(new PieChart.Data("Transport",50));
-                chart.getData().add(new PieChart.Data("Housing",15));
-                chart.getData().add(new PieChart.Data("Food",10));
-                chart.getData().add(new PieChart.Data("Other",25));
-                break;
-            case LAST_MONTH:
-                chart.getData().add(new PieChart.Data("Transport",30));
-                chart.getData().add(new PieChart.Data("Housing",20));
-                chart.getData().add(new PieChart.Data("Food",10));
-                chart.getData().add(new PieChart.Data("Other",25));
-                break;
-            default:
-                chart.getData().add(new PieChart.Data("Transport",40));
-                chart.getData().add(new PieChart.Data("Housing",15));
-                chart.getData().add(new PieChart.Data("Food",25));
-                chart.getData().add(new PieChart.Data("Other",20));
-                break;
-        }
-    }
+    private String co2OverTimeQuery, co2SpecificsQuery;
 
     // Populates all the charts with the timeFrame and category provided.
     public void populate (TimeFrame timeFrame, String category) {
         clearCharts();
         co2OverTimeChart.getData().add(new XYChart.Series<>());
-        String co2OverTimeQuery = "";
 
         switch (category) {
             case "Total":
@@ -97,19 +76,27 @@ public class ChartViewController {
                         "INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId=? " +
                         "AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
+                co2SpecificsQuery = "SELECT activityName AS sourceName, round(SUM((distanceKm*litresKilometer*gCO2Litre) / 1000),2) AS co2 FROM transportActivity " +
+                        "INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
+                        "INNER JOIN fuelType ON vehicles.FKfuelType=fuelId WHERE transportActivity.FKUserId = ? AND date between datetime('now','"+timeFrame.value+"') " +
+                        "AND date('now','localtime') GROUP BY activityName ORDER BY co2 DESC";
+                populatePieChart(co2SpecificsQuery);
                 break;
 
             case "Food":
                 // This query will return the current user's total co2 emissions from food by date
                 co2OverTimeQuery = "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
                         "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
+                co2SpecificsQuery = "SELECT foodName AS sourceName, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
+                        "WHERE userID = 1 AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY foodID ORDER BY co2 DESC";
+                populatePieChart(co2SpecificsQuery);
                 break;
         }
         // Run the selected query and populate the chart with the results
-        populateCo2OverTimeChart(timeFrame, co2OverTimeQuery);
+        populateCo2OverTimeChart(co2OverTimeQuery);
     }
 
-    private void populateCo2OverTimeChart(TimeFrame timeFrame, String query) {
+    private void populateCo2OverTimeChart(String query) {
         if (dbHandler.connect()) {
             try {
                 PreparedStatement pstmt = dbHandler.getConn().prepareStatement(query);
@@ -134,6 +121,38 @@ public class ChartViewController {
                 System.err.println(e.getMessage());
             }
 
+        }
+    }
+
+    private void populatePieChart (String query) {
+        List<PieChart.Data> slices = new ArrayList<>();
+        if (dbHandler.connect()) {
+            try {
+                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(query);
+                // Total statement contains user id varchar in multiple places. NOTE: The queries are assumed to only contain user id varchars
+                for (int i = 1; i <= pstmt.getParameterMetaData().getParameterCount(); ++i) {
+                    pstmt.setInt(i, Main.getCurrentUserId());
+                }
+                ResultSet rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    slices.add(new PieChart.Data(rs.getString("sourceName"),rs.getDouble("co2")));
+                }
+                double total = slices.stream().mapToDouble((PieChart.Data e) -> e.getPieValue()).sum();
+                System.out.println(total);
+                for (PieChart.Data slice : slices) {
+                    co2SourcePieChart.getData().add(new PieChart.Data(slice.getName(),slice.getPieValue() / total));
+                }
+                System.out.println(co2SourcePieChart.getData());
+                co2SourcePieChart.getData().forEach(data -> {
+                    String percentage = String.format("%.2f%%", data.getPieValue() * 100);
+                    Tooltip toolTip = new Tooltip(percentage);
+                    System.out.println(data.getNode());
+                    Tooltip.install(data.getNode(), toolTip);
+                });
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 
