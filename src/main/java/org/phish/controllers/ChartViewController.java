@@ -1,14 +1,8 @@
 package org.phish.controllers;
 
-import javafx.beans.binding.ObjectExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
@@ -39,10 +33,10 @@ public class ChartViewController {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    private final ObservableList<XYChart.Data<Date, Number>> co2OverTimeList = FXCollections.observableArrayList();
+    private final ObservableList<XYChart.Data<Date, Double>> co2OverTimeList = FXCollections.observableArrayList();
 
     @FXML
-    private LineChart<Date,Number> co2OverTimeChart;
+    private LineChart<Date,Double> co2OverTimeChart;
 
     @FXML
     private PieChart co2SourcePieChart;
@@ -122,14 +116,19 @@ public class ChartViewController {
 
                 while (rs.next()) {
                     try {
-                        XYChart.Data<Date, Number> data = new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("co2"));
-                        data.setNode(createDataNode(data.YValueProperty()));
+                        XYChart.Data<Date, Double> data = new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("co2"));
                         co2OverTimeList.add(data);
                     } catch(ParseException e) {
                         e.printStackTrace();
                     }
                 }
                 co2OverTimeChart.getData().get(0).getData().addAll(co2OverTimeList);
+
+                // Add tooltips (must be done after the data is added to the chart)
+                for (XYChart.Data<Date,Double> d : co2OverTimeChart.getData().get(0).getData()) {
+                    Tooltip toolTip = new Tooltip(String.format("%s\nCO2: %.2fkg",sdf.format(d.XValueProperty().get()),d.YValueProperty().get()));
+                    Tooltip.install(d.getNode(),toolTip);
+                }
                 System.out.println(co2OverTimeList);
             } catch(SQLException e) {
                 e.printStackTrace();
@@ -169,21 +168,6 @@ public class ChartViewController {
                 e.printStackTrace();
             }
         }
-    }
-
-    private static Node createDataNode(ObjectExpression<Number> value) {
-        Label label = new Label();
-        label.textProperty().bind(value.asString("%,.2f"));
-
-        Pane pane = new Pane();
-        pane.setShape(new Circle(6));
-        pane.setScaleShape(false);
-        pane.getChildren().add(label);
-
-        label.translateYProperty().bind(label.heightProperty().divide(-1.5));
-        // label.translateXProperty().bind(label.widthProperty().divide(3));
-
-        return pane;
     }
 
     private void clearCharts() {
