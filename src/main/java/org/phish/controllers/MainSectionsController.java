@@ -30,4 +30,8 @@ public class MainSectionsController {
     public void showActivities(ActionEvent actionEvent) throws IOException {
         Main.loadCenter("TransportActivities.fxml");
     }
+
+    public void showTotalEmissions(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("AllEmissions.fxml");
+    }
 }
