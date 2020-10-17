@@ -1,7 +1,24 @@
+# Week 7
+## What do I want to learn or understand better?
+I asked for help with the date and me and (Adrian?) solved it. 
+How to build a more user friendly interface so that it makes sense what the user should do and how to it. 
 
+## how can I help someone else, or the entire team, to learn something new?
+I spent some time with another section of the calculator application and discussed a lot with the developer opf the food related items. So now we have a 
+decent prototype for organizing emissions coming from multiple sources. 
+I have encouraged the other developers to take a look.
 
+## What is my contribution towards the team's use of Scrum?
+Continued encouragement of SCRUM meetings to see what people have done and what they are struggling with in order to offer my help. 
+I have proposed to start an hour earlier on mondays to really be able to prepare properly for the supervisor meetings. 
+
+## What is my contribution towards the team's deliveries?
+I have implemented a generalEmissions inw hich all the different categories of emissions can be displayed regardless of where in the DB they are stored. 
+I have impleemnted filters, both for categories and dates. 
 
 KPI:s
-1 Stress levels Beginning 4, end TBA
-  Since it is the final actual work week before the demo and there is still not coherent functionality (though on its way) I feel quite stressed though I believe it will be managaeable.
-  
+1 Stress levels Beginning 4, end 3
+  Since it is the final actual work week before the demo and there is still not coherent functionality (though on its way) I feel quite stressed though I believe it will be managaeable. 
+  I have calmed down a little as I managed to fulfill my undertaken tasks but I am still quite stressed about not having a very coherent application for the demonstration.
+2. How sattisfied did I feel of the sprint?: 4. I did my tasks and added some nice additional features to make it easier and more user friendly. 
+3. I took on 1 small and 2 medium tasks and finished them. 
