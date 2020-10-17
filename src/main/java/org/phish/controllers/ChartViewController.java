@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import org.phish.classes.DateAxis;
 
 
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 
@@ -61,12 +59,29 @@ public class ChartViewController {
         switch (category) {
             case "Total":
                 // TODO: Add more categories to total (and maybe implement this in a way that doesn't result in a gigantic union of selects)
-                co2OverTimeQuery = "SELECT date, round(SUM(co2),2) AS co2 FROM (SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
+                // Sums up all emissions by date in the given timeframe
+                co2OverTimeQuery =
+                        "SELECT date, round(SUM(co2),2) AS co2 FROM (SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
                         "FROM transportActivity INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId= ? AND date BETWEEN datetime('now','"+timeFrame.value+"') " +
-                        "AND datetime('now','localtime') GROUP BY date UNION SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity " +
+                        "AND datetime('now','localtime') GROUP BY date " +
+
+                        "UNION " +
+
+                        "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity " +
                         "INNER JOIN foodItem USING(foodID) WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date) " +
-                        "GROUP BY date ORDER BY date ASC;";
+                        "GROUP BY date ORDER BY date ASC";
+
+                co2SpecificsQuery=
+                        "SELECT 'Food' AS sourceName, round(SUM(co2g*weight) / 1000,2) AS co2 FROM foodConsumptionActivity " +
+                        "INNER JOIN foodItem USING(foodID) WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') " +
+
+                        "UNION " +
+
+                        "SELECT 'Transport' AS sourceName, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
+                        "FROM transportActivity INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
+                        "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId= ? AND date BETWEEN datetime('now','"+timeFrame.value+"') " +
+                        "AND datetime('now','localtime')";
                 break;
             case "Housing":
                 // TODO: Implement
@@ -80,7 +95,6 @@ public class ChartViewController {
                         "INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelId WHERE transportActivity.FKUserId = ? AND date between datetime('now','"+timeFrame.value+"') " +
                         "AND date('now','localtime') GROUP BY activityName ORDER BY co2 DESC";
-                populatePieChart(co2SpecificsQuery);
                 break;
 
             case "Food":
@@ -89,17 +103,17 @@ public class ChartViewController {
                         "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
                 co2SpecificsQuery = "SELECT foodName AS sourceName, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
                         "WHERE userID = 1 AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY foodID ORDER BY co2 DESC";
-                populatePieChart(co2SpecificsQuery);
                 break;
         }
         // Run the selected query and populate the chart with the results
-        populateCo2OverTimeChart(co2OverTimeQuery);
+        populateCo2OverTimeChart();
+        populatePieChart();
     }
 
-    private void populateCo2OverTimeChart(String query) {
+    private void populateCo2OverTimeChart() {
         if (dbHandler.connect()) {
             try {
-                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(query);
+                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(co2OverTimeQuery);
                 // Total statement contains user id varchar in multiple places. NOTE: The queries are assumed to only contain user id varchars
                 for (int i = 1; i <= pstmt.getParameterMetaData().getParameterCount(); ++i) {
                     pstmt.setInt(i, Main.getCurrentUserId());
@@ -112,23 +126,23 @@ public class ChartViewController {
                         data.setNode(createDataNode(data.YValueProperty()));
                         co2OverTimeList.add(data);
                     } catch(ParseException e) {
-                        System.err.println(e.getMessage());
+                        e.printStackTrace();
                     }
                 }
                 co2OverTimeChart.getData().get(0).getData().addAll(co2OverTimeList);
                 System.out.println(co2OverTimeList);
             } catch(SQLException e) {
-                System.err.println(e.getMessage());
+                e.printStackTrace();
             }
 
         }
     }
 
-    private void populatePieChart (String query) {
+    private void populatePieChart () {
         List<PieChart.Data> slices = new ArrayList<>();
         if (dbHandler.connect()) {
             try {
-                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(query);
+                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(co2SpecificsQuery);
                 // Total statement contains user id varchar in multiple places. NOTE: The queries are assumed to only contain user id varchars
                 for (int i = 1; i <= pstmt.getParameterMetaData().getParameterCount(); ++i) {
                     pstmt.setInt(i, Main.getCurrentUserId());
@@ -138,7 +152,8 @@ public class ChartViewController {
                 while (rs.next()) {
                     slices.add(new PieChart.Data(rs.getString("sourceName"),rs.getDouble("co2")));
                 }
-                double total = slices.stream().mapToDouble((PieChart.Data e) -> e.getPieValue()).sum();
+                // Need to get the total value so that percentages can be calculated
+                double total = slices.stream().mapToDouble(PieChart.Data::getPieValue).sum();
                 System.out.println(total);
                 for (PieChart.Data slice : slices) {
                     co2SourcePieChart.getData().add(new PieChart.Data(slice.getName(),slice.getPieValue() / total));
@@ -151,7 +166,7 @@ public class ChartViewController {
                     Tooltip.install(data.getNode(), toolTip);
                 });
             } catch (SQLException e) {
-                System.err.println(e.getMessage());
+                e.printStackTrace();
             }
         }
     }

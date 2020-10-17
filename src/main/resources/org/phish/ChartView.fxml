@@ -16,7 +16,7 @@
              <DateAxis label="Time" side="BOTTOM" tickLabelRotation="90" fx:id="xAxis" />
          </xAxis>
          <yAxis>
-             <NumberAxis fx:id="yAxis" label="CO2" side="LEFT" />
+             <NumberAxis fx:id="yAxis" label="CO2 (kg)" side="LEFT" />
          </yAxis>
      <padding>
         <Insets top="20.0" />
