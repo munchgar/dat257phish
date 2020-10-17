@@ -1,0 +1,15 @@
+- What do I want to learn or understand better?
+
+I want to get a better understanding of the agile software development process, specifically     how to work with SCRUM. I also aim to get more valuable experience with tools such as git.
+
+- How can I help someone else, or the entire team, to learn something new?
+
+While I don't have any previous experience with the agile process I believe my knowledge of     specific technologies, mostly in web development, can be of value to other team members.
+
+- What is my contribution towards the team's use of SCRUM?
+
+I have engaged in discussions with the other team members about how to implement SCRUM and        the use of tools such as Trello.
+
+- What is my contribution towards the team's deliveries?
+
+In our meetings I have given my input on project ideas and which technologies/frameworks          could be relevant. I have also been contributing to the creation of our team's social         contract. 
