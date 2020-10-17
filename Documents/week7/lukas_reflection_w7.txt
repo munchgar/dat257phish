@@ -1,0 +1,38 @@
+Lukas Carling
+
+- What do I want to learn or understand better?
+    This week there were some issues with merging our different branches since a lot of files were in conflict which created a lot of extra work with finding the correct files. So what I
+would want to learn more about is how to efficiently work on different branches without having a lot of conflicts with files. And I believe the way to go there is by having a clear understanding
+of what your team does and communicate about which files will be changed etctera. And also commit often and update your files often.
+
+- How can I help someone else, or the entire team, to learn something new?
+    Since not everyone is really familiar with resolving conflicts in github I can help them out by instructing them how to fix them. I would want to become better at giving constructive
+feedback about my team's code. I believe I can do so by giving more comments when reviewing.
+
+I could also spend more time on helping people understand how our database is setup, I can do so by actively explaining what does what and how they can use it.
+
+- What is my contribution towards the team’s use of Scrum?
+    At the beginning of each sprint I help the team break down Epics and user stories into tasks. If I have the possibility I either help to assign someone to the tasks or I assign them to 
+myself. This is based on how well I believe the sprint will go depending on how we assign them. Sadly I do not believe we have been doing very well with sprints but I believe we are doing 
+great progress. Although, I would want to see more use and more in detail KPIs. I will make sure to communicate more with my team in order to make sure that I and my teammembers use
+KPIs efficiently.
+
+- What is my contribution towards the team’s deliveries?
+    The last weeks I have been working a lot on the database and recently got a bit of help from a teammember to properly implement a singleton database class. This week I fixed
+the login screen which is now ready to be implemented. There are some UI changes but the rest should be done. What I want to help with more in the future is the report, and to help
+my team reach a good demo. To do that I believe I should be available to help other teammembers if they have problems at the same time as I am working on small fixes + maybe our last
+big implementation.
+
+KPI
+1.
+As a group related stress I would say that my stress-level is at 4-5 since our project does not have a clear functionality yet even if we have many small parts that do function, we want
+them to work together as an app. My individual stress-level for what I have to do this sprint is a bit lower since I did not assign as much on myself yet but I will work on helping the team
+as much as I can. Therefore I would say that my stress is around 4 points.
+
+2. 
+I would say that I am very satisfied with my work during this sprint since I finished it rather quickly and efficiently. I am less satisfied with how much I was able to help my team 
+though. So I would say my satisfaction landed on a 3.
+
+3. 
+This week I only took a M sized task which meant I could probably help others more. 
+I completed a M sized task and helped fix other small ones. 
