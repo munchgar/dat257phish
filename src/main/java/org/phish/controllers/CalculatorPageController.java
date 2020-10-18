@@ -9,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import javafx.scene.layout.AnchorPane;
 import org.phish.classes.FoodItem;
+import org.phish.classes.HouseType;
 import org.phish.database.DBHandler;
 
 import java.lang.Math;
@@ -32,12 +34,16 @@ public class CalculatorPageController {
     double outputFood = 0;
     double outputPublicTransport = 0;
     double amount = 0;
+    int bill = 0;
     int foodCount = 0;
     int vehicleCount = 0;
     int publicTransportCount = 0;
     private static ArrayList<FoodItem> foodItemList = new ArrayList<>();
+    private static ArrayList<HouseType> houseTypesList = new ArrayList<>();
 
     static ObservableList<FoodItem> foodChoices;
+
+    static ObservableList<HouseType> houseChoice;
 
     static ObservableList<String> vehicleTypes = FXCollections.observableArrayList(
             "Type of Vehicle",
@@ -95,6 +101,7 @@ public class CalculatorPageController {
     public void initialize() throws SQLException {
         foodItemList.clear(); // Avoid duplicating the list when user re-initializes the view
         fetchFoodItems();
+        fetchHouseType();
     }
 
 
@@ -110,6 +117,17 @@ public class CalculatorPageController {
 
         } else {
             System.err.println("bad :(");
+        }
+    }
+    private void fetchHouseType () throws SQLException{
+        String SQLquery = "SELECT * FROM houseType";
+        if (dbHandler.connect()) {
+            ResultSet rs = dbHandler.execQuery(SQLquery);
+
+            while (rs.next()){
+                houseTypesList.add(new HouseType(rs.getInt("houseID"), rs.getString("houseName")));
+            }
+            houseChoice = FXCollections.observableArrayList(houseTypesList);
         }
     }
 
@@ -250,26 +268,6 @@ public class CalculatorPageController {
         }
     }
 
-    public void CalculateFood(ActionEvent actionEvent) throws IOException {
-        int count = 0;
-        double tempOutput = 0;
-        if (actionEvent.getSource() == btnCalcFood) {
-            for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
-                if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
-                    FoodItem foodItem = ((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue());  // ¯\_(ツ)_/¯ <-- WTF
-                    amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
-                    addFoodConsumptionActivity(foodItem, amount);
-
-                    tempOutput += (amount * foodItem.getCo2g()) / 1000;
-                }
-                count++;
-            }
-            outputFood = tempOutput;
-            System.out.println("CO2: " + outputFood + "kg");
-            amount = 0;
-        }
-    }
-
     // Adds a new consumption activity in the database. The database will automatically append the date column with the current date.
     private void addFoodConsumptionActivity(FoodItem foodItem, double weight) {
         String SQLquery = "INSERT INTO foodConsumptionActivity (userID, foodID, weight) VALUES (?,?,?)";
@@ -303,6 +301,37 @@ public class CalculatorPageController {
             System.err.println("Connection not good :(");
         }
     }
+    //Adds new Electricity usage into the database, date will be append automatically
+    private void addHouseholdUsageActivity (int bill, HouseType houseType){
+        String SQLquery = "INSERT INTO houseHoldActivity (userID, bill, houseType) VALUES (?,?,?)";
+        if (dbHandler.connect()){
+           try {
+               PreparedStatement pstmt = dbHandler.getConn().prepareStatement(SQLquery);
+               pstmt.setInt(1, Main.getCurrentUserId());
+               pstmt.setInt(2, bill);
+               pstmt.setString(3, String.valueOf(houseType));
+               pstmt.executeUpdate();
+           } catch (SQLException e) {
+               if (e.getErrorCode() == 19){
+                   try {
+                       String addQuery = "UPDATE houseHoldActivity SET bill + ? WHERE userID = ? AND date = ?";
+                       PreparedStatement updateStmt = dbHandler.getConn().prepareStatement(addQuery);
+                       updateStmt.setInt(1,bill);
+                       updateStmt.setInt(2, Main.getCurrentUserId());
+                       updateStmt.setString(3,String.valueOf(houseType));
+                       updateStmt.setString(4, LocalDate.now().toString()); //YYYY-MM-DD
+                       updateStmt.executeUpdate();
+                   } catch (SQLException exception) {
+                    System.err.println(exception.getMessage());                   }
+               } else {
+                   System.err.println(e.getMessage());
+               }
+           }
+        }else {
+            System.err.println("Connection not good");
+        }
+    }
+
 
     public void CalculatePublicTransport(ActionEvent actionEvent) throws IOException {
         int count = 0;
@@ -324,16 +353,42 @@ public class CalculatorPageController {
         System.out.println("CO2: " + outputPublicTransport + "kg");
         amount = 0;
     }
+    public void CalculateFood(ActionEvent actionEvent) throws IOException {
+        int count = 0;
+        double tempOutput = 0;
+        if (actionEvent.getSource() == btnCalcFood) {
+            for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
+                if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
+                    FoodItem foodItem = ((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue());  // ¯\_(ツ)_/¯ <-- WTF
+                    amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
+                    addFoodConsumptionActivity(foodItem, amount);
+
+                    tempOutput += (amount * foodItem.getCo2g()) / 1000;
+                }
+                count++;
+            }
+            outputFood = tempOutput;
+            System.out.println("CO2: " + outputFood + "kg");
+            amount = 0;
+        }
+    }
 
     public void CalculateHousehold(ActionEvent actionEvent) throws IOException {
-        if (!(txtBillPrice.getText().equals("")) && txtBillPrice.getText().matches("[0-9]+") && txtBillPrice.getText().length() < 8) {
+        ChoiceBox choiceBox = new ChoiceBox(FXCollections.observableList(houseTypesList));
+         if (!(txtBillPrice.getText().equals("")) && txtBillPrice.getText().matches("[0-9]+") && txtBillPrice.getText().length() < 8) {
             if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
                 switch ((String) chboxHouseType.getValue()) {
                     //Calcs blir till int, vilket inte är så nice så ska fixa det så det blir double
                     case "Apartment" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
                     case "Villa" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
                     case "Town House" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
-                    default -> System.out.println("Error");
+                    default -> {
+                        System.out.println("Error");
+                        bill = Integer.parseInt(((TextField) txtBillPrice).getText());
+                        HouseType houseType = (HouseType) choiceBox.getItems();
+
+                        addHouseholdUsageActivity(bill, houseType);
+                    }
                 }
                 System.out.println("CO2: " + outputHousehold + "kg");
             } else {
@@ -341,8 +396,11 @@ public class CalculatorPageController {
             }
         } else {
             System.out.println("Please enter how much your electrical bill was on first");
+            bill = 0;
         }
     }
+
+
 
     public void CalculateResult(ActionEvent actionEvent) {
         double outputResult = outputVehicle + outputPublicTransport + outputFood + outputAir + outputHousehold;
