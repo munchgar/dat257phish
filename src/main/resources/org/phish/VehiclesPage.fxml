@@ -41,7 +41,7 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="69.0" layoutY="34.0" prefHeight="342.5" prefWidth="416.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="addVehicleBtn" mnemonicParsing="false" onAction="#openAddVehicle" prefWidth="100.0" text="Add" />
+                        <Button fx:id="addVehicleBtn" mnemonicParsing="false" onAction="#openAddVehicle" prefWidth="100.0" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Add" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

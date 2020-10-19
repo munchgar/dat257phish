@@ -71,7 +71,7 @@
                            </children>
                         </GridPane>
                         <Text fx:id="errorText" fill="#ed0000" strokeType="OUTSIDE" strokeWidth="0.0" text="Error text" />
-                        <Button mnemonicParsing="false" onAction="#checkDateFilter" text="Refresh" />
+                        <Button mnemonicParsing="false" onAction="#checkDateFilter" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Refresh" />
                         <Separator prefWidth="200.0" />
                         <ToggleButton fx:id="allToggle" mnemonicParsing="false" onAction="#filterAll" prefWidth="200.0" text="All" />
                         <GridPane VBox.vgrow="NEVER">
