@@ -14,6 +14,7 @@
             <Button fx:id="StatBtn" mnemonicParsing="false" onAction="#showStatScreen" prefHeight="100.0" prefWidth="100.0" text="Statistics" />
             <Button fx:id="Vehicles" mnemonicParsing="false" onAction="#showVehicles" prefHeight="100.0" prefWidth="100.0" text="Vehicles" />
             <Button fx:id="TransportActivities" mnemonicParsing="false" onAction="#showActivities" prefHeight="100.0" prefWidth="100.0" text="Activities" />
+            <Button fx:id="TotalEmissions" mnemonicParsing="false" onAction="#showTotalEmissions" prefHeight="100.0" prefWidth="100.0" text="Total" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
