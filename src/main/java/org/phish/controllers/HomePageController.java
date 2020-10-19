@@ -56,4 +56,8 @@ public class HomePageController {
         Main.loadCenter("LoginPage.fxml");
     }
 
+    public void showAllEmissions(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("AllEmissions.fxml");
+    }
+
 }
