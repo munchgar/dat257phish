@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import org.phish.classes.FoodItem;
 import org.phish.database.DBHandler;
 
@@ -19,6 +21,7 @@ import org.phish.Main;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -58,19 +61,23 @@ public class CalculatorPageController {
     );
 
     @FXML
+    StackPane stackPaneCalc;
+    @FXML
+    Text txtResultAll;
+    @FXML
+    Text txtResultFood;
+    @FXML
+    Text txtResultHouse;
+    @FXML
+    Text txtResultFlight;
+    @FXML
+    Text txtResultVehicle;
+    @FXML
+    Text txtResultPublicTransport;
+    @FXML
     TextField txtAmountMember;
     @FXML
     TextField txtBillPrice;
-    @FXML
-    Button btnCalcAir;
-    @FXML
-    Button btnCalcVehicle;
-    @FXML
-    Button btnAddMoreFood;
-    @FXML
-    Button btnAddVehicle;
-    @FXML
-    Button btnCalcFood;
     @FXML
     TextField txtKilometerAir;
     @FXML
@@ -89,6 +96,16 @@ public class CalculatorPageController {
     VBox vBoxTransportAmount;
     @FXML
     ChoiceBox chboxHouseType;
+    @FXML
+    Button btnCalcAir;
+    @FXML
+    Button btnCalcVehicle;
+    @FXML
+    Button btnAddMoreFood;
+    @FXML
+    Button btnAddVehicle;
+    @FXML
+    Button btnCalcFood;
 
     @FXML
     public void initialize() throws SQLException {
@@ -99,20 +116,17 @@ public class CalculatorPageController {
 
     private void fetchFoodItems() throws SQLException {
         String SQLquery = "SELECT * FROM foodItem";
-        dbHandler.connect();
-        ResultSet rs = dbHandler.execQuery(SQLquery);
-//        try (Connection conn = dbHandler.connect();
-//             Statement stmt = conn.createStatement();
-//              = stmt.executeQuery(SQLquery))
+        if (dbHandler.connect()) {
+            ResultSet rs = dbHandler.execQuery(SQLquery);
 
-        while (rs.next()) {
-            foodItemList.add(new FoodItem(rs.getInt("foodID"), rs.getString("foodName"), rs.getDouble("co2g")));
+            while (rs.next()) {
+                foodItemList.add(new FoodItem(rs.getInt("foodID"), rs.getString("foodName"), rs.getDouble("co2g")));
+            }
+            foodChoices = FXCollections.observableArrayList(foodItemList);
+
+        } else {
+            System.err.println("bad :(");
         }
-        foodChoices = FXCollections.observableArrayList(foodItemList);
-//        } catch(SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-
     }
 
     public void AddVehicle(ActionEvent actionEvent) throws IOException {
@@ -258,14 +272,51 @@ public class CalculatorPageController {
         if (actionEvent.getSource() == btnCalcFood) {
             for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
                 if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
+                    FoodItem foodItem = ((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue());  // ¯\_(ツ)_/¯ <-- WTF
                     amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
-                    tempOutput += (amount * (((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue()).getCo2g())) / 1000; // ¯\_(ツ)_/¯ <-- WTF
+                    addFoodConsumptionActivity(foodItem, amount);
+
+                    tempOutput += (amount * foodItem.getCo2g()) / 1000;
                 }
                 count++;
             }
             outputFood = tempOutput;
             System.out.println("CO2: " + outputFood + "kg");
             amount = 0;
+        }
+    }
+
+    // Adds a new consumption activity in the database. The database will automatically append the date column with the current date.
+    private void addFoodConsumptionActivity(FoodItem foodItem, double weight) {
+        String SQLquery = "INSERT INTO foodConsumptionActivity (userID, foodID, weight) VALUES (?,?,?)";
+        if (dbHandler.connect()) {
+            try {
+                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(SQLquery);
+                pstmt.setInt(1, Main.getCurrentUserId());
+                pstmt.setInt(2, foodItem.getID());
+                pstmt.setDouble(3, weight);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                if (e.getErrorCode() == 19) {
+                    try {
+                        // If met with a constraint error (code 19), the user has already logged this food item for today.
+                        // Just add the additional weight to the already existing entry.
+                        String addQuery = "UPDATE foodConsumptionActivity SET weight = weight + ? WHERE userID = ? AND foodID = ? AND date = ?";
+                        PreparedStatement updateStmt = dbHandler.getConn().prepareStatement(addQuery);
+                        updateStmt.setDouble(1, weight);
+                        updateStmt.setInt(2, Main.getCurrentUserId());
+                        updateStmt.setInt(3, foodItem.getID());
+                        updateStmt.setString(4, LocalDate.now().toString()); // YYYY-MM-DD
+                        updateStmt.executeUpdate();
+                    } catch (SQLException exception) {
+                        System.err.println(exception.getMessage());
+                    }
+                } else {
+                    System.err.println(e.getMessage());
+                }
+            }
+        } else {
+            System.err.println("Connection not good :(");
         }
     }
 
@@ -309,9 +360,32 @@ public class CalculatorPageController {
         }
     }
 
+    //Outputs result to result-page
     public void CalculateResult(ActionEvent actionEvent) {
         double outputResult = outputVehicle + outputPublicTransport + outputFood + outputAir + outputHousehold;
-        System.out.println("Your total emissions has added up to " + outputResult + "Kg (CO2)");
+        txtResultAll.setText(""+outputResult+"kg CO2");
+        txtResultHouse.setText(""+outputHousehold+"kg CO2");
+        txtResultFood.setText(""+outputFood+"kg CO2");
+        txtResultVehicle.setText(""+outputVehicle+"kg CO2");
+        txtResultPublicTransport.setText(""+outputPublicTransport+"kg CO2");
+        txtResultFlight.setText(""+outputAir+"kg CO2");
+    }
+
+    //Switches the scene in calculator-page
+    public void showScene(ActionEvent actionEvent){
+        int btnValue;
+        switch (((Button)actionEvent.getSource()).getText()) {
+            case "Food" -> btnValue = 1;
+            case "House" -> btnValue = 2;
+            case "Flight" -> btnValue = 3;
+            case "Vehicle" -> btnValue = 4;
+            case "Public Transport" -> btnValue = 5;
+            case "Results" -> btnValue = 6;
+            default -> btnValue = 0;
+        }
+        for (Node anchorPaneStack : stackPaneCalc.getChildren()) {
+            anchorPaneStack.setVisible(anchorPaneStack.getId().equals("anchor" + btnValue));
+        }
     }
 }
 

@@ -12,6 +12,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class HomePageController {
+    @FXML
+    public void showUserView(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("UserView.fxml");
+
+    }
+
+    public void showCalcScreen(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("CalculatorPage.fxml");
+    }
+    public void showStatScreen(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("StatisticsPage.fxml");
+    }
+
+    public void showVehicles(ActionEvent actionEvent)throws IOException{
+        Main.loadCenter("VehiclesPage.fxml");
+    }
+
+    public void showActivities(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("TransportActivities.fxml");
+    }
+
     public void closeApplication(ActionEvent actionEvent) {
         System.exit(0);
     }
@@ -38,4 +59,15 @@ public class HomePageController {
     public void showLogin(ActionEvent actionEvent) throws IOException {
         Main.loadCenter("LoginPage.fxml");
     }
+
+    public void logoutEvent(ActionEvent actionEvent) throws IOException {
+        Main.setCurrentUserId(-1);
+        System.out.println("USER LOGGED OUT");
+        Main.showLoginView();
+    }
+
+    public void showAllEmissions(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("AllEmissions.fxml");
+    }
+
 }

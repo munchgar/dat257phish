@@ -47,15 +47,11 @@ public class SignUpController {
                // dbHandler.kill();
             }
         }
-
     }
 
         public void goHome (ActionEvent actionEvent) throws IOException {
             Main.showMainView();
         }
-
-
-
     }
 
 

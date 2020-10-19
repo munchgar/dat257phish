@@ -73,8 +73,8 @@ public class LoginPageController implements Initializable {
         return -1; // Login failed, also no reason for a return?
     }
 
-    public void closeWindow(ActionEvent actionEvent) throws IOException {
-        Main.showMainView();
+    public void signUpEvent(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("SignUp.fxml");
     }
 
 
