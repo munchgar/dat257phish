@@ -43,7 +43,8 @@
                                     <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="83.0" prefHeight="365.0" prefWidth="151.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#refresh" prefWidth="100.0" text="Refresh" />
-                                          <Button fx:id="addBtn" mnemonicParsing="false" onAction="#openAddActivitiesWindow" prefWidth="100.0" text="Add" />
+                                          <Button fx:id="addBtn" mnemonicParsing="false" onAction="#openAddActivitiesWindow" prefWidth="100.0" text="Add Activity" />
+                                          <Button fx:id="addVehicleBtn" mnemonicParsing="false" onAction="#openAddVehiclesWindow" prefWidth="100.0" text="Add Vehicle"/>
                                           <Text fx:id="errorText" strokeType="OUTSIDE" strokeWidth="0.0" />
                                        </children>
                                        <padding>

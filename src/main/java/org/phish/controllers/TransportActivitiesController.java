@@ -132,4 +132,8 @@ public class TransportActivitiesController implements Initializable {
         co2Col.setCellValueFactory(new PropertyValueFactory<TransportActivity, Double>("calculatedCO2"));
         titleCol.setCellValueFactory(new PropertyValueFactory<TransportActivity, String> ("activityName"));
     }
+
+    public void openAddVehiclesWindow(ActionEvent actionEvent) throws IOException {
+        Main.showModalWindow("AddVehicleWindow.fxml", "Add Vehicle");
+    }
 }
