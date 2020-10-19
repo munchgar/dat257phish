@@ -14,12 +14,12 @@
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #00b894;" BorderPane.alignment="CENTER">
          <children>
             <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#goHome" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Home" />
-            <Button fx:id="userBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showUserView" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="User" />
             <Button fx:id="CalcBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showCalcScreen" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Calculator" />
             <Button fx:id="StatBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStatScreen" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Statistics" />
             <Button fx:id="Vehicles" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showVehicles" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Vehicles" />
             <Button fx:id="TransportActivities" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showActivities" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Activities" />
             <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showAllEmissions" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="All Emissions" />
+            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutEvent" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Sign Out" />
          </children>
       </HBox>
    </top>
@@ -41,13 +41,6 @@
                   <Image url="http://www.iciq.org/wp-content/uploads/2014/05/co2-800px-notxt-nobg.png" />
                </image>
             </ImageView>
-            <Text layoutX="235.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account? Sign up here!" textAlignment="CENTER" wrappingWidth="178.599609375">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Button fx:id="signUpBtn" layoutX="423.0" layoutY="481.0" mnemonicParsing="false" onAction="#showSignUpSec" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Sign Up" />
-            <Button fx:id="loginBtn" layoutX="500.0" layoutY="481.0" mnemonicParsing="false" onAction="#showLogin" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Login" />
          </children>
       </AnchorPane>
    </center>

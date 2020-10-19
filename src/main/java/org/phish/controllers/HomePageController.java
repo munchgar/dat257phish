@@ -53,7 +53,7 @@ public class HomePageController {
     public void logoutEvent(ActionEvent actionEvent) throws IOException {
         Main.setCurrentUserId(-1);
         System.out.println("USER LOGGED OUT");
-        Main.loadCenter("LoginPage.fxml");
+        Main.showLoginView();
     }
 
     public void showAllEmissions(ActionEvent actionEvent) throws IOException {
