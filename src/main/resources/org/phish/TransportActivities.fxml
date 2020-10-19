@@ -56,19 +56,6 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Reoccurring activities">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <SplitPane dividerPositions="0.7408026755852842">
-                           <items>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="433.0" />
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                           </items>
-                        </SplitPane>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
         </tabs>
       </TabPane>
    </center>
