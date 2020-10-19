@@ -19,6 +19,7 @@ public class TransportActivity {
     private SimpleIntegerProperty distance;
     private SimpleStringProperty date;
     private SimpleStringProperty activityName;
+    private SimpleStringProperty title;
 
     //Assigned from a Vehicle object
     private SimpleIntegerProperty vehicleId;
@@ -34,8 +35,9 @@ public class TransportActivity {
     private SimpleBooleanProperty reoccurring;
 
 
-    public TransportActivity(int activityId, int userId, int distance, String date, String activityName, Vehicle vehicle) {
+    public TransportActivity(int activityId,String title ,int userId, int distance, String date, String activityName, Vehicle vehicle) {
         this.activityId = new SimpleIntegerProperty(activityId);
+        this.title = new SimpleStringProperty(title);
         this.userId = new SimpleIntegerProperty(userId);
         this.vehicleId = new SimpleIntegerProperty(vehicle.getVehicleId());
         this.distance = new SimpleIntegerProperty(distance);
@@ -46,6 +48,19 @@ public class TransportActivity {
         this.calculatedCO2 = new SimpleDoubleProperty(efficiency.get()*distance);
         this.reoccurring = new SimpleBooleanProperty(false);
     }
+
+    /*public TransportActivity(int transportActivityId, int fKuserId, int distanceKm, String date, String activityName, Vehicle vehicle, String title) {
+    }*/
+
+    public TransportActivity(int transportActivityId, int fKuserId, int distanceKm, String date, String activityName, Vehicle vehicle, String title) {
+    }
+
+    public TransportActivity(int transportActivityId, int fKuserId, int distanceKm, String date, String activityName, Vehicle vehicle) {
+    }
+
+    public String getTitle() {return title.get();}
+
+    public SimpleStringProperty titleProperty(){ return title;}
 
     public int getActivityId() {
         return activityId.get();
