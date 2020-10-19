@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import org.phish.classes.FoodItem;
 import org.phish.database.DBHandler;
 
@@ -59,19 +61,23 @@ public class CalculatorPageController {
     );
 
     @FXML
+    StackPane stackPaneCalc;
+    @FXML
+    Text txtResultAll;
+    @FXML
+    Text txtResultFood;
+    @FXML
+    Text txtResultHouse;
+    @FXML
+    Text txtResultFlight;
+    @FXML
+    Text txtResultVehicle;
+    @FXML
+    Text txtResultPublicTransport;
+    @FXML
     TextField txtAmountMember;
     @FXML
     TextField txtBillPrice;
-    @FXML
-    Button btnCalcAir;
-    @FXML
-    Button btnCalcVehicle;
-    @FXML
-    Button btnAddMoreFood;
-    @FXML
-    Button btnAddVehicle;
-    @FXML
-    Button btnCalcFood;
     @FXML
     TextField txtKilometerAir;
     @FXML
@@ -90,6 +96,16 @@ public class CalculatorPageController {
     VBox vBoxTransportAmount;
     @FXML
     ChoiceBox chboxHouseType;
+    @FXML
+    Button btnCalcAir;
+    @FXML
+    Button btnCalcVehicle;
+    @FXML
+    Button btnAddMoreFood;
+    @FXML
+    Button btnAddVehicle;
+    @FXML
+    Button btnCalcFood;
 
     @FXML
     public void initialize() throws SQLException {
@@ -344,9 +360,32 @@ public class CalculatorPageController {
         }
     }
 
+    //Outputs result to result-page
     public void CalculateResult(ActionEvent actionEvent) {
         double outputResult = outputVehicle + outputPublicTransport + outputFood + outputAir + outputHousehold;
-        System.out.println("Your total emissions has added up to " + outputResult + "Kg (CO2)");
+        txtResultAll.setText(""+outputResult+"kg CO2");
+        txtResultHouse.setText(""+outputHousehold+"kg CO2");
+        txtResultFood.setText(""+outputFood+"kg CO2");
+        txtResultVehicle.setText(""+outputVehicle+"kg CO2");
+        txtResultPublicTransport.setText(""+outputPublicTransport+"kg CO2");
+        txtResultFlight.setText(""+outputAir+"kg CO2");
+    }
+
+    //Switches the scene in calculator-page
+    public void showScene(ActionEvent actionEvent){
+        int btnValue;
+        switch (((Button)actionEvent.getSource()).getText()) {
+            case "Food" -> btnValue = 1;
+            case "House" -> btnValue = 2;
+            case "Flight" -> btnValue = 3;
+            case "Vehicle" -> btnValue = 4;
+            case "Public Transport" -> btnValue = 5;
+            case "Results" -> btnValue = 6;
+            default -> btnValue = 0;
+        }
+        for (Node anchorPaneStack : stackPaneCalc.getChildren()) {
+            anchorPaneStack.setVisible(anchorPaneStack.getId().equals("anchor" + btnValue));
+        }
     }
 }
 
