@@ -28,4 +28,11 @@ public class HomePageController {
     public void showLogin(ActionEvent actionEvent) throws IOException {
         Main.loadCenter("LoginPage.fxml");
     }
+
+    public void logoutEvent(ActionEvent actionEvent) throws IOException {
+        Main.setCurrentUserId(-1);
+        System.out.println("USER LOGGED OUT");
+        Main.loadCenter("LoginPage.fxml");
+    }
+
 }
