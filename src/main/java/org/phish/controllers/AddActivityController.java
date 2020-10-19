@@ -52,7 +52,7 @@ public class AddActivityController implements Initializable {
     @FXML
     private Spinner<Integer> timesDaySpinner;
     @FXML
-    private Text errorText;
+    private Text errorText, timesDayText;
 
     public void updateVehiclesBox(ActionEvent actionEvent) {
         //todo if the personal vehicles is selected in the choicebox it shjould update the vehicles available and set it to the personal vehicles list
@@ -106,6 +106,7 @@ public class AddActivityController implements Initializable {
 
         @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setFutureFunctionalityInvisible();
         setReoccurringInvisible();
             try {
                 setUpVehicleBox();
@@ -120,6 +121,13 @@ public class AddActivityController implements Initializable {
         //The datePicker is set to not be editable as it is too time-consuming to add fail safes for user interaction
         datePicker.setEditable(false);
         errorText.setVisible(false);
+    }
+
+    private void setFutureFunctionalityInvisible() {
+        monBtn.setVisible(false); tuesBtn.setVisible(false); wedBtn.setVisible(false); thurBtn.setVisible(false); friBtn.setVisible(false); satBtn.setVisible(false); sunBtn.setVisible(false);
+        timesDaySpinner.setVisible(false);
+        reoccurringCheckBox.setVisible(false);
+        timesDayText.setVisible(false);
     }
 
     //Sets up the distance spinner and the times per day spinner
