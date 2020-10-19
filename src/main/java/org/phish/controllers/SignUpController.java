@@ -40,7 +40,7 @@ public class SignUpController implements Initializable {
         String sql = "INSERT INTO userTable (userName, password, fName, lName) VALUES(?,?,?,?)";  // What happens with firstname and lastname? Not implemented?
                                                                                 // TODO: Since fName and lName is needed maybe we should fix the insert?
 
-        if(txtUserName.getText().isBlank() || psfPassword.getText().isBlank()) {
+        if(txtUserName.getText().isBlank() || psfPassword.getText().isBlank()) { // TODO: Implement retard proof textfield. Example " S" doesnt work.
             System.out.println("ERROR!!!");
             if(!fieldsFilledCheckText.isVisible()) {
                 fieldsFilledCheckText.setVisible(true);
