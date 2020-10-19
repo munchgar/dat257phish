@@ -56,9 +56,6 @@ public class HomePageController {
         Main.loadCenter("SignUp.fxml");
     }
 
-    public void showLogin(ActionEvent actionEvent) throws IOException {
-        Main.loadCenter("LoginPage.fxml");
-    }
 
     public void logoutEvent(ActionEvent actionEvent) throws IOException {
         Main.setCurrentUserId(-1);

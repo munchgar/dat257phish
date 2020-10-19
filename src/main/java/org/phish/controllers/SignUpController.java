@@ -48,8 +48,12 @@ public class SignUpController {
             }
         }
     }
+    public void showLogin(ActionEvent actionEvent) throws IOException {
+        Main.loadCenter("LoginPage.fxml");
+    }
 
-        public void goHome (ActionEvent actionEvent) throws IOException {
+
+    public void goHome (ActionEvent actionEvent) throws IOException {
             Main.showMainView();
         }
     }
