@@ -186,7 +186,6 @@
                                     <Button fx:id="btnCalcTransport" mnemonicParsing="false" onAction="#CalculatePublicTransport" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Calculate" />
                                  </children>
                               </HBox>
-                              <Text fx:id="errorTextPublicTransport" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
                            </children>
                         </VBox>
                      </children>
@@ -214,7 +213,6 @@
                                  </VBox.margin>
                               </TextField>
                               <Button fx:id="btnCalcAir" mnemonicParsing="false" onAction="#CalculateAir" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Calculate" />
-                              <Text fx:id="errorTextFlight" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
                            </children>
                         </VBox>
                      </children>
@@ -254,7 +252,6 @@
                                  </VBox.margin>
                               </ChoiceBox>
                               <Button fx:id="btnCalculate" mnemonicParsing="false" onAction="#CalculateHousehold" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Calculate" />
-                              <Text fx:id="errorTextHouse" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
                            </children>
                         </VBox>
                      </children>
@@ -305,7 +302,6 @@
                                     <Button fx:id="btnCalcFood" mnemonicParsing="false" onAction="#CalculateFood" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Calculate" />
                                  </children>
                               </HBox>
-                              <Text fx:id="errorTextFood" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
                            </children>
                         </VBox>
                      </children>
