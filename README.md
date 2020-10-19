@@ -3,7 +3,7 @@ UN sustainability project for course in agile management.
 
 **Documents -** contains our weekly reflections, both the individual and group reflections.
 
-The individual reflections for week X can be located at **Documents\weekX\***
+The individual reflections for week X can be located at **Documents\Individual reflections\weekX\***
 The group documentation can be found directly in **Documents\** and is one text file, divided by headers. 
 
 
