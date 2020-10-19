@@ -26,9 +26,9 @@ public class HomePageController {
         Main.loadCenter("VehiclesPage.fxml");
     }
 
-    public void showActivities(ActionEvent actionEvent) throws IOException {
+    /*public void showActivities(ActionEvent actionEvent) throws IOException {
         Main.loadCenter("TransportActivities.fxml");
-    }
+    }*/
 
     public void closeApplication(ActionEvent actionEvent) {
         System.exit(0);

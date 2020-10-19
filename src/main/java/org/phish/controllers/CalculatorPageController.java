@@ -4,11 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.phish.classes.FoodItem;
@@ -98,12 +100,19 @@ public class CalculatorPageController {
     ChoiceBox chboxHouseType;
 
     @FXML
+    private BorderPane activitiesBorderPane;
+
+    @FXML
     public void initialize() throws SQLException, IOException {
         foodItemList.clear(); // Avoid duplicating the list when user re-initializes the view
         fetchFoodItems();
-        AddVehicle(null);
+       // AddVehicle(null);
         AddFood(null);
         AddPublicTransport(null);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("TransportActivities.fxml"));
+        BorderPane centerView = loader.load();
+        activitiesBorderPane.setCenter(centerView);
     }
 
 
@@ -122,7 +131,7 @@ public class CalculatorPageController {
         }
     }
 
-    public void AddVehicle(ActionEvent actionEvent) throws IOException {
+    /*public void AddVehicle(ActionEvent actionEvent) throws IOException {
         //Creates a new choiceBox for vehicle types
         ChoiceBox choiceVehicleType = new ChoiceBox<String>(vehicleTypes);
         choiceVehicleType.setId("choiceVehicleType" + vehicleCount);
@@ -139,7 +148,7 @@ public class CalculatorPageController {
         vBoxVehicleType.getChildren().add(choiceVehicleType);
         vBoxVehicleSize.getChildren().add(choiceVehicleSize);
         vBoxVehicleAmount.getChildren().add(txtVehicleAmount);
-    }
+    }*/
 
 
     public void AddFood(ActionEvent actionEvent) throws IOException {
@@ -366,7 +375,7 @@ public class CalculatorPageController {
             case "Food" -> btnValue = 1;
             case "House" -> btnValue = 2;
             case "Flight" -> btnValue = 3;
-            case "Vehicle" -> btnValue = 4;
+            case "Personal Transport" -> btnValue = 4;
             case "Public Transport" -> btnValue = 5;
             case "Results" -> btnValue = 6;
             default -> btnValue = 0;
