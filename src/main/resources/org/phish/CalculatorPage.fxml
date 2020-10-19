@@ -24,7 +24,7 @@
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.phish.controllers.CalculatorPageController">
    <center>
       <SplitPane dividerPositions="0.25" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <items>
+         <items>
             <VBox prefHeight="398.0" prefWidth="126.0">
                <children>
                   <Button fx:id="btnShowHome" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Home">
@@ -186,6 +186,7 @@
                                     <Button fx:id="btnCalcTransport" mnemonicParsing="false" onAction="#CalculatePublicTransport" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Calculate" />
                                  </children>
                               </HBox>
+                              <Text fx:id="errorTextPublicTransport" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
                            </children>
                         </VBox>
                      </children>
@@ -213,6 +214,7 @@
                                  </VBox.margin>
                               </TextField>
                               <Button fx:id="btnCalcAir" mnemonicParsing="false" onAction="#CalculateAir" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Calculate" />
+                              <Text fx:id="errorTextFlight" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
                            </children>
                         </VBox>
                      </children>
@@ -252,6 +254,7 @@
                                  </VBox.margin>
                               </ChoiceBox>
                               <Button fx:id="btnCalculate" mnemonicParsing="false" onAction="#CalculateHousehold" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Calculate" />
+                              <Text fx:id="errorTextHouse" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
                            </children>
                         </VBox>
                      </children>
@@ -302,6 +305,7 @@
                                     <Button fx:id="btnCalcFood" mnemonicParsing="false" onAction="#CalculateFood" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Calculate" />
                                  </children>
                               </HBox>
+                              <Text fx:id="errorTextFood" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
                            </children>
                         </VBox>
                      </children>
@@ -338,7 +342,7 @@
                   </AnchorPane>
                </children>
             </StackPane>
-        </items>
+         </items>
       </SplitPane>
    </center>
 </BorderPane>
