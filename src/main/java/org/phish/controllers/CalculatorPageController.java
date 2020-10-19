@@ -33,7 +33,6 @@ public class CalculatorPageController {
 
     double outputHousehold = 0;
     double outputAir = 0;
-    double outputVehicle = 0;
     double outputFood = 0;
     double outputPublicTransport = 0;
     double amount = 0;
@@ -53,7 +52,7 @@ public class CalculatorPageController {
     @FXML
     StackPane stackPaneCalc;
     @FXML
-    Text txtResultAll, txtResultFood, txtResultHouse, txtResultFlight, txtResultVehicle, txtResultPublicTransport, errorTextFlight, errorTextHouse, errorTextPublicTransport, errorTextFood;
+    Text errorTextFlight, errorTextHouse, errorTextPublicTransport, errorTextFood;
     @FXML
     TextField txtAmountMember, txtKilometerAir, txtBillPrice;
     @FXML
@@ -61,7 +60,7 @@ public class CalculatorPageController {
     @FXML
     ChoiceBox chboxHouseType;
     @FXML
-    private BorderPane activitiesBorderPane;
+    private BorderPane activitiesBorderPane, allEmissionsBorderPane;
 
     @FXML
     public void initialize() throws SQLException, IOException {
@@ -73,6 +72,10 @@ public class CalculatorPageController {
         loader.setLocation(Main.class.getResource("TransportActivities.fxml"));
         BorderPane centerView = loader.load();
         activitiesBorderPane.setCenter(centerView);
+        loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("AllEmissions.fxml"));
+        centerView = loader.load();
+        allEmissionsBorderPane.setCenter(centerView);
     }
 
     private void fetchFoodItems() throws SQLException {
@@ -277,17 +280,6 @@ public class CalculatorPageController {
             errorTextHouse.setText("Please enter how much your electrical bill was on first");
             errorTextHouse.setFill(Color.RED);
         }
-    }
-
-    //Outputs result to result-page
-    public void CalculateResult(ActionEvent actionEvent) {
-        double outputResult = outputVehicle + outputPublicTransport + outputFood + outputAir + outputHousehold;
-        txtResultAll.setText(""+outputResult+"kg CO2");
-        txtResultHouse.setText(""+outputHousehold+"kg CO2");
-        txtResultFood.setText(""+outputFood+"kg CO2");
-        txtResultVehicle.setText(""+outputVehicle+"kg CO2");
-        txtResultPublicTransport.setText(""+outputPublicTransport+"kg CO2");
-        txtResultFlight.setText(""+outputAir+"kg CO2");
     }
 
     //Switches the scene in calculator-page

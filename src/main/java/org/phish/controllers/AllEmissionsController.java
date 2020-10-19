@@ -51,7 +51,6 @@ public class AllEmissionsController implements Initializable {
     private DatePicker fromDate, toDate;
     @FXML
     private Text errorText;
-
     @FXML
     private ToggleButton allToggle, foodToggle, transportToggle, houseToggle;
 
