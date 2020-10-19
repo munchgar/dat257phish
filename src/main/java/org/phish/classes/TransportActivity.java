@@ -45,8 +45,9 @@ public class TransportActivity {
         this.activityName = new SimpleStringProperty(activityName);
         this.vehicleName = new SimpleStringProperty(vehicle.getVehicleName());
         this.efficiency = new SimpleDoubleProperty(vehicle.getKmLitre());
-        this.calculatedCO2 = new SimpleDoubleProperty(efficiency.get()*distance);
+        this.calculatedCO2 = new SimpleDoubleProperty(efficiency.get()*distance*vehicle.getgCO2Litre()/1000); //to get kg co2
         this.reoccurring = new SimpleBooleanProperty(false);
+
     }
 
     public int getActivityId() {
