@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.phish.Main;
 import org.phish.classes.TransportActivity;
@@ -55,9 +54,6 @@ public class TransportActivitiesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        errorText.setText("You must add a vehicle\nbefore you can add an activity");
-        errorText.setFill(Color.RED);
-        errorText.setVisible(false);
         setUpTable();
         try {
             loadData();
@@ -109,14 +105,8 @@ public class TransportActivitiesController implements Initializable {
                         }
                     }
                     //TransportActivity(int activityId, int userId, int distance, String date, String activityName, Vehicle vehicle)
-                    if(index == -1) {
-                        errorText.setVisible(true);
-                        System.out.println("ERROR NO CARS");
-                    } else {
-                        errorText.setVisible(false);
-                        transportActivities.add(new TransportActivity(rs.getInt("transportActivityId"), rs.getInt("FKuserId"), rs.getInt("distanceKm"),
-                                rs.getString("date"), rs.getString("activityName"), vehicles.get(index)));
-                    }
+                    transportActivities.add(new TransportActivity(rs.getInt("transportActivityId"), rs.getInt("FKuserId"), rs.getInt("distanceKm"),
+                            rs.getString("date"), rs.getString("activityName"), vehicles.get(index)));
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
