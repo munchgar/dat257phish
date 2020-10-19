@@ -35,8 +35,6 @@ public class SignUpController implements Initializable {
 
     public void SignUp (ActionEvent actionEvent)throws SQLException{
 
-
-
         String sql = "INSERT INTO userTable (userName, password, fName, lName) VALUES(?,?,?,?)";  // What happens with firstname and lastname? Not implemented?
                                                                                 // TODO: Since fName and lName is needed maybe we should fix the insert?
 
