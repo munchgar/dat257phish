@@ -4,14 +4,36 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import org.phish.Main;
+import org.phish.classes.User;
+import org.phish.database.DBHandler;
+
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class HomePageController {
 
+    private final DBHandler dbHandler = DBHandler.getInstance();
     @FXML
     HBox hBoxGlobalNav;
+    @FXML
+    Text txtWelcome;
+    @FXML
+    public void initialize() throws SQLException, IOException {
+        if (dbHandler.connect()) {
+            try {
+                ResultSet rs = dbHandler.execQuery("SELECT * FROM userTable WHERE userID = "+Main.getCurrentUserId());
+                txtWelcome.setText("Good Evening "+rs.getString("username"));
+            }catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     //Global navigator
     public void showScene(ActionEvent actionEvent) throws IOException {
