@@ -172,7 +172,9 @@ public class AddActivityController implements Initializable {
                 }
             }
             vehicleChoiceBox.setItems(vehicles);
-            vehicleChoiceBox.setValue(vehicles.get(0));
+            if(!vehicles.isEmpty()) {
+                vehicleChoiceBox.setValue(vehicles.get(0));
+            }
         } else {
             System.out.println("Could not execute query!");
         }

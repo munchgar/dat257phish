@@ -98,8 +98,12 @@ public class TransportActivitiesController implements Initializable {
                         }
                     }
                     //TransportActivity(int activityId, int userId, int distance, String date, String activityName, Vehicle vehicle)
-                    transportActivities.add(new TransportActivity(rs.getInt("transportActivityId"), rs.getInt("FKuserId"), rs.getInt("distanceKm"),
-                            rs.getString("date"), rs.getString("activityName"), vehicles.get(index)));
+                    if(index == -1) {
+                        System.out.println("ERROR NO CARS");
+                    } else {
+                        transportActivities.add(new TransportActivity(rs.getInt("transportActivityId"), rs.getInt("FKuserId"), rs.getInt("distanceKm"),
+                                rs.getString("date"), rs.getString("activityName"), vehicles.get(index)));
+                    }
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }
