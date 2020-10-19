@@ -15,7 +15,7 @@ public class FoodItem {
         this.co2g = new SimpleDoubleProperty(co2g);
     }
 
-    public int geID() {
+    public int getID() {
         return foodID.get();
     }
 

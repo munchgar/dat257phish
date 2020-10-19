@@ -20,10 +20,14 @@ public class Main extends Application {
 
     private static Stage primaryStage;
     private static BorderPane mainLayout;
-    private static int currentUserId=1;
+    private static int currentUserId = -1;
 
     public static int getCurrentUserId() {
         return currentUserId;
+    }
+
+    public static void setCurrentUserId(int id) {
+        currentUserId = id;
     }
 
     @Override
@@ -34,12 +38,21 @@ public class Main extends Application {
 
         this.primaryStage=primaryStage;
         this.primaryStage.setTitle("Environment calculator");
-        showMainView();
+        showLoginView();
         //loadCenter("MainSections.fxml");
         //loadCenter("HomePage.fxml");
     }
 
 
+
+    public static void showLoginView() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("LoginPage.fxml"));
+        mainLayout=loader.load();
+        Scene scene = new Scene(mainLayout);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
     public static void showMainView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
