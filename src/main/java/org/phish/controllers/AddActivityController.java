@@ -68,7 +68,6 @@ public class AddActivityController implements Initializable {
     }
 
     public void addBtnPressed(ActionEvent actionEvent) throws SQLException {
-
         //todo fail safe
         if (!titleField.getText().isBlank()) {
             errorText.setVisible(false);
@@ -96,12 +95,11 @@ public class AddActivityController implements Initializable {
                 pstmt.executeUpdate();
                 System.out.println("Activity successfully added to DB");
 
-            } else {
-                errorText.setText("All fields must be entered");
-                errorText.setVisible(true);
-                errorText.setFill(Color.RED);
             }
-        }
+        }else {
+        errorText.setText("All fields must be entered");
+        errorText.setVisible(true);
+        errorText.setFill(Color.RED);}
     }
 
         @Override
