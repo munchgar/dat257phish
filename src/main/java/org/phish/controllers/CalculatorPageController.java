@@ -56,7 +56,7 @@ public class CalculatorPageController {
     @FXML
     TextField txtAmountMember, txtKilometerAir, txtBillPrice;
     @FXML
-    VBox vBoxFoodType, vBoxTransportAmount, vBoxFoodAmount, vBoxTransportType;
+    VBox vBoxFoodType, vBoxTransportAmount, vBoxFoodAmount, vBoxTransportType, vBoxCalcsButtons;
     @FXML
     ChoiceBox chboxHouseType;
     @FXML
@@ -293,6 +293,12 @@ public class CalculatorPageController {
             case "Public Transport" -> btnValue = 5;
             case "Results" -> btnValue = 6;
             default -> btnValue = 0;
+        }
+        for (Node btnSceneSelect : vBoxCalcsButtons.getChildren()) {
+            btnSceneSelect.setDisable(false);
+            if((actionEvent.getSource().equals(btnSceneSelect))) {
+                btnSceneSelect.setDisable(true);
+            }
         }
         for (Node anchorPaneStack : stackPaneCalc.getChildren()) {
             anchorPaneStack.setVisible(anchorPaneStack.getId().equals("anchor" + btnValue));

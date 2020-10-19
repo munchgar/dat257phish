@@ -13,14 +13,14 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.phish.controllers.HomePageController">
    <top>
-      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #00b894;" BorderPane.alignment="CENTER">
+      <HBox fx:id="hBoxGlobalNav" alignment="CENTER" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: #00b894;" BorderPane.alignment="CENTER">
          <children>
-            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#goHome" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Home" />
-            <Button fx:id="CalcBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showCalcScreen" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Calculator" />
-            <Button fx:id="StatBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStatScreen" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Statistics" />
-            <Button fx:id="Vehicles" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showVehicles" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Vehicles" />
-            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showAllEmissions" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="All Emissions" />
-            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#logoutEvent" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Sign Out" />
+            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Home" />
+            <Button fx:id="CalcBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Calculator" />
+            <Button fx:id="StatBtn" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Statistics" />
+            <Button fx:id="Vehicles" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Vehicles" />
+            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="All Emissions" />
+            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Sign Out" />
          </children>
       </HBox>
    </top>

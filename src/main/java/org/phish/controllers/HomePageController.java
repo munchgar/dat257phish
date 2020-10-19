@@ -1,38 +1,35 @@
 package org.phish.controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import org.phish.Main;
 import java.io.IOException;
 
 public class HomePageController {
 
-    public void showCalcScreen(ActionEvent actionEvent) throws IOException {
-        Main.loadCenter("CalculatorPage.fxml");
-    }
-    public void showStatScreen(ActionEvent actionEvent) throws IOException {
-        Main.loadCenter("StatisticsPage.fxml");
-    }
+    @FXML
+    HBox hBoxGlobalNav;
 
-    public void showVehicles(ActionEvent actionEvent)throws IOException{
-        Main.loadCenter("VehiclesPage.fxml");
-    }
-
-    /*public void showActivities(ActionEvent actionEvent) throws IOException {
-        Main.loadCenter("TransportActivities.fxml");
-    }*/
-
-    public void goHome(ActionEvent actionEvent) throws IOException {
-        Main.showMainView();
-
-    }
-
-    public void logoutEvent(ActionEvent actionEvent) throws IOException {
-        Main.setCurrentUserId(-1);
-        System.out.println("USER LOGGED OUT");
-        Main.showLoginView();
-    }
-
-    public void showAllEmissions(ActionEvent actionEvent) throws IOException {
-        Main.loadCenter("AllEmissions.fxml");
+    //Global navigator
+    public void showScene(ActionEvent actionEvent) throws IOException {
+        switch (((Button)actionEvent.getSource()).getText()) {
+            case "Calculator" -> Main.loadCenter("CalculatorPage.fxml");
+            case "Statistics" -> Main.loadCenter("StatisticsPage.fxml");
+            case "Vehicles" -> Main.loadCenter("VehiclesPage.fxml");
+            case "All Emissions" -> Main.loadCenter("AllEmissions.fxml");
+            case "Sign Out" -> {Main.setCurrentUserId(-1);
+                                System.out.println("USER LOGGED OUT");
+                                Main.showLoginView();}
+            default -> Main.showMainView();
+        }
+        for (Node btnSceneSelect : hBoxGlobalNav.getChildren()) {
+            btnSceneSelect.setDisable(false);
+            if((actionEvent.getSource().equals(btnSceneSelect))) {
+                btnSceneSelect.setDisable(true);
+            }
+        }
     }
 }

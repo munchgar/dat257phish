@@ -25,9 +25,9 @@
    <center>
       <SplitPane dividerPositions="0.25" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <items>
-            <VBox prefHeight="398.0" prefWidth="126.0">
+            <VBox fx:id="vBoxCalcsButtons" prefHeight="398.0" prefWidth="126.0">
                <children>
-                  <Button fx:id="btnShowHome" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Home">
+                  <Button fx:id="btnShowHome" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Home">
                      <font>
                         <Font size="15.0" />
                      </font></Button>
