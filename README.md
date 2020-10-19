@@ -8,3 +8,7 @@ The group documentation can be found directly in **Documents\** and is one text 
 
 
 For SCRUMBOARD see Projects tab https://github.com/munchgar/dat257phish/projects/1
+
+Usernames Real name\
+Pontare25 Pontus Nellgård\
+
