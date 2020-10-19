@@ -41,9 +41,10 @@ public class TransportActivitiesController implements Initializable {
     @FXML
     private TableColumn<TransportActivity, Double> co2Col;
     @FXML
-
-    private Text errorText;
     private TableColumn<TransportActivity, String> titleCol;
+    @FXML
+    private Text errorText;
+
 
 
 
