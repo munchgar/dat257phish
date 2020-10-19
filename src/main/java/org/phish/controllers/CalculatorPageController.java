@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.phish.classes.FoodItem;
 import org.phish.database.DBHandler;
@@ -37,23 +38,11 @@ public class CalculatorPageController {
     double outputPublicTransport = 0;
     double amount = 0;
     int foodCount = 1;
-    int vehicleCount = 1;
     int publicTransportCount = 1;
     private static ArrayList<FoodItem> foodItemList = new ArrayList<>();
 
     static ObservableList<FoodItem> foodChoices;
 
-    static ObservableList<String> vehicleTypes = FXCollections.observableArrayList(
-            "Type of Vehicle",
-            "Petrol Car",
-            "Diesel Car"
-    );
-    static ObservableList<String> vehicleSizes = FXCollections.observableArrayList(
-            "Size",
-            "Small",
-            "Medium",
-            "Large"
-    );
     static ObservableList<String> publicTransportType = FXCollections.observableArrayList(
             "Type of Public Transport",
             "Bus",
@@ -61,44 +50,16 @@ public class CalculatorPageController {
             "Train outside of Sweden",
             "Ferry"
     );
-
     @FXML
     StackPane stackPaneCalc;
     @FXML
-    Text txtResultAll;
+    Text txtResultAll, txtResultFood, txtResultHouse, txtResultFlight, txtResultVehicle, txtResultPublicTransport, errorTextFlight, errorTextHouse, errorTextPublicTransport, errorTextFood;
     @FXML
-    Text txtResultFood;
+    TextField txtAmountMember, txtKilometerAir, txtBillPrice;
     @FXML
-    Text txtResultHouse;
-    @FXML
-    Text txtResultFlight;
-    @FXML
-    Text txtResultVehicle;
-    @FXML
-    Text txtResultPublicTransport;
-    @FXML
-    TextField txtAmountMember;
-    @FXML
-    TextField txtBillPrice;
-    @FXML
-    TextField txtKilometerAir;
-    @FXML
-    VBox vBoxFoodType;
-    @FXML
-    VBox vBoxFoodAmount;
-    @FXML
-    VBox vBoxVehicleType;
-    @FXML
-    VBox vBoxVehicleSize;
-    @FXML
-    VBox vBoxVehicleAmount;
-    @FXML
-    VBox vBoxTransportType;
-    @FXML
-    VBox vBoxTransportAmount;
+    VBox vBoxFoodType, vBoxTransportAmount, vBoxFoodAmount, vBoxTransportType;
     @FXML
     ChoiceBox chboxHouseType;
-
     @FXML
     private BorderPane activitiesBorderPane;
 
@@ -106,7 +67,6 @@ public class CalculatorPageController {
     public void initialize() throws SQLException, IOException {
         foodItemList.clear(); // Avoid duplicating the list when user re-initializes the view
         fetchFoodItems();
-       // AddVehicle(null);
         AddFood(null);
         AddPublicTransport(null);
         FXMLLoader loader = new FXMLLoader();
@@ -114,7 +74,6 @@ public class CalculatorPageController {
         BorderPane centerView = loader.load();
         activitiesBorderPane.setCenter(centerView);
     }
-
 
     private void fetchFoodItems() throws SQLException {
         String SQLquery = "SELECT * FROM foodItem";
@@ -131,31 +90,11 @@ public class CalculatorPageController {
         }
     }
 
-    /*public void AddVehicle(ActionEvent actionEvent) throws IOException {
-        //Creates a new choiceBox for vehicle types
-        ChoiceBox choiceVehicleType = new ChoiceBox<String>(vehicleTypes);
-        choiceVehicleType.setId("choiceVehicleType" + vehicleCount);
-        choiceVehicleType.setValue("Type of Vehicle");
-        //Creates a new choiceBox for vehicle sizes
-        ChoiceBox choiceVehicleSize = new ChoiceBox<String>(vehicleSizes);
-        choiceVehicleSize.setId("choiceVehicleSize" + vehicleCount);
-        choiceVehicleSize.setValue("Size");
-        //Creates a new textField for driven amount
-        TextField txtVehicleAmount = new TextField();
-        txtVehicleAmount.setId("txtVehicleAmount" + vehicleCount);
-        vehicleCount++;
-        //Adds all of the created elements to their designated vBox
-        vBoxVehicleType.getChildren().add(choiceVehicleType);
-        vBoxVehicleSize.getChildren().add(choiceVehicleSize);
-        vBoxVehicleAmount.getChildren().add(txtVehicleAmount);
-    }*/
-
-
     public void AddFood(ActionEvent actionEvent) throws IOException {
         //Creates a new choiceBox for food types
         ChoiceBox choiceFoodType = new ChoiceBox<FoodItem>(foodChoices);
         choiceFoodType.setId("choiceFoodType" + foodCount);
-        choiceFoodType.setValue("Type of Food");
+        choiceFoodType.setValue(foodChoices.get(0));
         //Creates a new textField for food amount
         TextField txtFoodAmount = new TextField();
         txtFoodAmount.setId("txtFoodAmount" + foodCount);
@@ -164,7 +103,6 @@ public class CalculatorPageController {
         vBoxFoodType.getChildren().add(choiceFoodType);
         vBoxFoodAmount.getChildren().add(txtFoodAmount);
     }
-
 
     public void AddPublicTransport(ActionEvent actionEvent) throws IOException {
         //Creates a new choiceBox for public transport types
@@ -180,49 +118,10 @@ public class CalculatorPageController {
         vBoxTransportAmount.getChildren().add(txtTransportAmount);
     }
 
-    public void CalculateVehicle(ActionEvent actionEvent) throws IOException {
-        double outputTemp = 0;
-        int count = 0;
-        for (Node txtVehicleAmount : vBoxVehicleAmount.getChildren()) {
-            if (!(((TextField) txtVehicleAmount).getText().equals("")) && ((TextField) txtVehicleAmount).getText().matches("[0-9]+") && ((TextField) txtVehicleAmount).getText().length() < 8) {
-                amount = Integer.parseInt(((TextField) txtVehicleAmount).getText());
-                //If The choice is a petrol car, then check what size they chose and calculate co2 based on km
-                if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Petrol Car")) {
-                    switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
-                        case "Small" -> outputTemp += (amount * 63) / 1000;
-                        case "Medium" -> outputTemp += (amount * 79) / 1000;
-                        case "Large" -> outputTemp += (amount * 106) / 1000;
-                        default -> System.out.println("Please enter what size of vehicle you were traveling in");
-                    }
-                }
-                //If The choice is a diesel car, then check what size they chose and calculate co2 based on km
-                else if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Diesel Car")) {
-                    switch ((String) (((ChoiceBox) vBoxVehicleSize.getChildren().toArray()[count]).getValue())) {
-                        case "Small" -> outputTemp += (amount * 40) / 1000;
-                        case "Medium" -> outputTemp += (amount * 55) / 1000;
-                        case "Large" -> outputTemp += (amount * 73) / 1000;
-                        default -> System.out.println("Please enter what size of vehicle you were traveling in");
-                    }
-                }
-                //If no vehicle type has been selected
-                else if (((ChoiceBox) vBoxVehicleType.getChildren().toArray()[count]).getValue().equals("Type of Vehicle")) {
-                    System.out.println("Please choose a type of vehicle OR remove the entered kilometers before calculating");
-                    //Block from calculating until fixed? Display a warning or something?
-                }
-            }
-            count++;
-        }
-        outputVehicle = outputTemp;
-        System.out.println("CO2: " + outputVehicle + "kg");
-        amount = 0;
-    }
-
-
     public void CalculateAir(ActionEvent actionEvent) throws IOException {
         if (!txtKilometerAir.getText().equals("") && txtKilometerAir.getText().matches("[0-9]+") && txtKilometerAir.getText().length() > 1 && txtKilometerAir.getText().length() < 8) {
             //If the kilometers traveled are less than 1500km this equation will be used
             if (Integer.parseInt(txtKilometerAir.getText()) < 1500) {
-                //This is the equation used here -> ((x+50)•114x^-0,658•uTtw•LF)•(1+HF(x)+uWtT)
                 amount = Integer.parseInt(txtKilometerAir.getText());
                 outputAir = ((amount + 50) * 114 * (Math.pow(amount, -0.658)) * 0.0735 * 0.8);
                 if (amount < 500) {
@@ -234,7 +133,6 @@ public class CalculatorPageController {
             }
             //If the kilometers traveled are less than 5000km and more than 1500km this equation will be used
             else if (Integer.parseInt(txtKilometerAir.getText()) > 1499 && Integer.parseInt(txtKilometerAir.getText()) < 5001) {
-                //This is the equation used here -> ((x+50)•(0,94 - 1,1•10^-5x)•uTtw•LF)•(1+HF(x)+uWtT)
                 amount = Integer.parseInt(txtKilometerAir.getText());
                 outputAir = ((amount + 50) * (0.94 - 1.1 * Math.pow(10, -5)) * 0.0735 * 0.8);
                 if (amount < 500) {
@@ -247,7 +145,6 @@ public class CalculatorPageController {
             }
             //If the kilometers traveled are more than 5000km this equation will be used
             else if (Integer.parseInt(txtKilometerAir.getText()) > 5000) {
-                //This is the equation used here -> ((x+50)•0,89•uTtw•LF)•(1+HF(x)+uWtT)
                 amount = Integer.parseInt(txtKilometerAir.getText());
                 outputAir = ((amount + 50) * 0.89 * 0.0735 * 0.8);
                 if (amount < 500) {
@@ -258,30 +155,41 @@ public class CalculatorPageController {
                     outputAir *= (1 + 0.9 + 1.2);
                 }
             }
-            System.out.println("CO2: " + outputAir + "kg");
+            errorTextFlight.setText("Activity successfully added");
+            errorTextFlight.setFill(Color.GREEN);
             amount = 0;
+        }else {
+            errorTextFlight.setText("Please Fill in the required areas (at double digits)");
+            errorTextFlight.setFill(Color.RED);
         }
     }
 
-
     public void CalculateFood(ActionEvent actionEvent) throws IOException {
+        boolean error = false;
         int count = 0;
         double tempOutput = 0;
         for (Node txtFoodAmount : vBoxFoodAmount.getChildren()) {
             if (!(((TextField) txtFoodAmount).getText().equals("")) && ((TextField) txtFoodAmount).getText().matches("[0-9]+") && ((TextField) txtFoodAmount).getText().length() < 8) {
-                FoodItem foodItem = ((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue());  // ¯\_(ツ)_/¯ <-- WTF
+                FoodItem foodItem = ((FoodItem) ((ChoiceBox) vBoxFoodType.getChildren().toArray()[count]).getValue());
                 amount = Integer.parseInt(((TextField) txtFoodAmount).getText());
                 addFoodConsumptionActivity(foodItem, amount);
 
                 tempOutput += (amount * foodItem.getCo2g()) / 1000;
+            }else {
+                error = true;
             }
             count++;
         }
-        outputFood = tempOutput;
-        System.out.println("CO2: " + outputFood + "kg");
-        amount = 0;
+        if(error){
+            errorTextFood.setText("Please fill in the required areas (Enter 0 if you accidentally added a food type)");
+            errorTextFood.setFill(Color.RED);
+        }else {
+            outputFood = tempOutput;
+            errorTextFood.setText("Activity successfully added");
+            errorTextFood.setFill(Color.GREEN);
+            amount = 0;
+        }
     }
-
 
     // Adds a new consumption activity in the database. The database will automatically append the date column with the current date.
     private void addFoodConsumptionActivity(FoodItem foodItem, double weight) {
@@ -318,6 +226,8 @@ public class CalculatorPageController {
     }
 
     public void CalculatePublicTransport(ActionEvent actionEvent) throws IOException {
+        boolean error = false;
+        String errorString = "";
         int count = 0;
         double outputTemp = 0;
         for (Node txtTransportAmount : vBoxTransportAmount.getChildren()) {
@@ -328,14 +238,23 @@ public class CalculatorPageController {
                     case "Train in Sweden" -> outputTemp += (amount * 10) / 1000;
                     case "Train outside of Sweden" -> outputTemp += (amount * 37) / 1000;
                     case "Ferry" -> outputTemp += (amount * 170) / 1000;
-                    default -> System.out.println("Please enter what public transport you were traveling with");
+                    default -> {errorString = "Please enter the transport type you were traveling with"; error = true;}
                 }
+            }else {
+                error = true;
+                errorString = "Please fill in the amount traveled in km (Enter 0 if you accidentally added a transport type)";
             }
             count++;
         }
-        outputPublicTransport = outputTemp;
-        System.out.println("CO2: " + outputPublicTransport + "kg");
-        amount = 0;
+        if(error){
+            errorTextPublicTransport.setText(errorString);
+            errorTextPublicTransport.setFill(Color.RED);
+        }else {
+            outputPublicTransport = outputTemp;
+            errorTextPublicTransport.setText("Activity successfully added");
+            errorTextPublicTransport.setFill(Color.GREEN);
+            amount = 0;
+        }
     }
 
     public void CalculateHousehold(ActionEvent actionEvent) throws IOException {
@@ -348,12 +267,15 @@ public class CalculatorPageController {
                     case "Town House" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
                     default -> System.out.println("Error");
                 }
-                System.out.println("CO2: " + outputHousehold + "kg");
+                errorTextHouse.setText("Activity successfully added");
+                errorTextHouse.setFill(Color.GREEN);
             } else {
-                System.out.println("Please enter the amount of people you are living with first");
+                errorTextHouse.setText("Please enter the amount of people you are living with first");
+                errorTextHouse.setFill(Color.RED);
             }
         } else {
-            System.out.println("Please enter how much your electrical bill was on first");
+            errorTextHouse.setText("Please enter how much your electrical bill was on first");
+            errorTextHouse.setFill(Color.RED);
         }
     }
 
@@ -385,4 +307,3 @@ public class CalculatorPageController {
         }
     }
 }
-
