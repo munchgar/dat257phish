@@ -17,6 +17,7 @@ public class Vehicle {
     private SimpleIntegerProperty fuelType;
     private SimpleDoubleProperty kmLitre;
     private SimpleStringProperty vehicleName;
+    private SimpleDoubleProperty gCO2Litre;
 
     private SimpleStringProperty vehicleTypeString;
     private SimpleStringProperty fuelTypeString;
@@ -46,11 +47,12 @@ public class Vehicle {
         }
 
         //Get fuel type as a string using a foreign key
-        SQLquery = "SELECT fuelName FROM fuelType WHERE fuelId = " +fuelType;
+        SQLquery = "SELECT fuelName, gCO2Litre FROM fuelType WHERE fuelId = " +fuelType;
         try {
             if (dbHandler.connect()) {
                 ResultSet rs = dbHandler.execQuery(SQLquery);
                 this.fuelTypeString=  new SimpleStringProperty(rs.getString("fuelName"));
+                this.gCO2Litre = new SimpleDoubleProperty(rs.getDouble("gCO2Litre"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -130,6 +132,14 @@ public class Vehicle {
 
     public SimpleStringProperty fuelTypeStringProperty() {
         return fuelTypeString;
+    }
+
+    public double getgCO2Litre() {
+        return gCO2Litre.get();
+    }
+
+    public SimpleDoubleProperty gCO2LitreProperty() {
+        return gCO2Litre;
     }
 
     @Override
