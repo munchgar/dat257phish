@@ -87,6 +87,20 @@ public class Main extends Application {
 
     }
 
+    public static void showLogoutConfirmation() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("LogoutConfirmation.fxml"));
+        BorderPane logoutConfirmationView = loader.load();
+
+        Stage stage = new Stage();
+        stage.setTitle("Logout Confirmation");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(primaryStage);
+        Scene scene = new Scene(logoutConfirmationView);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
     public static void showModalWindow(String fxmlString, String title) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource(fxmlString));

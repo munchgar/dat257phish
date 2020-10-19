@@ -2,6 +2,7 @@ package org.phish.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -12,9 +13,11 @@ import org.phish.classes.User;
 import org.phish.database.DBHandler;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class HomePageController {
 
@@ -24,7 +27,7 @@ public class HomePageController {
     @FXML
     Text txtWelcome;
     @FXML
-    public void initialize() throws SQLException, IOException {
+    public void initialize() {
         if (dbHandler.connect()) {
             try {
                 ResultSet rs = dbHandler.execQuery("SELECT * FROM userTable WHERE userID = "+Main.getCurrentUserId());
@@ -48,9 +51,11 @@ public class HomePageController {
             default -> Main.showMainView();
         }
         for (Node btnSceneSelect : hBoxGlobalNav.getChildren()) {
-            btnSceneSelect.setDisable(false);
-            if((actionEvent.getSource().equals(btnSceneSelect))) {
-                btnSceneSelect.setDisable(true);
+            if (!((Button) actionEvent.getSource()).getText().equals("Sign Out")) {
+                btnSceneSelect.setDisable(false);
+                if ((actionEvent.getSource().equals(btnSceneSelect))) {
+                    btnSceneSelect.setDisable(true);
+                }
             }
         }
     }

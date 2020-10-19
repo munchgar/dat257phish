@@ -151,7 +151,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter the following data" textAlignment="CENTER">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter how much your electrical bill was on this month" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>

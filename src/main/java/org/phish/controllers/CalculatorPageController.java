@@ -160,6 +160,7 @@ public class CalculatorPageController {
             }
             errorTextFlight.setText("Activity successfully added");
             errorTextFlight.setFill(Color.GREEN);
+            outputAir = (double)Math.round(outputAir*100)/100;
             amount = 0;
         }else {
             errorTextFlight.setText("Please Fill in the required areas (at double digits)");
@@ -187,7 +188,7 @@ public class CalculatorPageController {
             errorTextFood.setText("Please fill in the required areas (Enter 0 if you accidentally added a food type)");
             errorTextFood.setFill(Color.RED);
         }else {
-            outputFood = tempOutput;
+            outputFood = (double)Math.round(tempOutput*100)/100;
             errorTextFood.setText("Activity successfully added");
             errorTextFood.setFill(Color.GREEN);
             amount = 0;
@@ -253,7 +254,7 @@ public class CalculatorPageController {
             errorTextPublicTransport.setText(errorString);
             errorTextPublicTransport.setFill(Color.RED);
         }else {
-            outputPublicTransport = outputTemp;
+            outputPublicTransport = (double)Math.round(outputTemp*100)/100;
             errorTextPublicTransport.setText("Activity successfully added");
             errorTextPublicTransport.setFill(Color.GREEN);
             amount = 0;
@@ -265,9 +266,9 @@ public class CalculatorPageController {
             if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
                 switch ((String) chboxHouseType.getValue()) {
                     //Calcs blir till int, vilket inte är så nice så ska fixa det så det blir double
-                    case "Apartment" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
-                    case "Villa" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
-                    case "Town House" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
+                    case "Apartment" -> outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
+                    case "Villa" -> outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
+                    case "Town House" -> outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
                     default -> System.out.println("Error");
                 }
                 errorTextHouse.setText("Activity successfully added");
