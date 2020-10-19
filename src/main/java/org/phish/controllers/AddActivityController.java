@@ -93,7 +93,9 @@ public class AddActivityController implements Initializable {
                 pstmt.setInt(4, vehicleChoiceBox.getSelectionModel().getSelectedItem().getVehicleId());
                 pstmt.setString(5, datePicker.getValue().toString());
                 pstmt.executeUpdate();
-                System.out.println("Activity successfully added to DB");
+                errorText.setText("Activity successfully added");
+                errorText.setVisible(true);
+                errorText.setFill(Color.GREEN);
 
             }
         }else {
