@@ -60,8 +60,9 @@ public class SignUpController implements Initializable {
 
                         preparedStatement.executeUpdate();
                         System.out.println("User successfully added to DB");
+                        Main.loadCenter("LoginPage.fxml");
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | IOException e) {
                 e.printStackTrace();
             } finally {
                 if (dbHandler.getConn() != null){
