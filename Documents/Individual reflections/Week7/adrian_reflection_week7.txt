@@ -1,0 +1,24 @@
+- What do I want to learn or understand better?
+A: As our project has gotten bigger I feel like I have developed a better flow when it comes to working with branches and pull requests in git and Github.
+B: I want to learn how to do better and more structured testing
+A->B: I will try to incorporate more test cases in my code
+
+- How can I help someone else, or the entire team, to learn something new?
+A: I have been more active and helped other team member's by contributing with both code and feedback on specific tasks.
+B: I want it to be easier for the entire team to see and discuss our progress during the sprint.
+A->B: I will encourage a routine of more frequent and detailed pull requests of every task during the sprint which would provide an easier way to discuss and review all the contributions. 
+
+- What is my contribution towards the team's use of Scrum?
+A: I have taken an active part in selecting and prioritizing user stories for the sprint. I assigned myself to 2 medium tasks and made sure that everyone else also were able to take on enough tasks. I still feel like we do not actively reflect enough on previous sprints.
+B: I want to focus more on reflecting on and evaluating the previous sprint during our planning meetings in order to adapt and improve our SCRUM process.
+A->B: I will make use of our KPI:s and other metrics to help make it easier to reflect on our progress and effort.
+ 
+- What is my contribution towards the team's deliveries?
+A: I have finished 2 medium tasks which constited of implementing a working statistics page which queries the database for information provided from different parts of the application. I also implemented the underlying database structure for one of the categories.
+B: I want the next focus to be "polishing" and making sure the application is uniform and that all the parts integrate well with each other.
+A->B: Depending on the priority and state of the other user stories I will address this during our planning meeting.
+
+- KPI:s
+	1. Stress level: 5 (start of sprint), 4 (end of sprint) 
+	2. Satisfaction: 4
+	3. Completion: 6p (2 medium tasks)
