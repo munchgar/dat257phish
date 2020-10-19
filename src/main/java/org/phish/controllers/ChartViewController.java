@@ -96,7 +96,7 @@ public class ChartViewController {
                 co2OverTimeQuery = "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
                         "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
                 co2SpecificsQuery = "SELECT foodName AS sourceName, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
-                        "WHERE userID = 1 AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY foodID ORDER BY co2 DESC";
+                        "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY foodID ORDER BY co2 DESC";
                 break;
         }
         // Run the selected query and populate the chart with the results
