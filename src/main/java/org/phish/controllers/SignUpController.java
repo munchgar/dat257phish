@@ -37,7 +37,7 @@ public class SignUpController implements Initializable {
 
 
 
-        String sql = "INSERT INTO userTable (userName, password) VALUES(?,?)";  // What happens with firstname and lastname? Not implemented?
+        String sql = "INSERT INTO userTable (userName, password, fName, lName) VALUES(?,?,?,?)";  // What happens with firstname and lastname? Not implemented?
                                                                                 // TODO: Since fName and lName is needed maybe we should fix the insert?
 
         if(txtUserName.getText().isBlank() || psfPassword.getText().isBlank()) {
@@ -52,10 +52,14 @@ public class SignUpController implements Initializable {
             try {
                 try (
                         PreparedStatement preparedStatement = dbHandler.getConn().prepareStatement(sql)){
-                    preparedStatement.setString(1,txtUserName.getText());
-                    preparedStatement.setString(2,psfPassword.getText());
-                    preparedStatement.executeUpdate();
-                    System.out.println("User successfully added to DB");
+                        preparedStatement.setString(1,txtUserName.getText());
+                        preparedStatement.setString(2,psfPassword.getText());
+                        // TODO: Better implementation for fName and lName... We accept input from fName and lName but do nothing with them?
+                        preparedStatement.setString(3,"asd");
+                        preparedStatement.setString(4,"asd");
+
+                        preparedStatement.executeUpdate();
+                        System.out.println("User successfully added to DB");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
