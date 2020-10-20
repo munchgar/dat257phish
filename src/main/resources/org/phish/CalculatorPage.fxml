@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -27,33 +28,54 @@
                   <Button fx:id="btnShowHome" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" stylesheets="@css/Calculator.css" text="Home">
                      <font>
                         <Font size="15.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button fx:id="btnShowFood" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" stylesheets="@css/Calculator.css" text="Food">
                      <font>
                         <Font size="13.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button fx:id="btnShowHouse" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" stylesheets="@css/Calculator.css" text="House">
                      <font>
                         <Font size="13.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button fx:id="btnShowFlight" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" stylesheets="@css/Calculator.css" text="Flight">
                      <font>
                         <Font size="13.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button fx:id="btnShowVehicle" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" stylesheets="@css/Calculator.css" text="Personal Transport">
                      <font>
                         <Font size="13.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <Button fx:id="btnShowPublicTransport" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" stylesheets="@css/Calculator.css" text="Public Transport">
                      <font>
                         <Font size="13.0" />
-                     </font></Button>
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #00b894;" VBox.vgrow="ALWAYS">
                      <children>
                         <Button fx:id="btnShowResults" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" prefHeight="50.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" stylesheets="@css/Calculator.css" text="Results" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <font>
                               <Font name="System Bold" size="15.0" />
-                           </font></Button>
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                      </children>
                   </AnchorPane>
                </children>
