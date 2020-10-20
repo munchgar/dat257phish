@@ -26,6 +26,10 @@ public class SignUpController implements Initializable {
     @FXML
     private TextField txtUserName;
     @FXML
+    private TextField txtUserName1;
+    @FXML
+    private TextField txtUserName2;
+    @FXML
     private PasswordField psfPassword;
     @FXML
     private Button btnSignUp;
@@ -38,7 +42,8 @@ public class SignUpController implements Initializable {
         String sql = "INSERT INTO userTable (userName, password, fName, lName) VALUES(?,?,?,?)";  // What happens with firstname and lastname? Not implemented?
         // TODO: Since fName and lName is needed maybe we should fix the insert?
 
-        if(txtUserName.getText().isBlank() || psfPassword.getText().isBlank()) { // TODO: Implement retard proof textfield. Example " S" doesnt work.
+        if(txtUserName.getText().isBlank() || psfPassword.getText().isBlank()) { // TODO: Implement retard proof textfield. Example " S" doesnt work .
+                                                                                 // (only for password)
             System.out.println("ERROR!!!");
             if(!fieldsFilledCheckText.isVisible()) {
                 fieldsFilledCheckText.setVisible(true);
@@ -53,8 +58,8 @@ public class SignUpController implements Initializable {
                     preparedStatement.setString(1,txtUserName.getText());
                     preparedStatement.setString(2,psfPassword.getText());
                     // TODO: Better implementation for fName and lName... We accept input from fName and lName but do nothing with them?
-                    preparedStatement.setString(3,"asd");
-                    preparedStatement.setString(4,"asd");
+                    preparedStatement.setString(3,txtUserName1.getText());
+                    preparedStatement.setString(4,txtUserName1.getText());
 
                     preparedStatement.executeUpdate();
                     System.out.println("User successfully added to DB");
