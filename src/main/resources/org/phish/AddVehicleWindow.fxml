@@ -34,8 +34,8 @@
                         <ChoiceBox fx:id="fuelTypeBox" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select vehicle type" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select fuel type" GridPane.rowIndex="1" />
-                        <TextField fx:id="efficiencyField" prefWidth="200.0" promptText="Km/litre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Efficiency (Km/litre)" GridPane.rowIndex="2" />
+                        <TextField fx:id="efficiencyField" prefWidth="200.0" promptText="Litres/km" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Efficiency (Litres/km)" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
             <Text fx:id="errorText" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter all field" />
