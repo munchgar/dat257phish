@@ -11,7 +11,7 @@
 
 <?import org.phish.classes.DateAxis?>
 <GridPane alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.phish.controllers.ChartViewController">
-     <LineChart fx:id="co2OverTimeChart" animated="false" legendVisible="false" title="CO2 emissions over time" BorderPane.alignment="TOP_LEFT" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+     <LineChart fx:id="co2OverTimeChart" animated="false" legendVisible="false" title="Cumulative CO2 emissions" BorderPane.alignment="TOP_LEFT" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <xAxis>
              <DateAxis side="BOTTOM" tickLabelRotation="90" fx:id="xAxis" />
          </xAxis>

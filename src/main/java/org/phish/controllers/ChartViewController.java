@@ -59,7 +59,8 @@ public class ChartViewController {
                 // TODO: Add more categories to total (and maybe implement this in a way that doesn't result in a gigantic union of selects)
                 // Sums up all emissions by date in the given timeframe
                 co2OverTimeQuery =
-                        "SELECT date, round(SUM(co2),2) AS co2 FROM (SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
+                        "SELECT t.*, SUM(co2) OVER (ORDER BY date ASC) AS acc_co2 FROM " +
+                        "(SELECT date, round(SUM(co2),2) AS co2 FROM (SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
                         "FROM transportActivity INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId= ? AND date BETWEEN datetime('now','"+timeFrame.value+"') " +
                         "AND datetime('now','localtime') GROUP BY date " +
@@ -68,7 +69,7 @@ public class ChartViewController {
 
                         "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity " +
                         "INNER JOIN foodItem USING(foodID) WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date) " +
-                        "GROUP BY date ORDER BY date ASC";
+                        "GROUP BY date ORDER BY date ASC) t";
 
                 co2SpecificsQuery=
                         "SELECT 'Food' AS sourceName, round(SUM(co2g*weight) / 1000,2) AS co2 FROM foodConsumptionActivity " +
@@ -85,10 +86,11 @@ public class ChartViewController {
                 // TODO: Implement
                 break;
             case "Transport":
-                co2OverTimeQuery = "SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 from transportActivity " +
+                co2OverTimeQuery = "SELECT t.*, SUM(co2) OVER (ORDER BY date ASC) AS acc_co2 FROM " +
+                        "(SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 from transportActivity " +
                         "INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId=? " +
-                        "AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
+                        "AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC) t";
                 co2SpecificsQuery = "SELECT activityName AS sourceName, round(SUM((distanceKm*litresKilometer*gCO2Litre) / 1000),2) AS co2 FROM transportActivity " +
                         "INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelId WHERE transportActivity.FKUserId = ? AND date between datetime('now','"+timeFrame.value+"') " +
@@ -97,8 +99,9 @@ public class ChartViewController {
 
             case "Food":
                 // This query will return the current user's total co2 emissions from food by date
-                co2OverTimeQuery = "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
-                        "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
+                co2OverTimeQuery = "SELECT t.*, SUM(co2) OVER (ORDER BY date ASC) AS acc_co2 FROM " +
+                        "(SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
+                        "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC) t";
                 co2SpecificsQuery = "SELECT foodName AS sourceName, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
                         "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY foodID ORDER BY co2 DESC";
                 break;
@@ -120,7 +123,7 @@ public class ChartViewController {
 
                 while (rs.next()) {
                     try {
-                        XYChart.Data<Date, Double> data = new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("co2"));
+                        XYChart.Data<Date, Double> data = new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("acc_co2"));
                         co2OverTimeList.add(data);
                     } catch(ParseException e) {
                         e.printStackTrace();
