@@ -115,20 +115,20 @@ public class AllEmissionsController implements Initializable {
 
     private void loadFlightData() throws SQLException {
         flightEmissions.clear();
-        // TODO: Implement flight table in database -> See
-        String SQLquery = "SELECT foodName, date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
-                "WHERE userID=" + Main.getCurrentUserId() + " GROUP BY foodName, date ORDER BY date ASC;";
+        // TODO: Implement flight table in database -> (SHOULD BE DONE)
+
         // TODO: Retrieve all flightdata
+
     }
 
     private void loadPTData() throws SQLException {
-        // TODO: Implement public transport table in database -> See
+        // TODO: Implement public transport table in database -> (NOT DONE)
 
         // TODO: Retrieve all PublicTransportdata
     }
 
     private void loadHouseData() {
-        // TODO: Implement house table in database -> See
+        // TODO: Implement house table in database -> (SHOULD BE DONE)
 
         // TODO: Retrieve all housedata
     }

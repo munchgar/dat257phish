@@ -293,10 +293,42 @@ public class CalculatorPageController {
         }
     }
 
+    private void inputHouse(double op) {
+
+        String query = "INSERT INTO houseActivity (userID, co2) VALUES (?,?)";
+        if(dbHandler.connect()) {
+            try {
+                PreparedStatement pstmt = dbHandler.getConn().prepareStatement(query);
+                pstmt.setInt(1, Main.getCurrentUserId());
+                pstmt.setDouble(2, op);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                if (e.getErrorCode() == 19) {
+                    try {
+                        // If met with a constraint error (code 19), the user has already logged this food item for today.
+                        // Just add the additional weight to the already existing entry.
+                        String addQuery = "UPDATE flightActivity SET co2 = co2 + ? WHERE userID = ? AND date = ?";
+                        PreparedStatement pstmt = dbHandler.getConn().prepareStatement(addQuery);
+                        pstmt.setDouble(1, op);
+                        pstmt.setInt(2, Main.getCurrentUserId());
+                        pstmt.setString(3, LocalDate.now().toString());
+                        pstmt.executeUpdate();
+                    } catch (SQLException exception) {
+                        System.err.println(exception.getMessage());
+                    }
+                } else {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
+
+    }
+
     public void CalculateHousehold(ActionEvent actionEvent) throws IOException {
         if (!(txtBillPrice.getText().equals("")) && txtBillPrice.getText().matches("[0-9]+") && txtBillPrice.getText().length() < 8) {
             if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
                 outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
+                inputHouse(outputHousehold);
                 errorTextHouse.setText("Activity successfully added");
                 errorTextHouse.setFill(Color.GREEN);
             } else {
