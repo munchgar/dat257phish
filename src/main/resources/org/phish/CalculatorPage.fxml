@@ -60,13 +60,16 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
+                  <!--
                   <Button fx:id="btnShowPublicTransport" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" stylesheets="@css/Calculator.css" text="Public Transport">
+
                      <font>
                         <Font size="13.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
+                                       -->
                   <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #00b894;" VBox.vgrow="ALWAYS">
                      <children>
                         <Button fx:id="btnShowResults" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showScene" prefHeight="50.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" stylesheets="@css/Calculator.css" text="Results" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
