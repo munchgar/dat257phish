@@ -161,11 +161,43 @@ public class CalculatorPageController {
             errorTextFlight.setText("Activity successfully added");
             errorTextFlight.setFill(Color.GREEN);
             outputAir = (double)Math.round(outputAir*100)/100;
+
+            // TODO: JohanF fix this...  ¯\_( ͡° ͜ʖ ͡°)_/¯ Adrian waz here
+            // TODO: Insert data into database table...?
+
+            String query = "INSERT INTO flightActivity (userID, co2) VALUES (?,?)";
+            if(dbHandler.connect()) {
+                try {
+                    PreparedStatement pstmt = dbHandler.getConn().prepareStatement(query);
+                    pstmt.setInt(1, Main.getCurrentUserId());
+                    pstmt.setDouble(2, outputAir);
+                    pstmt.executeUpdate();
+                } catch (SQLException e) {
+                if (e.getErrorCode() == 19) {
+                    try {
+                        // If met with a constraint error (code 19), the user has already logged this food item for today.
+                        // Just add the additional weight to the already existing entry.
+                        String addQuery = "UPDATE flightActivity SET co2 = co2 + ? WHERE userID = ? AND date = ?";
+                        PreparedStatement pstmt = dbHandler.getConn().prepareStatement(addQuery);
+                        pstmt.setDouble(1, outputAir);
+                        pstmt.setInt(2, Main.getCurrentUserId());
+                        pstmt.setString(3, LocalDate.now().toString());
+                        pstmt.executeUpdate();
+                    } catch (SQLException exception) {
+                        System.err.println(exception.getMessage());
+                    }
+                } else {
+                    System.err.println(e.getMessage());
+                }
+            }
+            }
+
             amount = 0;
         }else {
             errorTextFlight.setText("Please Fill in the required areas (at double digits)");
             errorTextFlight.setFill(Color.RED);
         }
+
     }
 
     public void CalculateFood(ActionEvent actionEvent) throws IOException {

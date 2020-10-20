@@ -33,6 +33,8 @@ public class AllEmissionsController implements Initializable {
 
     private ObservableList<GeneralEmission> foodEmissions = FXCollections.observableArrayList();
 
+    private ObservableList<GeneralEmission> flightEmissions = FXCollections.observableArrayList();
+
     @FXML
     private TableView<GeneralEmission> emissionsTableview;
     @FXML
@@ -112,15 +114,23 @@ public class AllEmissionsController implements Initializable {
     }
 
     private void loadFlightData() throws SQLException {
-        //TODO: Retrieve all flightdata
+        flightEmissions.clear();
+        // TODO: Implement flight table in database -> See
+        String SQLquery = "SELECT foodName, date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
+                "WHERE userID=" + Main.getCurrentUserId() + " GROUP BY foodName, date ORDER BY date ASC;";
+        // TODO: Retrieve all flightdata
     }
 
     private void loadPTData() throws SQLException {
-        //TODO: Retrieve all PublicTransportdata
+        // TODO: Implement public transport table in database -> See
+
+        // TODO: Retrieve all PublicTransportdata
     }
 
     private void loadHouseData() {
-        //TODO: Retrieve all housedata
+        // TODO: Implement house table in database -> See
+
+        // TODO: Retrieve all housedata
     }
 
     private void loadFoodData() throws SQLException {
