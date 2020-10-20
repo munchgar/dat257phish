@@ -49,7 +49,7 @@ public class VehiclesPageController implements Initializable {
         loadData();
     }
 
-    private void loadData() {
+    public void loadData() {
         vehicles.clear();
         String SQLquery = "SELECT * FROM vehicles WHERE FKuserId=" +Main.getCurrentUserId();
         try {
