@@ -191,7 +191,7 @@ public class ChartViewController {
     // Show the maximum co2 per capita goal
     @FXML
     private void toggleGoalView(ActionEvent e) {
-        if (!co2OverTimeChart.getData().isEmpty()) {
+        if (!co2OverTimeList.isEmpty()) {
             if (!showGoalCheckBox.isSelected()) {
                 co2OverTimeChart.getData().remove(1); // Second series (index 1) is always the "goal" series
             }
