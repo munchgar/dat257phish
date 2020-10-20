@@ -14,6 +14,7 @@ import org.phish.classes.TransportActivity;
 import org.phish.classes.Vehicle;
 import org.phish.database.DBHandler;
 
+import javax.xml.transform.Result;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,7 +47,7 @@ public class AllEmissionsController implements Initializable {
     @FXML
     private TableColumn<GeneralEmission, Double> co2Col;
     @FXML
-    private TextField foodField, transportField, houseField, totalField;
+    private TextField foodField, transportField, houseField, flightField, totalField;
     @FXML
     private CheckBox dateFilterCheck;
     @FXML
@@ -54,7 +55,7 @@ public class AllEmissionsController implements Initializable {
     @FXML
     private Text errorText;
     @FXML
-    private ToggleButton allToggle, foodToggle, transportToggle, houseToggle;
+    private ToggleButton allToggle, foodToggle, transportToggle, houseToggle, flightToggle;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,7 +83,7 @@ public class AllEmissionsController implements Initializable {
 
     private void loadData() throws SQLException {
         emissions.clear();
-        double transportSum=0, foodSum=0, houseSum = 0, totalSum=0;
+        double transportSum=0, foodSum=0, houseSum = 0, flightSum = 0, totalSum=0;
 
         loadVehicleData();
         loadFoodData();
@@ -104,6 +105,13 @@ public class AllEmissionsController implements Initializable {
             }
             foodField.setText(Double.toString(foodSum));
         }
+        if (flightToggle.isSelected()) {
+            emissions.addAll(flightEmissions);
+            for (GeneralEmission ge : flightEmissions) {
+                flightSum += ge.getEmission();
+            }
+            flightField.setText(Double.toString(flightSum));
+        }
         if(houseToggle.isSelected()){
             //Todo emissions.addAll(houseEmissions);
 
@@ -115,9 +123,28 @@ public class AllEmissionsController implements Initializable {
 
     private void loadFlightData() throws SQLException {
         flightEmissions.clear();
-        // TODO: Implement flight table in database -> (SHOULD BE DONE)
+        String SQLquery = "SELECT 'Flight' AS name, date, co2 FROM flightActivity WHERE userID=" + Main.getCurrentUserId() + " ORDER BY date ASC";
+        if (dbHandler.connect()) {
+            ResultSet rs = dbHandler.execQuery(SQLquery);
+            while (rs.next()) {
+                if(dateFilterCheck.isSelected()){
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    String datetoCheckString = rs.getString("date");
 
-        // TODO: Retrieve all flightdata
+                    //convert String to LocalDate
+                    LocalDate date = LocalDate.parse(datetoCheckString, formatter);
+                    if (date.isAfter(fromDate.getValue()) && date.isBefore(toDate.getValue())) {
+                        // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
+                        flightEmissions.add(new GeneralEmission("Flight",-1,rs.getString("date"),rs.getString("name"),rs.getDouble("co2")));
+                    }
+                }else
+                {
+                    // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
+                    flightEmissions.add(new GeneralEmission("Flight",-1,rs.getString("date"),rs.getString("name"),rs.getDouble("co2")));
+
+                }
+            }
+        }
 
     }
 
@@ -235,10 +262,12 @@ public class AllEmissionsController implements Initializable {
             foodToggle.setSelected(true);
             houseToggle.setSelected(true);
             transportToggle.setSelected(true);
+            flightToggle.setSelected(true);
         }else{
             foodToggle.setSelected(false);
             houseToggle.setSelected(false);
             transportToggle.setSelected(false);
+            flightToggle.setSelected(false);
         }
         loadData();
     }
@@ -255,6 +284,11 @@ public class AllEmissionsController implements Initializable {
 
     public void filterHouse() {
         allToggle.setSelected(false);
+    }
+
+    public void filterFlight() throws SQLException {
+        allToggle.setSelected(false);
+        loadData();
     }
 
     public void checkDateFilter(ActionEvent actionEvent) throws SQLException {
