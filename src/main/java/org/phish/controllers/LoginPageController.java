@@ -86,7 +86,7 @@ public class LoginPageController implements Initializable {
 
     @FXML
     public void onEnter(KeyEvent ke) throws IOException, SQLException {
-        System.out.println("lol");
+        //System.out.println("lol");
         if(ke.getCode().equals(KeyCode.ENTER)){
             login();
         }
