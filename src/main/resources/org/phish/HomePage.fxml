@@ -34,7 +34,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button mnemonicParsing="false" onAction="#showScene" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="All Emissions" visible="false">
+            <Button mnemonicParsing="false" onAction="#showScene" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="All Emissions">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
