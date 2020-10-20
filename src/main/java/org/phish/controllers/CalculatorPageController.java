@@ -244,7 +244,7 @@ public class CalculatorPageController {
                     case "Ferry" -> outputTemp += (amount * 170) / 1000;
                     default -> {errorString = "Please enter the transport type you were traveling with"; error = true;}
                 }
-            }else {
+            } else {
                 error = true;
                 errorString = "Please fill in the amount traveled in km (Enter 0 if you accidentally added a transport type)";
             }
