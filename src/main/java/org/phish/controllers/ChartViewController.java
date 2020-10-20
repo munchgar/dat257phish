@@ -84,6 +84,11 @@ public class ChartViewController {
 
                         "UNION " +
                         "SELECT date, SUM(co2) AS co2 FROM flightActivity WHERE userID= ? " +
+                        "AND date between datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date " +
+
+                        "UNION " +
+
+                        "SELECT date, SUM(co2) AS co2 FROM houseActivity WHERE userID= ?" +
                         "AND date between datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date) " +
                         "GROUP BY date ORDER BY date ASC) t";
 
@@ -96,14 +101,23 @@ public class ChartViewController {
                         "SELECT 'Transport' AS sourceName, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
                         "FROM transportActivity INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId= ? AND date BETWEEN datetime('now','"+timeFrame.value+"') " +
-                        "AND datetime('now','localtime')" +
+                        "AND datetime('now','localtime') " +
 
                         "UNION " +
 
                         "SELECT 'Flight' AS sourceName, SUM(co2) AS co2 FROM flightActivity WHERE userID= ? AND date BETWEEN datetime('now','"+timeFrame.value+"') "+
-                        "AND datetime('now','localtime')";
+                        "AND datetime('now','localtime') " +
+
+                        "UNION " +
+                        "SELECT 'Housing' AS sourceName, SUM(co2) AS co2 FROM houseActivity WHERE userID = ? " +
+                        "AND date between datetime('now','"+timeFrame.value+"') AND datetime('now','localtime')";
                 break;
             case "Housing":
+                co2OverTimeQuery = "SELECT t.*, SUM(co2) OVER (ORDER BY date ASC) AS acc_co2 FROM " +
+                        "(SELECT date, SUM(co2) AS co2 FROM houseActivity WHERE userID= ? " +
+                        "AND date between datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC) t";
+                co2SpecificsQuery = "SELECT date AS sourceName, co2 FROM houseActivity WHERE userID = ? " +
+                        "AND date between datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') ORDER BY co2 DESC";
 
                 break;
             case "Flights":
