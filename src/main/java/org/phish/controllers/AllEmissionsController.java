@@ -33,6 +33,8 @@ public class AllEmissionsController implements Initializable {
 
     private ObservableList<GeneralEmission> foodEmissions = FXCollections.observableArrayList();
 
+    private ObservableList<GeneralEmission> flightEmissions = FXCollections.observableArrayList();
+
     @FXML
     private TableView<GeneralEmission> emissionsTableview;
     @FXML
@@ -69,8 +71,8 @@ public class AllEmissionsController implements Initializable {
             throwables.printStackTrace();
         }
         if(!dateFilterCheck.isSelected()){
-        fromDate.setDisable(true);
-        toDate.setDisable(true);
+            fromDate.setDisable(true);
+            toDate.setDisable(true);
         }
         fromDate.setValue(LocalDate.now().minusDays(1));
         toDate.setValue(LocalDate.now().plusDays(1));
@@ -85,6 +87,9 @@ public class AllEmissionsController implements Initializable {
         loadVehicleData();
         loadFoodData();
         loadHouseData();
+        loadFlightData();
+        loadPTData();
+
         if(transportToggle.isSelected()){
             emissions.addAll(transportEmissions);
             for (GeneralEmission ge : transportEmissions) {
@@ -108,11 +113,27 @@ public class AllEmissionsController implements Initializable {
         totalField.setText(Double.toString(totalSum));
     }
 
-    private void loadHouseData() {
-        //todo
+    private void loadFlightData() throws SQLException {
+        flightEmissions.clear();
+        // TODO: Implement flight table in database -> (SHOULD BE DONE)
+
+        // TODO: Retrieve all flightdata
+
     }
 
-    private void loadFoodData() throws SQLException{
+    private void loadPTData() throws SQLException {
+        // TODO: Implement public transport table in database -> (NOT DONE)
+
+        // TODO: Retrieve all PublicTransportdata
+    }
+
+    private void loadHouseData() {
+        // TODO: Implement house table in database -> (SHOULD BE DONE)
+
+        // TODO: Retrieve all housedata
+    }
+
+    private void loadFoodData() throws SQLException {
         foodEmissions.clear();
         String SQLquery = "SELECT foodName, date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
                 "WHERE userID=" + Main.getCurrentUserId() + " GROUP BY foodName, date ORDER BY date ASC;";

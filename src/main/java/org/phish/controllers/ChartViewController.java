@@ -2,6 +2,8 @@ package org.phish.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tooltip;
 
 import javafx.fxml.FXML;
@@ -19,17 +21,25 @@ import java.util.*;
 
 public class ChartViewController {
 
+    private static final double CO2_GOAL_YEAR = 2000.0;
+
     public enum TimeFrame {
-        LAST_WEEK("-6 days"),
-        LAST_MONTH("-30 days"),
-        LAST_YEAR("-364 days");
+        LAST_WEEK("-6 days",CO2_GOAL_YEAR / 52),
+        LAST_MONTH("-30 days",CO2_GOAL_YEAR / 12),
+        LAST_YEAR("-364 days",CO2_GOAL_YEAR);
 
         public final String value;
+        public final double co2Goal;
 
-        TimeFrame(String value) {
+
+        TimeFrame(String value, double co2Goal) {
             this.value = value;
+            this.co2Goal = co2Goal;
         }
     }
+
+    private static final String CHART_COLOR = String.format("rgba(%d,%d,%d,1)",0, 184, 148);
+
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -41,21 +51,28 @@ public class ChartViewController {
     @FXML
     private PieChart co2SourcePieChart;
 
+    @FXML
+    private CheckBox showGoalCheckBox;
+
     private final DBHandler dbHandler = DBHandler.getInstance();
 
     private String co2OverTimeQuery, co2SpecificsQuery;
 
+    private TimeFrame timeFrame;
+
     // Populates all the charts with the timeFrame and category provided.
     public void populate (TimeFrame timeFrame, String category) {
         clearCharts();
+        this.timeFrame = timeFrame;
         co2OverTimeChart.getData().add(new XYChart.Series<>());
 
         switch (category) {
             case "Total":
-                // TODO: Add more categories to total (and maybe implement this in a way that doesn't result in a gigantic union of selects)
+                showGoalCheckBox.setVisible(true);
                 // Sums up all emissions by date in the given timeframe
                 co2OverTimeQuery =
-                        "SELECT date, round(SUM(co2),2) AS co2 FROM (SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
+                        "SELECT t.*, SUM(co2) OVER (ORDER BY date ASC) AS acc_co2 FROM " +
+                        "(SELECT date, round(SUM(co2),2) AS co2 FROM (SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
                         "FROM transportActivity INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId= ? AND date BETWEEN datetime('now','"+timeFrame.value+"') " +
                         "AND datetime('now','localtime') GROUP BY date " +
@@ -64,7 +81,7 @@ public class ChartViewController {
 
                         "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity " +
                         "INNER JOIN foodItem USING(foodID) WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date) " +
-                        "GROUP BY date ORDER BY date ASC";
+                        "GROUP BY date ORDER BY date ASC) t";
 
                 co2SpecificsQuery=
                         "SELECT 'Food' AS sourceName, round(SUM(co2g*weight) / 1000,2) AS co2 FROM foodConsumptionActivity " +
@@ -81,10 +98,11 @@ public class ChartViewController {
                 // TODO: Implement
                 break;
             case "Transport":
-                co2OverTimeQuery = "SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 from transportActivity " +
+                co2OverTimeQuery = "SELECT t.*, SUM(co2) OVER (ORDER BY date ASC) AS acc_co2 FROM " +
+                        "(SELECT date, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 from transportActivity " +
                         "INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId=? " +
-                        "AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
+                        "AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC) t";
                 co2SpecificsQuery = "SELECT activityName AS sourceName, round(SUM((distanceKm*litresKilometer*gCO2Litre) / 1000),2) AS co2 FROM transportActivity " +
                         "INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelId WHERE transportActivity.FKUserId = ? AND date between datetime('now','"+timeFrame.value+"') " +
@@ -93,10 +111,11 @@ public class ChartViewController {
 
             case "Food":
                 // This query will return the current user's total co2 emissions from food by date
-                co2OverTimeQuery = "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
-                        "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC";
+                co2OverTimeQuery = "SELECT t.*, SUM(co2) OVER (ORDER BY date ASC) AS acc_co2 FROM " +
+                        "(SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
+                        "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC) t";
                 co2SpecificsQuery = "SELECT foodName AS sourceName, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity INNER JOIN foodItem USING(foodID) " +
-                        "WHERE userID = 1 AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY foodID ORDER BY co2 DESC";
+                        "WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY foodID ORDER BY co2 DESC";
                 break;
         }
         // Run the selected query and populate the chart with the results
@@ -116,20 +135,22 @@ public class ChartViewController {
 
                 while (rs.next()) {
                     try {
-                        XYChart.Data<Date, Double> data = new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("co2"));
+                        XYChart.Data<Date, Double> data = new XYChart.Data<>(sdf.parse(rs.getString("date")), rs.getDouble("acc_co2"));
                         co2OverTimeList.add(data);
                     } catch(ParseException e) {
                         e.printStackTrace();
                     }
                 }
                 co2OverTimeChart.getData().get(0).getData().addAll(co2OverTimeList);
+                // Set color
+                co2OverTimeChart.getData().get(0).getNode().lookup(".chart-series-line").setStyle(String.format("-fx-stroke: %s", CHART_COLOR));
 
                 // Add tooltips (must be done after the data is added to the chart)
                 for (XYChart.Data<Date,Double> d : co2OverTimeChart.getData().get(0).getData()) {
+                    d.getNode().lookup(".chart-line-symbol").setStyle(String.format("-fx-background-color: %s, whitesmoke;",CHART_COLOR));
                     Tooltip toolTip = new Tooltip(String.format("%s\nCO2: %.2fkg",sdf.format(d.XValueProperty().get()),d.YValueProperty().get()));
                     Tooltip.install(d.getNode(),toolTip);
                 }
-                System.out.println(co2OverTimeList);
             } catch(SQLException e) {
                 e.printStackTrace();
             }
@@ -153,15 +174,12 @@ public class ChartViewController {
                 }
                 // Need to get the total value so that percentages can be calculated
                 double total = slices.stream().mapToDouble(PieChart.Data::getPieValue).sum();
-                System.out.println(total);
                 for (PieChart.Data slice : slices) {
                     co2SourcePieChart.getData().add(new PieChart.Data(slice.getName(),slice.getPieValue() / total));
                 }
-                System.out.println(co2SourcePieChart.getData());
                 co2SourcePieChart.getData().forEach(data -> {
                     String percentage = String.format("%.2f%%", data.getPieValue() * 100);
                     Tooltip toolTip = new Tooltip(percentage);
-                    System.out.println(data.getNode());
                     Tooltip.install(data.getNode(), toolTip);
                 });
             } catch (SQLException e) {
@@ -170,9 +188,26 @@ public class ChartViewController {
         }
     }
 
+    // Show the maximum co2 per capita goal
+    @FXML
+    private void toggleGoalView(ActionEvent e) {
+        if (!co2OverTimeChart.getData().isEmpty()) {
+            if (!showGoalCheckBox.isSelected()) {
+                co2OverTimeChart.getData().remove(1); // Second series (index 1) is always the "goal" series
+            }
+            else {
+                XYChart.Data<Date, Double> horizontalMarker1 = new XYChart.Data<>(co2OverTimeChart.getData().get(0).getData().get(0).getXValue(), timeFrame.co2Goal);
+                XYChart.Data<Date, Double> horizontalMarker2 = new XYChart.Data<>(co2OverTimeChart.getData().get(0).getData().get(co2OverTimeList.size() - 1).getXValue(), timeFrame.co2Goal);
+                co2OverTimeChart.getData().add(new XYChart.Series<>(FXCollections.observableArrayList(horizontalMarker1, horizontalMarker2)));
+            }
+        }
+
+    }
+
     private void clearCharts() {
         co2SourcePieChart.getData().clear();
         co2OverTimeChart.getData().clear();
         co2OverTimeList.clear();
+        showGoalCheckBox.setVisible(false);
     }
 }
