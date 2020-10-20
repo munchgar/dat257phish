@@ -307,7 +307,7 @@ public class CalculatorPageController {
                     try {
                         // If met with a constraint error (code 19), the user has already logged this food item for today.
                         // Just add the additional weight to the already existing entry.
-                        String addQuery = "UPDATE houseActivity SET co2 = co2 + ? WHERE userID = ? AND date = ?";
+                        String addQuery = "UPDATE houseActivity SET co2 = ? WHERE userID = ? AND date = ?";
                         PreparedStatement pstmt = dbHandler.getConn().prepareStatement(addQuery);
                         pstmt.setDouble(1, op);
                         pstmt.setInt(2, Main.getCurrentUserId());
@@ -328,7 +328,7 @@ public class CalculatorPageController {
         if (!(txtBillPrice.getText().equals("")) && txtBillPrice.getText().matches("[0-9]+") && txtBillPrice.getText().length() < 8) {
             if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
                 outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
-                inputHouse(outputHousehold); 
+                inputHouse(outputHousehold);
                 System.out.println("ADDED");
                 errorTextHouse.setText("Activity successfully added");
                 errorTextHouse.setFill(Color.GREEN);
