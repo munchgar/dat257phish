@@ -4,6 +4,7 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -22,8 +23,13 @@
         <Insets top="20.0" />
      </padding>
      </LineChart>
-  <PieChart fx:id="co2SourcePieChart" animated="false" legendVisible="false" title="CO2 emissions by source" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+   <CheckBox fx:id="showGoalCheckBox" mnemonicParsing="false"  onAction="#toggleGoalView" text="Show 2050 goal" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <GridPane.margin>
+         <Insets top="-20.0" />
+      </GridPane.margin></CheckBox>
+  <PieChart fx:id="co2SourcePieChart" animated="false" legendVisible="false" title="CO2 emissions by source" GridPane.rowIndex="4" GridPane.valignment="TOP" />
    <rowConstraints>
+      <RowConstraints minHeight="10.0" />
       <RowConstraints minHeight="10.0" />
       <RowConstraints minHeight="10.0" />
       <RowConstraints />
