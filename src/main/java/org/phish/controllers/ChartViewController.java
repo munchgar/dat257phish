@@ -26,10 +26,14 @@ public class ChartViewController {
 
         public final String value;
 
+
         TimeFrame(String value) {
             this.value = value;
         }
     }
+
+    private static final String CHART_COLOR = String.format("rgba(%d,%d,%d,1)",0, 184, 148);
+
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -123,13 +127,14 @@ public class ChartViewController {
                     }
                 }
                 co2OverTimeChart.getData().get(0).getData().addAll(co2OverTimeList);
+                co2OverTimeChart.getData().get(0).getNode().lookup(".chart-series-line").setStyle(String.format("-fx-stroke: %s", CHART_COLOR));
 
                 // Add tooltips (must be done after the data is added to the chart)
                 for (XYChart.Data<Date,Double> d : co2OverTimeChart.getData().get(0).getData()) {
+                    d.getNode().lookup(".chart-line-symbol").setStyle(String.format("-fx-background-color: %s, whitesmoke;",CHART_COLOR));
                     Tooltip toolTip = new Tooltip(String.format("%s\nCO2: %.2fkg",sdf.format(d.XValueProperty().get()),d.YValueProperty().get()));
                     Tooltip.install(d.getNode(),toolTip);
                 }
-                System.out.println(co2OverTimeList);
             } catch(SQLException e) {
                 e.printStackTrace();
             }
@@ -153,15 +158,12 @@ public class ChartViewController {
                 }
                 // Need to get the total value so that percentages can be calculated
                 double total = slices.stream().mapToDouble(PieChart.Data::getPieValue).sum();
-                System.out.println(total);
                 for (PieChart.Data slice : slices) {
                     co2SourcePieChart.getData().add(new PieChart.Data(slice.getName(),slice.getPieValue() / total));
                 }
-                System.out.println(co2SourcePieChart.getData());
                 co2SourcePieChart.getData().forEach(data -> {
                     String percentage = String.format("%.2f%%", data.getPieValue() * 100);
                     Tooltip toolTip = new Tooltip(percentage);
-                    System.out.println(data.getNode());
                     Tooltip.install(data.getNode(), toolTip);
                 });
             } catch (SQLException e) {
