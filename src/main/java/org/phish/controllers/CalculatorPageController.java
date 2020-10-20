@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -57,8 +59,6 @@ public class CalculatorPageController {
     TextField txtAmountMember, txtKilometerAir, txtBillPrice;
     @FXML
     VBox vBoxFoodType, vBoxTransportAmount, vBoxFoodAmount, vBoxTransportType, vBoxCalcsButtons;
-    @FXML
-    ChoiceBox chboxHouseType;
     @FXML
     private BorderPane activitiesBorderPane, allEmissionsBorderPane;
 
@@ -264,13 +264,7 @@ public class CalculatorPageController {
     public void CalculateHousehold(ActionEvent actionEvent) throws IOException {
         if (!(txtBillPrice.getText().equals("")) && txtBillPrice.getText().matches("[0-9]+") && txtBillPrice.getText().length() < 8) {
             if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
-                switch ((String) chboxHouseType.getValue()) {
-                    //Calcs blir till int, vilket inte är så nice så ska fixa det så det blir double
-                    case "Apartment" -> outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
-                    case "Villa" -> outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
-                    case "Town House" -> outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
-                    default -> System.out.println("Error");
-                }
+                outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
                 errorTextHouse.setText("Activity successfully added");
                 errorTextHouse.setFill(Color.GREEN);
             } else {
