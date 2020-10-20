@@ -20,7 +20,7 @@ public class StatisticsPageController {
 	private TabPane tabs;
 
 	// TODO: Get this data from DB controller (possibly using a Category interface instead of just strings?)
-	private final ObservableList<String> categories = FXCollections.observableArrayList("Total","Transport","Food");
+	private final ObservableList<String> categories = FXCollections.observableArrayList("Total", "Flights","Transport","Food");
 
 	private ChartViewController chartController;
 
