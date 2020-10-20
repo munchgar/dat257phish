@@ -45,6 +45,8 @@ public class TransportActivity {
         this.activityName = new SimpleStringProperty(activityName);
         this.vehicleName = new SimpleStringProperty(vehicle.getVehicleName());
         this.efficiency = new SimpleDoubleProperty(vehicle.getKmLitre());
+        //in the DB the co2 emission per litre comes from
+        //https://www.miljofordon.se/bilar/miljoepaaverkan/
         this.calculatedCO2 = new SimpleDoubleProperty(efficiency.get()*distance*vehicle.getgCO2Litre()/1000); //to get kg co2
         this.reoccurring = new SimpleBooleanProperty(false);
 

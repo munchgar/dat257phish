@@ -5,9 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import org.phish.Main;
 import org.phish.classes.TransportActivity;
@@ -17,10 +17,7 @@ import org.phish.database.DBHandler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class TransportActivitiesController implements Initializable {
@@ -60,6 +57,7 @@ public class TransportActivitiesController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        initializeContextMenu();
     }
 
     public void refresh() throws SQLException {
@@ -131,4 +129,37 @@ public class TransportActivitiesController implements Initializable {
     public void openAddVehiclesWindow(ActionEvent actionEvent) throws IOException {
         Main.showModalWindow("AddVehicleWindow.fxml", "Add Vehicle");
     }
+
+    private void initializeContextMenu(){
+        MenuItem delete = new MenuItem("Delete");
+        delete.setOnAction(event->{
+            int id = activityTableView.getSelectionModel().getSelectedItem().getActivityId();
+            String SQLquery = "DELETE FROM transportActivity WHERE transportActivityId = "+ id;;
+            if(dbHandler.connect()) {
+                try {
+                    dbHandler.execUpdate(SQLquery);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                System.out.println("Successfully deleted activity");
+                try {
+                    loadData();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+        ContextMenu contextMenu = new ContextMenu(delete);
+
+        activityTableView.addEventHandler(MouseEvent.MOUSE_PRESSED, event->{
+            if(event.isSecondaryButtonDown()){
+                contextMenu.show(activityTableView.getParent(), event.getScreenX(), event.getScreenY());
+            }else{
+                if(contextMenu.isShowing()){
+                    contextMenu.hide();
+                }
+            }
+        });
+    }
+
 }

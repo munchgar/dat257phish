@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -46,23 +50,54 @@
       </HBox>
    </top>
    <center>
-      <AnchorPane focusTraversable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="txtWelcome" layoutX="63.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good Evening {User}" textAlignment="CENTER" wrappingWidth="361.13671875" AnchorPane.rightAnchor="375.86328125" AnchorPane.topAnchor="55.0">
-               <font>
-                  <Font size="39.0" />
-               </font>
-            </Text>
-            <Text layoutX="63.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back to your enviromental impact calculator. The average emission of carbon dioxide in Sweden is 4.54 tons per person, how well do you fare compared to the average Swede? Calculate it today!" wrappingWidth="261.13671875">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <ImageView fitHeight="218.0" fitWidth="267.0" layoutX="453.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="http://www.iciq.org/wp-content/uploads/2014/05/co2-800px-notxt-nobg.png" />
-               </image>
-            </ImageView>
+            <HBox prefHeight="640.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox prefHeight="528.0" prefWidth="612.0" spacing="10.0">
+                     <children>
+                        <Text fx:id="txtWelcome" strokeType="OUTSIDE" strokeWidth="0.0" text="Good Evening {User}" textAlignment="CENTER" wrappingWidth="361.13671875">
+                           <font>
+                              <Font size="39.0" />
+                           </font>
+                        </Text>
+                        <Separator prefWidth="200.0" />
+                        <Label alignment="TOP_LEFT" text="Welcome to MyEmissions environmental calculator. Through this application you can discover the impact your life has on the environment. Many people live their life without knowing or even thinking about the different levels of emissions that’s connected to their everyday life. This application aims to help all of us to get a better understanding of our impact on the environment by letting us compare it with that of others as well as with a more ideal impact. Together we can let this application be one of many contributions towards achieving the United Nations 13th sustainable development goal to stop climate change!" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="23.0" prefWidth="313.0" text="How do I use this application?">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="TOP_LEFT" text="To start off you’ll want to head over to our Calculator Page where you’ll be able to provide the application with details about your everyday life. For example, in the Food tab you can add the food you’ve eaten today. The application will then add the food and mark it with the date of the day. One of the tabs, however, requires you to have added a vehicle (if you own one), in the Vehicles page. The calculator can be used daily to familiarize you different habits to the application. Once you feel done with the calculator you can jump over to the Statistics page where you’ll be able to see your emission levels over different spans of time. If you want to take a look at what you’ve submitted to the application in the past you can take a look at the All Emissions page where you’ll be able to see a log of past activities." wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="TOP_LEFT" text="Good luck and we wish you a pleasant experience with MyEmissions environmental calculator!" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="501.0" prefWidth="288.0">
+                     <children>
+                        <ImageView fitHeight="218.0" fitWidth="267.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="http://www.iciq.org/wp-content/uploads/2014/05/co2-800px-notxt-nobg.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </center>

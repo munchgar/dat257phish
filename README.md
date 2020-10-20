@@ -1,5 +1,7 @@
 # dat257phish
 UN sustainability project for course in agile management.
+OBS! This is a Maven project using dependencies from JavaFX. Large portions of the program will run using the regular run button, but some dependencies require the maven support. Therefore run the application using the Maven tab, scroll down to JavaFX and use the javaFX:run option.
+In IntelliJ the Maven tab is located at the top right. 
 
 **Documents -** contains our weekly reflections, both the individual and group reflections.
 

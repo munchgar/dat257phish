@@ -173,11 +173,9 @@ public class AllEmissionsController implements Initializable {
                         // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
                         houseEmissions.add(new GeneralEmission("House",-1,rs.getString("date"),rs.getString("name"),rs.getDouble("co2")));
                     }
-                }else
-                {
+                } else {
                     // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
                     houseEmissions.add(new GeneralEmission("House",-1,rs.getString("date"),rs.getString("name"),rs.getDouble("co2")));
-
                 }
             }
         }
