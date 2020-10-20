@@ -35,6 +35,7 @@ public class AllEmissionsController implements Initializable {
     private ObservableList<GeneralEmission> foodEmissions = FXCollections.observableArrayList();
 
     private ObservableList<GeneralEmission> flightEmissions = FXCollections.observableArrayList();
+    private ObservableList<GeneralEmission> houseEmissions = FXCollections.observableArrayList();
 
     @FXML
     private TableView<GeneralEmission> emissionsTableview;
@@ -113,8 +114,10 @@ public class AllEmissionsController implements Initializable {
             flightField.setText(Double.toString(flightSum));
         }
         if(houseToggle.isSelected()){
-            //Todo emissions.addAll(houseEmissions);
-
+            emissions.addAll(houseEmissions);
+            for (GeneralEmission ge : houseEmissions) {
+                houseSum += ge.getEmission();
+            }
             houseField.setText(Double.toString(houseSum));
         }
         totalSum= transportSum+foodSum+houseSum;
@@ -154,10 +157,33 @@ public class AllEmissionsController implements Initializable {
         // TODO: Retrieve all PublicTransportdata
     }
 
-    private void loadHouseData() {
+    private void loadHouseData() throws SQLException {
+        houseEmissions.clear();
         // TODO: Implement house table in database -> (SHOULD BE DONE)
 
         // TODO: Retrieve all housedata
+        String SQLquery = "SELECT 'House' AS name, date, co2 FROM houseActivity WHERE userID=" + Main.getCurrentUserId() + " ORDER BY date ASC";
+        if (dbHandler.connect()) {
+            ResultSet rs = dbHandler.execQuery(SQLquery);
+            while (rs.next()) {
+                if(dateFilterCheck.isSelected()){
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    String datetoCheckString = rs.getString("date");
+
+                    //convert String to LocalDate
+                    LocalDate date = LocalDate.parse(datetoCheckString, formatter);
+                    if (date.isAfter(fromDate.getValue()) && date.isBefore(toDate.getValue())) {
+                        // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
+                        houseEmissions.add(new GeneralEmission("House",-1,rs.getString("date"),rs.getString("name"),rs.getDouble("co2")));
+                    }
+                }else
+                {
+                    // NOTE: Since foodConsumptionActivity doesn't have an id column, FKId is set to -1
+                    houseEmissions.add(new GeneralEmission("House",-1,rs.getString("date"),rs.getString("name"),rs.getDouble("co2")));
+
+                }
+            }
+        }
     }
 
     private void loadFoodData() throws SQLException {
@@ -282,8 +308,9 @@ public class AllEmissionsController implements Initializable {
         loadData();
     }
 
-    public void filterHouse() {
+    public void filterHouse() throws SQLException {
         allToggle.setSelected(false);
+        loadData();
     }
 
     public void filterFlight() throws SQLException {
