@@ -153,7 +153,9 @@ public class TransportActivitiesController implements Initializable {
 
         activityTableView.addEventHandler(MouseEvent.MOUSE_PRESSED, event->{
             if(event.isSecondaryButtonDown()){
+                if(!activityTableView.getSelectionModel().isEmpty()){
                 contextMenu.show(activityTableView.getParent(), event.getScreenX(), event.getScreenY());
+                }
             }else{
                 if(contextMenu.isShowing()){
                     contextMenu.hide();
