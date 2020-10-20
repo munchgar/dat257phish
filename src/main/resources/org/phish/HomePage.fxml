@@ -12,25 +12,25 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@css/HomePage.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.phish.controllers.HomePageController">
    <top>
-      <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: #00b894;" stylesheets="@css/HomePage.css" BorderPane.alignment="CENTER">
+      <HBox fx:id="hBoxGlobalNav" prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: #00b894;" stylesheets="@css/HomePage.css" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#goHome" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Home">
+            <Button mnemonicParsing="false" onAction="#showScene" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Home">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="CalcBtn" mnemonicParsing="false" onAction="#showCalcScreen" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Calculator">
+            <Button mnemonicParsing="false" onAction="#showScene" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Calculator">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="StatBtn" mnemonicParsing="false" onAction="#showStatScreen" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Statistics">
+            <Button mnemonicParsing="false" onAction="#showScene" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Statistics">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="Vehicles" mnemonicParsing="false" onAction="#showVehicles" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Vehicles">
+            <Button mnemonicParsing="false" onAction="#showScene" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Vehicles">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button mnemonicParsing="false" onAction="#showAllEmissions" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="All Emissions">
+            <Button mnemonicParsing="false" onAction="#showScene" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="All Emissions">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
@@ -48,7 +48,7 @@
    <center>
       <AnchorPane focusTraversable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="63.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good Evening {User}" textAlignment="CENTER" wrappingWidth="361.13671875" AnchorPane.rightAnchor="375.86328125" AnchorPane.topAnchor="55.0">
+            <Text fx:id="txtWelcome" layoutX="63.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Good Evening {User}" textAlignment="CENTER" wrappingWidth="361.13671875" AnchorPane.rightAnchor="375.86328125" AnchorPane.topAnchor="55.0">
                <font>
                   <Font size="39.0" />
                </font>

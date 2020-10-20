@@ -60,7 +60,6 @@ public class UserViewController implements Initializable {
                 }
             }
         }
-
         loadUserData();
     }
 

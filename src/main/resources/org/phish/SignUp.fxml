@@ -13,19 +13,19 @@
    <center>
       <AnchorPane prefHeight="307.0" prefWidth="230.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="signUpLabel" alignment="CENTER" layoutX="245.0" layoutY="50.0" prefHeight="50.0" prefWidth="111.0" text="Sign up">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
             <TextField fx:id="txtUserName" layoutX="200.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="Username" />
             <TextField fx:id="txtUserName1" layoutX="201.0" layoutY="160.0" prefHeight="25.0" prefWidth="200.0" promptText="First name" />
             <TextField fx:id="txtUserName2" layoutX="200.0" layoutY="200.0" prefWidth="200.0" promptText="Last name" />
             <PasswordField fx:id="psfPassword" layoutX="201.0" layoutY="240.0" prefHeight="25.0" prefWidth="200.0" promptText="Password" />
             <PasswordField fx:id="psfPassword1" layoutX="201.0" layoutY="280.0" prefHeight="25.0" prefWidth="200.0" promptText="Repeat password" />
-            <Text fx:id="fieldsFilledCheckText" layoutX="241.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All fields must be filled" />
-            <Button fx:id="btnSignUp" layoutX="215.0" layoutY="344.0" mnemonicParsing="false" onAction="#SignUp" text="Register" />
-            <Button layoutX="330.0" layoutY="344.0" mnemonicParsing="false" onAction="#showLogin" text="Cancel" />
+            <Button fx:id="btnSignUp" layoutX="326.0" layoutY="331.0" mnemonicParsing="false" onAction="#SignUp" style="-fx-border-color: #2d3436; -fx-background-color: #55efc4;" text="Register" />
+            <Label fx:id="signUpLabel" alignment="CENTER" layoutX="245.0" layoutY="50.0" prefHeight="50.0" prefWidth="111.0" text="Sign up">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Button layoutX="219.0" layoutY="331.0" mnemonicParsing="false" onAction="#showLogin" style="-fx-background-color: #55efc4; -fx-border-color: #2d3436;" text="Cancel" />
+            <Text fx:id="fieldsFilledCheckText" layoutX="240.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All fields must be filled" />
          </children>
       </AnchorPane>
    </center>

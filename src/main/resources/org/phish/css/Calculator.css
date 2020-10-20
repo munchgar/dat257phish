@@ -1,0 +1,7 @@
+.navButton {
+    -fx-background-color: #00b894;
+}
+
+.navButton:hover {
+    -fx-background-color: #02f7c7;
+}

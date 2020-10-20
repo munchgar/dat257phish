@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -33,7 +35,6 @@ public class CalculatorPageController {
 
     double outputHousehold = 0;
     double outputAir = 0;
-    double outputVehicle = 0;
     double outputFood = 0;
     double outputPublicTransport = 0;
     double amount = 0;
@@ -53,15 +54,13 @@ public class CalculatorPageController {
     @FXML
     StackPane stackPaneCalc;
     @FXML
-    Text txtResultAll, txtResultFood, txtResultHouse, txtResultFlight, txtResultVehicle, txtResultPublicTransport, errorTextFlight, errorTextHouse, errorTextPublicTransport, errorTextFood;
+    Text errorTextFlight, errorTextHouse, errorTextPublicTransport, errorTextFood;
     @FXML
     TextField txtAmountMember, txtKilometerAir, txtBillPrice;
     @FXML
-    VBox vBoxFoodType, vBoxTransportAmount, vBoxFoodAmount, vBoxTransportType;
+    VBox vBoxFoodType, vBoxTransportAmount, vBoxFoodAmount, vBoxTransportType, vBoxCalcsButtons;
     @FXML
-    ChoiceBox chboxHouseType;
-    @FXML
-    private BorderPane activitiesBorderPane;
+    private BorderPane activitiesBorderPane, allEmissionsBorderPane;
 
     @FXML
     public void initialize() throws SQLException, IOException {
@@ -73,6 +72,10 @@ public class CalculatorPageController {
         loader.setLocation(Main.class.getResource("TransportActivities.fxml"));
         BorderPane centerView = loader.load();
         activitiesBorderPane.setCenter(centerView);
+        loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("AllEmissions.fxml"));
+        centerView = loader.load();
+        allEmissionsBorderPane.setCenter(centerView);
     }
 
     private void fetchFoodItems() throws SQLException {
@@ -157,6 +160,7 @@ public class CalculatorPageController {
             }
             errorTextFlight.setText("Activity successfully added");
             errorTextFlight.setFill(Color.GREEN);
+            outputAir = (double)Math.round(outputAir*100)/100;
             amount = 0;
         }else {
             errorTextFlight.setText("Please Fill in the required areas (at double digits)");
@@ -184,7 +188,7 @@ public class CalculatorPageController {
             errorTextFood.setText("Please fill in the required areas (Enter 0 if you accidentally added a food type)");
             errorTextFood.setFill(Color.RED);
         }else {
-            outputFood = tempOutput;
+            outputFood = (double)Math.round(tempOutput*100)/100;
             errorTextFood.setText("Activity successfully added");
             errorTextFood.setFill(Color.GREEN);
             amount = 0;
@@ -250,7 +254,7 @@ public class CalculatorPageController {
             errorTextPublicTransport.setText(errorString);
             errorTextPublicTransport.setFill(Color.RED);
         }else {
-            outputPublicTransport = outputTemp;
+            outputPublicTransport = (double)Math.round(outputTemp*100)/100;
             errorTextPublicTransport.setText("Activity successfully added");
             errorTextPublicTransport.setFill(Color.GREEN);
             amount = 0;
@@ -260,13 +264,7 @@ public class CalculatorPageController {
     public void CalculateHousehold(ActionEvent actionEvent) throws IOException {
         if (!(txtBillPrice.getText().equals("")) && txtBillPrice.getText().matches("[0-9]+") && txtBillPrice.getText().length() < 8) {
             if (!(txtAmountMember.getText().equals("")) && txtAmountMember.getText().matches("[0-9]+") && txtAmountMember.getText().length() < 8) {
-                switch ((String) chboxHouseType.getValue()) {
-                    //Calcs blir till int, vilket inte är så nice så ska fixa det så det blir double
-                    case "Apartment" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
-                    case "Villa" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
-                    case "Town House" -> outputHousehold = (double) ((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000;
-                    default -> System.out.println("Error");
-                }
+                outputHousehold = (double) Math.round((((Integer.parseInt(txtBillPrice.getText()) * 46) / (Integer.parseInt(txtAmountMember.getText()))) / 1000)*100)/100;
                 errorTextHouse.setText("Activity successfully added");
                 errorTextHouse.setFill(Color.GREEN);
             } else {
@@ -277,17 +275,6 @@ public class CalculatorPageController {
             errorTextHouse.setText("Please enter how much your electrical bill was on first");
             errorTextHouse.setFill(Color.RED);
         }
-    }
-
-    //Outputs result to result-page
-    public void CalculateResult(ActionEvent actionEvent) {
-        double outputResult = outputVehicle + outputPublicTransport + outputFood + outputAir + outputHousehold;
-        txtResultAll.setText(""+outputResult+"kg CO2");
-        txtResultHouse.setText(""+outputHousehold+"kg CO2");
-        txtResultFood.setText(""+outputFood+"kg CO2");
-        txtResultVehicle.setText(""+outputVehicle+"kg CO2");
-        txtResultPublicTransport.setText(""+outputPublicTransport+"kg CO2");
-        txtResultFlight.setText(""+outputAir+"kg CO2");
     }
 
     //Switches the scene in calculator-page
@@ -301,6 +288,12 @@ public class CalculatorPageController {
             case "Public Transport" -> btnValue = 5;
             case "Results" -> btnValue = 6;
             default -> btnValue = 0;
+        }
+        for (Node btnSceneSelect : vBoxCalcsButtons.getChildren()) {
+            btnSceneSelect.setDisable(false);
+            if((actionEvent.getSource().equals(btnSceneSelect))) {
+                btnSceneSelect.setDisable(true);
+            }
         }
         for (Node anchorPaneStack : stackPaneCalc.getChildren()) {
             anchorPaneStack.setVisible(anchorPaneStack.getId().equals("anchor" + btnValue));
