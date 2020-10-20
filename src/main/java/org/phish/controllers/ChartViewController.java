@@ -80,7 +80,11 @@ public class ChartViewController {
                         "UNION " +
 
                         "SELECT date, round(SUM((co2g*weight) / 1000),2) AS co2 FROM foodConsumptionActivity " +
-                        "INNER JOIN foodItem USING(foodID) WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date) " +
+                        "INNER JOIN foodItem USING(foodID) WHERE userID = ? AND date BETWEEN datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date " +
+
+                        "UNION " +
+                        "SELECT date, SUM(co2) AS co2 FROM flightActivity WHERE userID= ? " +
+                        "AND date between datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date) " +
                         "GROUP BY date ORDER BY date ASC) t";
 
                 co2SpecificsQuery=
@@ -92,6 +96,11 @@ public class ChartViewController {
                         "SELECT 'Transport' AS sourceName, round(SUM(distanceKm*litresKilometer*gCO2Litre) / 1000,2) AS co2 " +
                         "FROM transportActivity INNER JOIN vehicles ON FKVehicleId=vehicleId AND transportActivity.FKUserId=vehicles.FKUserId " +
                         "INNER JOIN fuelType ON vehicles.FKfuelType=fuelType.fuelId WHERE transportActivity.FKUserId= ? AND date BETWEEN datetime('now','"+timeFrame.value+"') " +
+                        "AND datetime('now','localtime')" +
+
+                        "UNION " +
+
+                        "SELECT 'Flight' AS sourceName, SUM(co2) AS co2 FROM flightActivity WHERE userID= ? AND date BETWEEN datetime('now','"+timeFrame.value+"') "+
                         "AND datetime('now','localtime')";
                 break;
             case "Housing":
