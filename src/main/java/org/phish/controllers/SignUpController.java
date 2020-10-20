@@ -37,21 +37,33 @@ public class SignUpController implements Initializable {
     private Label signUpLabel;
 
 
-    public void SignUp (ActionEvent actionEvent)throws SQLException{
+    public void SignUp (ActionEvent actionEvent) throws SQLException, IOException {
 
         String sql = "INSERT INTO userTable (userName, password, fName, lName) VALUES(?,?,?,?)";  // What happens with firstname and lastname? Not implemented?
         // TODO: Since fName and lName is needed maybe we should fix the insert?
 
-        if(txtUserName.getText().isBlank() || psfPassword.getText().isBlank()) { // TODO: Implement retard proof textfield. Example " S" doesnt work .
-                                                                                 // (only for password)
+        if(txtUserName.getText().isBlank() || psfPassword.getText().isBlank()) { // TODO: Implement check for fName and lName aswell?
             System.out.println("ERROR!!!");
             if(!fieldsFilledCheckText.isVisible()) {
+                fieldsFilledCheckText.setText("All fields must be filled");
                 fieldsFilledCheckText.setVisible(true);
                 fieldsFilledCheckText.setFill(Color.RED);
             }
         } else {
             fieldsFilledCheckText.setVisible(false);
             dbHandler.connect();
+            if(dbHandler.connect()) { // Attempt to connect to database.
+                ResultSet rs = dbHandler.execQuery("SELECT * FROM userTable"); // Execute query
+                while (rs.next()) {
+                    if (rs.getString("username").equals(txtUserName.getText())) {
+                        System.out.println("USER ALREADY EXISTS"); // Implement login for user ID PRIMARY KEY IN DB
+                        fieldsFilledCheckText.setText("USER ALREADY EXISTS");
+                        fieldsFilledCheckText.setVisible(true);
+                        fieldsFilledCheckText.setFill(Color.RED);
+                        return;
+                    }
+                }
+            }
             try {
                 try (
                         PreparedStatement preparedStatement = dbHandler.getConn().prepareStatement(sql)){
