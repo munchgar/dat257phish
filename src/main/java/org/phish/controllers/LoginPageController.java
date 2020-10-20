@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.phish.database.DBHandler;
@@ -27,7 +29,7 @@ public class LoginPageController implements Initializable {
     @FXML
     public TextField idPassword;
     @FXML
-    public Button signupBtn;
+    public Button signupBtn, addBtn;
     @FXML
     public Text fieldsFilledCheckText;
     @FXML
@@ -82,4 +84,11 @@ public class LoginPageController implements Initializable {
         wrongInputCheckText.setVisible(false);
     }
 
+    @FXML
+    public void onEnter(KeyEvent ke) throws IOException, SQLException {
+        System.out.println("lol");
+        if(ke.getCode().equals(KeyCode.ENTER)){
+            login();
+        }
+    }
 }

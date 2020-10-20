@@ -81,7 +81,7 @@ public class AllEmissionsController implements Initializable {
         errorText.setVisible(false);
     }
 
-    private void loadData() throws SQLException {
+    public void loadData() throws SQLException {
         emissions.clear();
         double transportSum=0, foodSum=0, houseSum = 0, flightSum = 0, totalSum=0;
 
