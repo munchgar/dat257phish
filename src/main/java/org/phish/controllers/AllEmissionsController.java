@@ -159,9 +159,6 @@ public class AllEmissionsController implements Initializable {
 
     private void loadHouseData() throws SQLException {
         houseEmissions.clear();
-        // TODO: Implement house table in database -> (SHOULD BE DONE)
-
-        // TODO: Retrieve all housedata
         String SQLquery = "SELECT 'House' AS name, date, co2 FROM houseActivity WHERE userID=" + Main.getCurrentUserId() + " ORDER BY date ASC";
         if (dbHandler.connect()) {
             ResultSet rs = dbHandler.execQuery(SQLquery);
