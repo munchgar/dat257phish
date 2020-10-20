@@ -31,36 +31,43 @@ public class SignUpController implements Initializable {
     private TextField txtUserName2;
     @FXML
     private PasswordField psfPassword;
-    @FXML
-    private Button btnSignUp;
-    @FXML
-    private Label signUpLabel;
 
 
-    public void SignUp (ActionEvent actionEvent)throws SQLException{
+    public void SignUp (ActionEvent actionEvent) throws SQLException, IOException {
 
-        String sql = "INSERT INTO userTable (userName, password, fName, lName) VALUES(?,?,?,?)";  // What happens with firstname and lastname? Not implemented?
-        // TODO: Since fName and lName is needed maybe we should fix the insert?
 
-        if(txtUserName.getText().isBlank() || psfPassword.getText().isBlank()) { // TODO: Implement retard proof textfield. Example " S" doesnt work .
-                                                                                 // (only for password)
+        // TODO: Now only one password matters and is inputted to database... Control so that they are the same?
+        String sql = "INSERT INTO userTable (userName, password, fName, lName) VALUES(?,?,?,?)";
+
+        if(txtUserName.getText().isBlank() || psfPassword.getText().isBlank()) { // TODO: Implement check for fName and lName aswell?
             System.out.println("ERROR!!!");
             if(!fieldsFilledCheckText.isVisible()) {
+                fieldsFilledCheckText.setText("All fields must be filled");
                 fieldsFilledCheckText.setVisible(true);
                 fieldsFilledCheckText.setFill(Color.RED);
             }
         } else {
             fieldsFilledCheckText.setVisible(false);
             dbHandler.connect();
+            if(dbHandler.connect()) { // Attempt to connect to database.
+                ResultSet rs = dbHandler.execQuery("SELECT * FROM userTable"); // Execute query
+                while (rs.next()) {
+                    if (rs.getString("username").equals(txtUserName.getText())) {
+                        System.out.println("USER ALREADY EXISTS"); // Implement login for user ID PRIMARY KEY IN DB
+                        fieldsFilledCheckText.setText("USER ALREADY EXISTS");
+                        fieldsFilledCheckText.setVisible(true);
+                        fieldsFilledCheckText.setFill(Color.RED);
+                        return;
+                    }
+                }
+            }
             try {
                 try (
                         PreparedStatement preparedStatement = dbHandler.getConn().prepareStatement(sql)){
                     preparedStatement.setString(1,txtUserName.getText());
                     preparedStatement.setString(2,psfPassword.getText());
-                    // TODO: Better implementation for fName and lName... We accept input from fName and lName but do nothing with them?
                     preparedStatement.setString(3,txtUserName1.getText());
-                    preparedStatement.setString(4,txtUserName1.getText());
-
+                    preparedStatement.setString(4,txtUserName2.getText());
                     preparedStatement.executeUpdate();
                     System.out.println("User successfully added to DB");
                     Main.loadCenter("LoginPage.fxml");
@@ -73,13 +80,11 @@ public class SignUpController implements Initializable {
                 }
             }
         }
-
-
     }
+
     public void showLogin(ActionEvent actionEvent) throws IOException {
         Main.loadCenter("LoginPage.fxml");
     }
-
 
     public void goHome (ActionEvent actionEvent) throws IOException {
         Main.showMainView();
