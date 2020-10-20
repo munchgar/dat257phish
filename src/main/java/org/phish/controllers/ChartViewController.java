@@ -95,7 +95,14 @@ public class ChartViewController {
                         "AND datetime('now','localtime')";
                 break;
             case "Housing":
-                // TODO: Implement
+
+                break;
+            case "Flights":
+                co2OverTimeQuery = "SELECT t.*, SUM(co2) OVER (ORDER BY date ASC) AS acc_co2 FROM " +
+                        "(SELECT date, SUM(co2) AS co2 FROM flightActivity WHERE userID= ? " +
+                        "AND date between datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') GROUP BY date ORDER BY date ASC) t";
+                co2SpecificsQuery = "SELECT date AS sourceName, co2 FROM flightActivity WHERE userID = ? " +
+                        "AND date between datetime('now','"+timeFrame.value+"') AND datetime('now','localtime') ORDER BY co2 DESC";
                 break;
             case "Transport":
                 co2OverTimeQuery = "SELECT t.*, SUM(co2) OVER (ORDER BY date ASC) AS acc_co2 FROM " +

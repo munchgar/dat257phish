@@ -87,17 +87,19 @@
                           </rowConstraints>
                            <children>
                               <ToggleButton fx:id="foodToggle" mnemonicParsing="false" onAction="#filterFood" prefWidth="100.0" text="Food" />
-                              <ToggleButton fx:id="transportToggle" mnemonicParsing="false" onAction="#filterTransport" prefWidth="100.0" text="Transport" GridPane.rowIndex="1" />
-                              <ToggleButton fx:id="houseToggle" mnemonicParsing="false" onAction="#filterHouse" prefWidth="100.0" text="House" GridPane.rowIndex="2" />
-                              <HBox alignment="CENTER" prefWidth="100.0" GridPane.rowIndex="3">
+                               <ToggleButton fx:id="flightToggle" mnemonicParsing="false" onAction="#filterFlight" prefWidth="100.0" text="Flights" GridPane.rowIndex="1" />
+                               <ToggleButton fx:id="transportToggle" mnemonicParsing="false" onAction="#filterTransport" prefWidth="100.0" text="Transport" GridPane.rowIndex="2" />
+                              <ToggleButton fx:id="houseToggle" mnemonicParsing="false" onAction="#filterHouse" prefWidth="100.0" text="House" GridPane.rowIndex="3" />
+                              <HBox alignment="CENTER" prefWidth="100.0" GridPane.rowIndex="4">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total" />
                                  </children>
                               </HBox>
                               <TextField fx:id="foodField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="transportField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="houseField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="totalField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                               <TextField fx:id="flightField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                               <TextField fx:id="transportField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="houseField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="totalField" editable="false" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
                      </children>
