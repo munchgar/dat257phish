@@ -18,7 +18,7 @@
    <top>
       <HBox fx:id="hBoxGlobalNav" prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: #00b894;" stylesheets="@css/HomePage.css" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#showScene" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Home">
+            <Button disable="true" mnemonicParsing="false" onAction="#showScene" prefHeight="40.0" prefWidth="90.0" style="-fx-background-radius: 0; -fx-border-width: 0;" styleClass="navButton" text="Home">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
