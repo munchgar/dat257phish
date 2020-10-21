@@ -35,7 +35,7 @@ public class HomePageController {
         if (dbHandler.connect()) {
             try {
                 ResultSet rs = dbHandler.execQuery("SELECT * FROM userTable WHERE userID = "+Main.getCurrentUserId());
-                txtWelcome.setText("Good Evening "+rs.getString("username"));
+                txtWelcome.setText("Good Day "+rs.getString("username"));
             }catch(SQLException e) {
                 e.printStackTrace();
             }
