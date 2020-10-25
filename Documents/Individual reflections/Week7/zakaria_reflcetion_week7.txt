@@ -1,0 +1,38 @@
+Zakaria Hersi individual reflection for Week 7
+
+--What is my contribution towards the team's deliveries?
+During this sprint (the sort of end sprint) my contributions was mostly
+to end the project and have a good product to demo. And by achieving
+that i finished the last task i had which had to do with the DB and
+some UI touches.
+
+-- What do I want to learn or understand better?
+As mentioned the earlier sprints i'd like to better familiar
+myself with how Sqlite really works, and how to get around
+the problem of having a connect problem between a the database
+and the application.
+
+-- How can i contribute with help to the team or someone, to learn something new?
+I offered my help as much as i could and i helped around with little things
+which is something i've learnt during this course. I was not as good when
+it came to reaching out to the team and aid them with my initiative.
+And to become better with that is to continue with me asking if there
+is anything i can do and try to be involved in most things and
+get a better understanding of the whole scope.
+
+-- What is my contribution towards the team's use of Scrum?
+This sprint was like the previous one where I tried to maintain the scrum
+as it was and try to get it to be more neat and easier to understand
+of how the tasks, user stories and epics are distributed. And we succeeded
+pretty good as a team but also as an individual.
+
+KPI
+-Kpi levels
+1) The stress levels (1-5):
+                  Beginning = 2
+                  Mid = 4
+                  End = 3
+2) Satisfaction level of this sprint = 3
+3. The size of my tasks were "doable" and i succeeded mostly, the only
+drawback was with the issue with the DB where i think i really could not
+much about it, due to my lack of comfortably around sqlite.
