@@ -30,6 +30,20 @@ OBS! This is a Maven project using dependencies from JavaFX. Large portions of t
 First follow the steps in Installation. Once you have run the application using the Maven tab the application will urge you to either sign in or register. 
 - Register: Register by entering the prompts.
 - Log in: Either log in using the credentials you entered in the register section or use the Demo credentials. Username: Demo, Password: pass. 
+![Alt text](Documents/screenshots/login.png?raw=true "login")
+- Once logged in you are greted with a homescreen with some information about the application and the UN goal 13
+![Alt text](Documents/screenshots/HomeScreen.png?raw=true "Homescreen")
+- At the top you will find the global navigator where the main sectins are: Home, Calculator, Statistics, Vehicles, and All Emissions.
+- In the Calculator section you will be able to log all the relevant activity data for your personal emissions, for example, food and personal transport
+![Alt text](Documents/screenshots/food.png?raw=true "food calculator")
+![Alt text](Documents/screenshots/PersonalTransport.png?raw=true "Personal Transport")
+- From which you can add both vehicles and activities. You need to have registered a vehicle to add a transport activity. 
+- At the bottom you will find the Results section which summarises the different emission activities and allows for filteering of categories and dates. 
+![Alt text](Documents/screenshots/Results.png?raw=true "Results")
+- For more in depth knowledge of the emissions we turn to the global navigator Statistics section
+![Alt text](Documents/screenshots/statisticsTotal.png?raw=true "Statistics")
+- Here we can more graphically break down exactly which activities are most responsible for the emissions.
+![Alt text](Documents/screenshots/statisticsFood.png?raw=true "Food statistics")
 
 # Documents contains our weekly reflections, both the individual and group reflections.
 The individual reflections for week X can be located at **Documents\Individual reflections\weekX\***
