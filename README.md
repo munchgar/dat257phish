@@ -24,6 +24,15 @@ To run the application we recommend using IntelliJ.
 
 OBS! This is a Maven project using dependencies from JavaFX. Large portions of the program will run using the regular run button, but some dependencies require the maven support. 
 
+# How to use
+First follow the steps in Installation. Once you have run the application using the Maven tab the application will urge you to either sign in or register. 
+- Register: Register by entering the prompts.
+- Log in: Either log in using the credentials you entered in the register section or use the Demo credentials. Username: Demo, Password: pass. 
+
+# Documents contains our weekly reflections, both the individual and group reflections.
+The individual reflections for week X can be located at **Documents\Individual reflections\weekX\***
+The group documentation can be found directly in **Documents\** and is one text file, divided by headers. 
+
 # API Reference
 - This project was developed using java version 14.01. There have been some issues with using older versions so if there are issues with running we recommend using this version or later. These are set in the pom.xml file and the .iml file.
 - Maven [4.0.0](http://maven.apache.org/maven-v4_0_0.xsd)
@@ -33,21 +42,10 @@ OBS! This is a Maven project using dependencies from JavaFX. Large portions of t
 - For JavaFX we use org.openjfx version 14
 - For SQLite Database we use version 3.32.3
 
-# How to use
-First follow the steps in Installation. Once you have run the application using the Maven tab the application will urge you to either sign in or register. 
-- Register: Register by entering the prompts.
-- Log in: Either log in using the credentials you entered in the register section or use the Demo credentials. Username: Demo, Password: pass. 
-
-
 # Frameworks used
 - GUI: [JavaFX](https://openjfx.io/) (openjfx) 14
 - Database: [SQLite](https://www.sqlite.org/index.html), SQLite dependency for [Maven](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc) 
 - For managing dependencies [Maven](https://maven.apache.org/) has been used.
-
-**Documents -** contains our weekly reflections, both the individual and group reflections.
-
-The individual reflections for week X can be located at **Documents\Individual reflections\weekX\***
-The group documentation can be found directly in **Documents\** and is one text file, divided by headers. 
 
 # Credits
 - Date axis for charts: Christian Schudt and Diego Cirujano
