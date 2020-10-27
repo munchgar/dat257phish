@@ -32,7 +32,7 @@ First follow the steps in Installation. Once you have run the application using 
 - Log in: Either log in using the credentials you entered in the register section or use the Demo credentials. Username: Demo, Password: pass. 
 ![Alt text](Documents/screenshots/login.png?raw=true "login")
 - Once logged in you are greted with a homescreen with some information about the application and the UN goal 13
-![Alt text](Documents/screenshots/HomeScreen.png?raw=true "Homescreen")
+![Alt text](Documents/screenshots/Homescreen.png?raw=true "Homescreen")
 - At the top you will find the global navigator where the main sectins are: Home, Calculator, Statistics, Vehicles, and All Emissions.
 - In the Calculator section you will be able to log all the relevant activity data for your personal emissions, for example, food and personal transport
 ![Alt text](Documents/screenshots/food.png?raw=true "food calculator")
