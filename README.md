@@ -22,6 +22,8 @@ To run the application we recommend using IntelliJ.
 1. Clone the repository
 2. Run the application using the Maven tab, scroll down to JavaFX and use the javaFX:run option (In IntelliJ the Maven tab is located at the top right). 
 
+![Alt text](Documents/screenshots/mavenRun.png?raw=true "Maven run")
+
 OBS! This is a Maven project using dependencies from JavaFX. Large portions of the program will run using the regular run button, but some dependencies require the maven support. 
 
 # How to use
