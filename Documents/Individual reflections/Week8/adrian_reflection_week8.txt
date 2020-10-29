@@ -1,0 +1,27 @@
+﻿- What do I want to learn or understand better?
+A: During the course I have got the gist of SCRUM and how such a workflow can look like.
+B: I want to learn how to work with SCRUM in a more realistic setting with set SCRUM masters and a separate product owner.
+A->B: I will find opportunities in my professional life where I can work on and refine my skills in the SCRUM process.
+
+
+- How can I help someone else, or the entire team, to learn something new?
+A: We have had more productive meetings where any issues have been resolved by the whole group.
+B: I would like to emphasize  a lot more on the testing and code review process which would help create a greater unity and understanding in the whole group. 
+A->B: In future projects I will make sure to use a more rigid testing routine.
+
+
+- What is my contribution towards the team's use of Scrum?
+A: Since this sprint was in practice cut short by the demo taking place in the middle of our sprint schedule we have not been working on as clearly defined tasks as in previous sprints but we have instead had more frequent meetings.
+B: I would like to experiment with Scrum in different ways for example with longer sprint lengths to see if it would improve our agile ability.
+A->B: I will make sure to take this experience of Scrum in consideration in future projects in order to build upon it and test out different approaches.
+ 
+- What is my contribution towards the team's deliveries?
+A: Since this is the last sprint we have been focusing on polishing what we have and ironing out bugs. I have been working mostly on finalizing the statistics page in terms of more pleasing visuals. I have also helped other team members work on different parts of the application in order to create a more unified and concise experience for the end user.
+B: I feel like the added stress from the presentation deadline motivated us further and made the last sprint very productive but maybe some of  that effort could have been more evenly distributed in previous sprints.
+A->B: I will use this experience and try to plan ahead and get better at estimating and prioritizing tasks so that work effort is more evenly distributed in future projects
+
+
+- KPI:s
+        1. Stress level: 4 (start of sprint), 1 (end of sprint) 
+        2. Satisfaction: 4
+        3. Completion: 4p (1 medium task, 1 small task)

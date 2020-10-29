@@ -1,0 +1,6 @@
+Here you will find the link to the prototype for the UI/UX done in Figma:
+
+https://www.figma.com/file/NsDjNOz8KpUyLr9sLhanNz/MyEmissions-Phish?node-id=2%3A1
+
+
+If the link doesn't work for some reason please contact Jonathan Hedén on: gushedjok@student.gu.se
