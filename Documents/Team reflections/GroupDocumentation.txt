@@ -63,3 +63,33 @@ group, and we hope to express more energy during the upcoming meetings.
 
 The one bad thing which can be said about the team is that we have not been the best in working together as much as we wanted to in previous weeks which we believe
 our new approach to planning might help us with.
+
+### Week 6
+This week the team made improvements in many aspects as we took our previous week critics. The energy jumped
+up and we started being more active during our scrum meetings and during the supervisor meeting (we passed the "Vibe Check")
+and the upbringing of the energy lead to more discussions regarding our scrum board which we maintained very well. This week
+some major features regarding the application were discussed as a collective and implemented. Those feature were the "TransportActivity",
+"HouseHoldActivity". The "Transportactivity" actually took two features and bond into one where you can choose a car and
+what activity you were heading to (e.g. work, gym etc). HouseHoldActivity measured your power (Electricity) usage at home, which took
+you monthly bill and converted it into an emission level.
+
+One thing that we've mentioned before is that our group were not particularly good at working together but this changed
+drastically turn as we began to work as a collective and spent many hours both helping each other but also implementing
+different functionalities in parallel. This led to us coming together as a team and actually getting enjoyable time while working.
+
+### Week 7
+It is four days until the presentation and this week the main functionalities in the application has been implemented and the only
+thing that has to be done is the integration with the UI part and completion the DB so that no errors occur, the main job with this week
+was to clean the work up and go through it all so that nothing crashed during the presentation. And to some fine touches with UI integration
+so that it looks more than presentable.
+
+This weeks main pinnacle was that the statistics page and functionality was finally done and
+the charts were connected with the DB so that for every entry the statistics would look different.
+
+### Week 8
+The day before the presentation the team as a collective sat and merged all the different aspects of the application and debugged the issues
+that arose during this session this also gave room for some more UI fine touches and an implementation of a global navigator.
+The presentation went very well and the team was satisfied with how the project went and what the end product of our application
+looked like, we got some good feedback both from the students but also Håkan and we are very grateful for that. No the only thing that is
+going on is the completion of final report and rearranging the repo so that it becomes very easy to map the different documents, source code
+etc.
