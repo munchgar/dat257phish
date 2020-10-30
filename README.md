@@ -10,6 +10,7 @@ The goal selected was [Goal 13](https://www.un.org/sustainabledevelopment/sustai
 [Cladnic](https://github.com/Cladnic)    - Johan Fridlund  
 [munchgar](https://github.com/munchgar)   - Jonathan Hedén  
 [HersiZa](https://github.com/HersiZa)    - Zakaria Hersi
+[Contributions / Member](https://github.com/munchgar/dat257phish/pulse)
 
 # Scrum board
 For [SCRUMBOARD](https://github.com/munchgar/dat257phish/projects/1) see Projects tab 
