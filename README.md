@@ -52,6 +52,7 @@ The group documentation can be found directly in **Documents\** and is one text 
 # API Reference
 - This project was developed using java version 14.01. There have been some issues with using older versions so if there are issues with running we recommend using this version or later. These are set in the pom.xml file and the .iml file.
 - Maven [4.0.0](http://maven.apache.org/maven-v4_0_0.xsd)
+- [DateAxis](https://bitbucket.org/sco0ter/extfx/src/master/src/main/java/extfx/scene/chart/DateAxis.java)
 ## Below are a list of the external dependencies handled by Maven (see pom.xml file)
 - Maven compiler version 3.8.0
 - javafx-maven-plugin version 0.0.4
@@ -64,7 +65,7 @@ The group documentation can be found directly in **Documents\** and is one text 
 - For managing dependencies [Maven](https://maven.apache.org/) has been used.
 
 # Credits
-- Date axis for charts: Christian Schudt and Diego Cirujano
+- [DateAxis](https://bitbucket.org/sco0ter/extfx/src/master/src/main/java/extfx/scene/chart/DateAxis.java) for charts: Christian Schudt and Diego Cirujano
 - Setting up JavaFX and Maven: ByteSmyth [Easiest JavaFX Setup, IntelliJ + Maven with Debugger (2020)](https://www.youtube.com/watch?v=4vd-RE0X5Lg&t=535s&ab_channel=ByteSmyth)
 - Organising JavaFX windows: Software Development Tutorials [GUI Application Development using JavaFX with Scene Builder](https://www.youtube.com/watch?v=cfGTJVVcWvE&list=PLpFneQZCNR2ktqseX11XRBc5Kyzdg2fbo&ab_channel=SoftwareDevelopmentTutorials)
 - UN Sustainability goal 13 [graphics](https://www.un.org/sustainabledevelopment/climate-change) 
